@@ -5,8 +5,8 @@
 /tmp
 
 # dependencies
-/node_modules
-!/node_modules/tarasov/
+/node_modules/*
+!/node_modules/tarasov
 
 # IDEs and editors
 /.idea
