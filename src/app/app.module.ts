@@ -3,13 +3,13 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
-import {DndModule} from './ng2-dnd';
+import {DndModule} from 'tarasov';
 
-//import { DndComponent } from './dnd/dnd.component';
+import { DndComponent } from './dnd/dnd.component';
 
 @NgModule({
   declarations: [
-    //DndComponent
+    DndComponent
   ],
   imports: [
     BrowserModule,
@@ -18,6 +18,6 @@ import {DndModule} from './ng2-dnd';
     DndModule.forRoot()
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [DndComponent]
 })
 export class AppModule { }
