@@ -1,5 +1,5 @@
 <ul>
-    <li *ngFor="let item of editor">
+    <li *ngFor="let item of editor | menuType">
         
          <span (click)="loadView(item)">
            {{item.name}} 

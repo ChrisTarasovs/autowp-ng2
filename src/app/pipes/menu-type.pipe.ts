@@ -5,11 +5,13 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class MenuTypePipe implements PipeTransform {
 
-    transform(items: Array<int>, id: int): Array<int> {
-        return items.find(id);
-    }
-
-
 // id 0, 1, 11
+
+   // transform(items: Array<int>, id: int): Array<int> {
+     //   return items.find(id);
+//    }
+
+
+
 
 }

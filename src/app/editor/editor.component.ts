@@ -6,6 +6,7 @@ import { ColorSelectorComponent } from './color-selector/color-selector.componen
 import { LinksComponent } from './links/links.component';
 import { TypographyComponent } from './typography/typography.component';
 import { MediaComponent } from './media/media.component';
+import { MenuTypePipe } from '../pipes/menu-type.pipe';
 
 import * as _ from "lodash";
 
