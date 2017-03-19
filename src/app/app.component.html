@@ -2,9 +2,6 @@
 
 
 <div class="panel panel-success">
-  <div class="panel-heading">
-    Builderssssss
-  </div>
   <div class="panel-body" dnd-sortable-container   [sortableData]="containers" [dropZones]="['container-dropZone']">
     <div *ngFor="let container of containers; let i = index" 
          dnd-sortable [sortableIndex]="i" 

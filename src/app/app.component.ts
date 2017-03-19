@@ -13,7 +13,6 @@ export class AppComponent {
   containers: Array<any> = [];
   
   constructor(){
-  
     this.containers.push(new Container(1, [new Widget('1')]));
     this.containers.push(new Container(2, [new Widget('2')]));
     

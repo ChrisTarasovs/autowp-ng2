@@ -16,6 +16,7 @@ import { LinksComponent } from './editor/links/links.component';
 import * as _ from "lodash";
 import { TypographyComponent } from './editor/typography/typography.component';
 import { MediaComponent } from './editor/media/media.component';
+import { MenuTypePipe } from './pipes/menu-type.pipe';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { MediaComponent } from './editor/media/media.component';
     DynamicComponent,
     LinksComponent,
     TypographyComponent,
-    MediaComponent
+    MediaComponent,
+    MenuTypePipe
   ],
   imports: [
     BrowserModule,
