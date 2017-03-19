@@ -1,0 +1,20 @@
+<ul>
+    <li *ngFor="let item of editor">
+        
+         <span (click)="loadView(item)">
+           {{item.name}} 
+          </span>  
+        <ul>
+            <li *ngFor="let subitem of item.children">
+                <span (click)="loadsubView(subitem)">
+                 {{ (editor | findById: subitem).name }}
+                </span>
+            </li>
+        </ul>
+    </li>
+</ul>
+
+
+
+<dynamic-component [componentData]="componentData"></dynamic-component>
+
