@@ -13,8 +13,9 @@ export class AppComponent {
   containers: Array<any> = [];
   
   constructor(){
-    this.containers.push(new Container(1, [new Widget('1')]));
-    this.containers.push(new Container(2, [new Widget('2')]));
+    this.containers.push(new Container(1, 
+    [new Widget('Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed diam orci, dignissim sit amet facilisis sed, pulvinar sed ex. Nulla posuere quis orci sed ultrices. Aliquam lobortis placerat magna in tempor. Suspendisse potenti. Cras dictum bibendum lectus vitae convallis. Nullam pretium nunc id orci viverra auctor')]));
+    this.containers.push(new Container(2, [new Widget('Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed diam orci, dignissim sit amet facilisis sed, pulvinar sed ex. Nulla posuere quis orci sed ultrices. Aliquam lobortis placerat magna in tempor. Suspendisse potenti. Cras dictum bibendum lectus vitae convallis. Nullam pretium nunc id orci viverra auctor')]));
     
   }
     

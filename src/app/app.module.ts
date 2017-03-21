@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import {DndModule} from 'tarasov';
+import {ColorPickerModule} from 'angular2-color-picker';
 
 import { AppComponent } from './app.component';
 import { DndComponent } from './dnd/dnd.component';
@@ -17,6 +18,11 @@ import * as _ from "lodash";
 import { TypographyComponent } from './editor/typography/typography.component';
 import { MediaComponent } from './editor/media/media.component';
 import { MenuTypePipe } from './pipes/menu-type.pipe';
+import { HeadingComponent } from './editor/heading/heading.component';
+import { HeadingMenuComponent } from './editor/heading-menu/heading-menu.component';
+import { SectionsComponent } from './sections/sections.component';
+
+
 
 @NgModule({
   declarations: [
@@ -30,12 +36,18 @@ import { MenuTypePipe } from './pipes/menu-type.pipe';
     LinksComponent,
     TypographyComponent,
     MediaComponent,
-    MenuTypePipe
+    MenuTypePipe,
+    HeadingComponent,
+    HeadingMenuComponent,
+    SectionsComponent
+    
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpModule,
+    ColorPickerModule,
+    
     DndModule.forRoot()
   ],
   providers: [],

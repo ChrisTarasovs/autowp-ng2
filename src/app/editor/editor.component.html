@@ -1,3 +1,4 @@
+
 <ul>
     <li *ngFor="let item of editor | menuType:MainMenu">   
          <span (click)="loadView(item)">
@@ -7,13 +8,14 @@
             <li *ngFor="let subitem of item.children">
                 <span (click)="loadsubView(subitem)">
                  {{ (editor | findById: subitem).name }}
-                </span>
+                </span>  
             </li>
         </ul>
     </li>
 </ul>
 
-
-
-<dynamic-component [componentData]="componentData"></dynamic-component>
+<div class="view"> 
+    <dynamic-component [componentData]="menuComponentData"></dynamic-component>
+    <dynamic-component [componentData]="componentData"></dynamic-component>
+</div>
 

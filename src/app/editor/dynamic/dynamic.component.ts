@@ -3,14 +3,25 @@ import { ColorSelectorComponent } from '../color-selector/color-selector.compone
 import { LinksComponent } from '../links/links.component';
 import { TypographyComponent } from '../typography/typography.component';
 import { MediaComponent } from '../media/media.component';
-
+import { HeadingComponent } from '../heading/heading.component';
+import { HeadingMenuComponent } from '../heading-menu/heading-menu.component';
 import { DndComponent } from '../../dnd/dnd.component';
 import { TextComponent } from '../../dnd/text/text.component';
+import { SectionsComponent } from '../../sections/sections.component';
 
 
 @Component({
   selector: 'dynamic-component',
-  entryComponents: [ColorSelectorComponent, LinksComponent,  TypographyComponent,MediaComponent, DndComponent], // Reference to the components must be here in order to dynamically create them
+  entryComponents: [
+      ColorSelectorComponent, 
+      LinksComponent,  
+      TypographyComponent,
+      MediaComponent, 
+      HeadingComponent,
+      HeadingMenuComponent,
+      SectionsComponent,
+      DndComponent
+  ], // Reference to the components must be here in order to dynamically create them
   template: `
     <div #dynamicComponentContainer></div>
   `,

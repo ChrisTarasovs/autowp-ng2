@@ -15,8 +15,8 @@ export class DndComponent  {
   
     
    constructor(){
-   // this.containers.push(new Container(1, [new Widget('1')]));
-   // this.containers.push(new Container(2, [new Widget('2')]));
+   // this.containers.push(new Container(1, [new Widget('Lorem ipsum asdasdasdasd adasd asdas das das das dasd ')]));
+   // this.containers.push(new Container(2, [new Widget('Lorem ipsum asdasdasdasd adasd asdas das das das dasd ')]));
     
     this.widgets.push(new Widget('Text a'));
      this.widgets.push(new Widget('Text b'));

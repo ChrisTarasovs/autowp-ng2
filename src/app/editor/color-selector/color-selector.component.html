@@ -1,3 +1,65 @@
-<p>
-  color-selector works!
-</p>
+<style>
+.array-colors-element[_ngcontent-kwl-1] {
+    width: 100px;
+    height: 25px;
+    margin-bottom: 15px;
+}
+.color-picker[_ngcontent-ief-21]{ position: relative !important;}
+</style>
+
+<!--
+[cpOutputFormat]="'hex', 'rgba', 'hsla'"
+[cpPosition]="'right', 'left', 'top', 'bottom'"
+[cpPositionOffset]="'0%'"
+[cpPositionRelativeToArrow]="false, true"
+[cpWidth]="'230px'"
+[cpHeight]="'auto'"
+[cpSaveClickOutside]="true, false"
+[cpOKButton]="false, true"
+[cpOKButtonClass]="''"
+[cpOKButtonText]="'OK'"
+[cpCancelButton]="false, true"
+[cpCancelButtonClass]="''"
+[cpCancelButtonText]="'Cancel'"
+[cpFallbackColor]="'#fff'"
+[cpPresetLabel]="'Preset colors'"
+[cpPresetColors]="[]", e.g: "['#fff', '#000']"
+[cpToggle] = "false, true"
+[cpIgnoredElements]="[]"
+[cpDialogDisplay]="'popup,' 'inline'"
+[cpAlphaChannel]="'hex6', 'hex8', 'disabled'"
+
+        
+<span [(colorPicker)]="color" 
+      [cpPosition]="'bottom'"
+      [style.color]="color"
+      [cpPositionOffset]="'50%'"
+      [cpPositionRelativeToArrow]="true">Change me!</span>
+
+<input [(colorPicker)]="color" 
+       [style.background]="color" 
+       [value]="color"
+       [cpOKButton]="true"
+       [cpSaveClickOutside]="false"
+       [cpOKButtonClass]= "'btn btn-primary btn-xs'"/>
+
+<input [(colorPicker)]="color" 
+       [style.background]="color"
+       [cpPresetColors]="['#fff', '#000', '#2889e9', '#e920e9', '#fff500', 'rgb(236,64,64)']"/>
+
+-->
+
+ <span [(colorPicker)]="arrayColors[selectedColor]"     
+      
+        [style.background]="arrayColors[selectedColor]"
+        [cpCancelButtonClass]= "'btn btn-primary btn-xs'"
+        [cpCancelButton]="true"
+        [cpToggle]="true"
+        [cpOKButton]="true"
+        [cpDialogDisplay]="'inline'"
+        [cpPresetColors]="['#fff', '#000', '#2889e9', '#e920e9', '#fff500', 'rgb(236,64,64)']"
+       >
+     <br /> <br />
+       
+    </span>  
+
