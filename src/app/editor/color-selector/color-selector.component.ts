@@ -1,32 +1,83 @@
-import { Component, OnInit } from '@angular/core';
+import { Component,ViewChild,  OnInit } from '@angular/core';
+import {ColorPickerModule, ColorPickerDirective} from 'angular2-color-picker';
+
 import {ColorPickerService} from 'angular2-color-picker';
+//import {ColorPickerService} from 'ng2-color-ctarasovs';
 //import {ColorPickerService, Rgba} from 'angular2-color-picker/lib';
 
-
+ 
 @Component({
   selector: 'app-color-selector',
   templateUrl: './color-selector.component.html',
   styleUrls: ['./color-selector.component.css']
 })
 export class ColorSelectorComponent  {
-
-    private color: string = "#127bdc";
-    private color2: string = "hsla(300,82%,52%)";
-    private color3: string = "#fff500";
-    private color4: string = "rgb(236,64,64)";
-    private color5: string = "rgba(45,208,45,1)";
-    private color6: string = "#1973c0";
-    private color7: string = "#f200bd";
+    color: string;
+    open: boolean;
+    colors: string[] = [];
+    selectedColor:  string;
     
-    private arrayColors: any = {};
-    private selectedColor: string = 'color';
+    @ViewChild(ColorPickerDirective) colorPicker: ColorPickerDirective;
+    
+ 
+    
+    //private arrayColors: any = {};
+    
+    
+   
     
     constructor(private cpService: ColorPickerService) {
-        this.arrayColors['color'] = '#2883e9';
-        this.arrayColors['color2'] = '#e920e9';
-        this.arrayColors['color3'] = 'rgb(255,245,0)';
-        this.arrayColors['color4'] = 'rgb(236,64,64)';
-        this.arrayColors['color5'] = 'rgba(45,208,45,1)';
+       this.colors = ['#2883e9','#e920e9']
+       
+       
+        
+    }
+    
+    //saveColor() {
+    //  this.colors.push(this.color);
+    //  console.log(this.colors);
+    //} 
+    confirm() {
+        if(this.dialog) {
+          this.colors.push(this.color);
+          this.open = false;
+        }
+
+    }
+    
+    onChangeColor(color: string) {
+        this.selectedColor = color;
+        console.log(color);
+    }
+    dialog: any;
+    
+    toggle(value) {
+        if(value) {
+         this.dialog = (this.colorPicker as any).dialog;
+         document.removeEventListener('mousedown', this.dialog.listenerMouseDown);
+        } else {
+          this.dialog = null;
+        }
+      }
+      
+  /*
+    toggle(value) {
+      if(value && !this.dialog) {
+        this.dialog = (this.colorPicker as any).dialog;
+        const originOkClick = this.dialog.oKColor;
+        const that = this; // it's required in this case
+        this.dialog.oKColor = function() { // monkey patching okColor methos
+          that.saveColor();
+          return originOkClick.apply(this, arguments);
+        }
+      }
+    }
+  */  
+  
+    ngOnDestroy() {
+      if(this.dialog) {
+        this.dialog = null;
+      }
     }
 
 }

@@ -3,24 +3,51 @@
 
 <div class="panel panel-success">
   <div class="panel-body" dnd-sortable-container   [sortableData]="containers" [dropZones]="['container-dropZone']">
-    <div *ngFor="let container of containers; let i = index" 
-         dnd-sortable [sortableIndex]="i" 
-         [dragEnabled]="dragOperation" 
-         (onDragSuccess)="onMouseUp($event)"
-           (onDragEnter)="onDragEnter(widget, $event)"
-         >
-        <div class="panel-heading">
-            {{container.id}} {{dragOperation}} <a (mousedown)="onMouseDown()">move</a>
-          </div>
-       <div dnd-sortable-container [sortableData]="container.widgets" [dropZones]="['widget-dropZone']">
-            <div *ngFor="let widget of container.widgets; let j = index" 
-                 class="list-group-item" 
-                 dnd-sortable [sortableIndex]="j" 
-                 [dragEnabled]="!dragOperation" 
-         (onDragEnter)="onDragEnter(widget, $event)" >
-                {{widget.name}}
+      
+        <div *ngFor="let container of containers; let i = index" 
+             dnd-sortable [sortableIndex]="i" 
+             [dragEnabled]="dragOperation" 
+             (onDragSuccess)="onMouseUp($event)"
+               (onDragEnter)="onDragEnter(widget, $event)"
+             class="item-container-wrapper"
+             >
+            <div class="panel-heading">
+               Menu items for the ROW ( ID:  {{container.id}}, Drag operation : {{dragOperation}} )<a (mousedown)="onMouseDown()">move</a>
+            </div>
+            
+           <div dnd-sortable-container [sortableData]="container.widgets" [dropZones]="['widget-dropZone']" class="item-container">
+               
+                <div *ngFor="let widget of container.widgets; let j = index" 
+                     class="item-column list-group-item " 
+                     dnd-sortable [sortableIndex]="j" 
+                     [dragEnabled]="!dragOperation" 
+                     (onDragEnter)="onDragEnter(widget, $event)" >
+                    
+                        <div class="item-item" contenteditable> 
+                             {{widget.name}}
+                        </div>
+
+                </div>
+               
             </div>
         </div>
-    </div>
+      
   </div>
 </div>
+
+<style>
+    /* Color to identify */
+    .item-container-wrapper {background-color:darkcyan; position: relative;}
+    .item-container{background-color: blue}
+    .item-column {background-color:pink; }
+    .item-item {background-color: red;}
+
+    /*temporal CSS*/
+    .item-column{ display: inline-block;vertical-align: top;}
+   /* .panel-heading{ position: absolute; top: -20px;z-index: 10;}*/
+    
+    /*temporal width*/
+    .item-column, .item-item{ width: 200px;}
+    .item-column { height: 200px; }
+    
+</style>

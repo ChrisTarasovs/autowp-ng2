@@ -3,6 +3,8 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import {DndModule} from 'tarasov';
+
+//import {ColorPickerModule} from 'ng2-color-ctarasovs';
 import {ColorPickerModule} from 'angular2-color-picker';
 
 import { AppComponent } from './app.component';
@@ -21,6 +23,7 @@ import { MenuTypePipe } from './pipes/menu-type.pipe';
 import { HeadingComponent } from './editor/heading/heading.component';
 import { HeadingMenuComponent } from './editor/heading-menu/heading-menu.component';
 import { SectionsComponent } from './sections/sections.component';
+import { KeysPipe } from './pipes/keys.pipe';
 
 
 
@@ -39,7 +42,8 @@ import { SectionsComponent } from './sections/sections.component';
     MenuTypePipe,
     HeadingComponent,
     HeadingMenuComponent,
-    SectionsComponent
+    SectionsComponent,
+    KeysPipe
     
   ],
   imports: [

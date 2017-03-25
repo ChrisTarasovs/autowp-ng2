@@ -9,12 +9,16 @@
        [dropZones]="['widget-dropZone']"
        
        [sortableData]="widgets">
+       
             <div *ngFor="let widget of widgets; let i = index" 
                  class="list-group-item" 
-                 
-                 dnd-sortable [sortableIndex]="i">
-                {{widget.name}}
+                
+                 dnd-sortable [sortableIndex]="i" contenteditable >
+
+                        {{widget.name}}
+                                  
               </div>
+        
   </div>
 </div>
 

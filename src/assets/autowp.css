@@ -1,1 +1,43 @@
 .view { background-color: #dedede;}
+
+
+
+.color-drop {
+	width: 20px;
+	height: 20px;
+	top: 5px;
+	left: 5px;
+	
+    /*position: absolute;*/
+	border-radius: 80% 0 55% 50% / 55% 0 80% 50%;
+	-webkit-transform: rotate3d(0,0,1,-45deg);
+	transform: rotate3d(0,0,1,-45deg);
+}
+
+/* Styles go here */
+
+.color-item {
+  display: inline-block;
+  width: 100px;
+  height: 100px;
+  margin: 0 20px 20px 0;
+}
+.color-picker {
+  position: static !important;
+}
+.color-picker-wrapper {
+  position: relative;
+  width: 280px;
+}
+.confirm {
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 0.2em 2em;
+  border-radius: 6px;
+  border: solid 1px #2a2a2a;
+  font-family: sans-serif;
+  color: #2a2a2a;
+  background: #c1bebd;
+  cursor: pointer;
+}

@@ -1,11 +1,4 @@
-<style>
-.array-colors-element[_ngcontent-kwl-1] {
-    width: 100px;
-    height: 25px;
-    margin-bottom: 15px;
-}
-.color-picker[_ngcontent-ief-21]{ position: relative !important;}
-</style>
+
 
 <!--
 [cpOutputFormat]="'hex', 'rgba', 'hsla'"
@@ -43,12 +36,48 @@
        [cpSaveClickOutside]="false"
        [cpOKButtonClass]= "'btn btn-primary btn-xs'"/>
 
-<input [(colorPicker)]="color" 
-       [style.background]="color"
-       [cpPresetColors]="['#fff', '#000', '#2889e9', '#e920e9', '#fff500', 'rgb(236,64,64)']"/>
+
+
+<div [style.background]="arrayColors['color']"
+     (click)="selectedColor='color'"></div>
+
+<div [style.background]="arrayColors['color2']"
+     (click)="selectedColor='color2'"></div>
 
 -->
+{{selectedColor}}
+<div class="color-picker-wrapper">
+    <input [(colorPicker)]="color" 
+           [style.background]="color"
+           [cpOKButton]="true"
+           (colorPickerChange)="onChangeColor(color)"
+           (cpToggleChange)="toggle($event)"/>
+     <button (click)="confirm()" class="confirm">Confirm</button>
+</div>
+<!--
+<div class="color-picker-wrapper">
+    <span [(colorPicker)]="color" 
+           [style.background]="color"
+           [cpOKButton]="true"
+           [cpType]="'fixed'"
+           [cpDialogDisplay]="'inline'"
+          (cpToggleChange)="toggle($event)" >
+    </span>
+   
+</div>
+-->
 
+
+<ul>
+    <li *ngFor="let color of colors ">           
+        <div class="color-drop" [style.color]="color" [style.background]="color"
+        ></div>
+        {{color}}
+        
+    </li>
+</ul>
+
+<!--
  <span [(colorPicker)]="arrayColors[selectedColor]"     
       
         [style.background]="arrayColors[selectedColor]"
@@ -62,4 +91,4 @@
      <br /> <br />
        
     </span>  
-
+-->
