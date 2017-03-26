@@ -1,26 +1,31 @@
 <div class="editor-wrapper">
     <ul class="toolbar">
         <li *ngFor="let button of toolbarEditor | menuType:MainMenu">   
-             <div class="btn-menu">
-
-                 <button type="button"  [title]="button.title" (click)="execCommand(button.command, button.options)" (click)="loadView(button)" >  
-                     <i class="fa {{ button.icon }}" aria-hidden="true" ></i>
-                </button>
-              </div>  
-              <div class="btn-view">
-                {{ button.menuView }}
-              </div>
-            <ul>
-                <li *ngFor="let subitem of button.children">
-                    <div (click)="loadsubView(subitem)">
-                    
-                      <i class="fa {{ (toolbarEditor | findById: subitem).icon }}" aria-hidden="true" ></i>
-                    </div>  
-                    <div>
-                       {{ (toolbarEditor | findById: subitem).menuView }}
-                    </div>
-                </li>
-            </ul>
+               <div class="btn-menu">
+                   <button type="button"  [title]="button.title" (click)="execCommand(button.command, button.options)" (click)="loadView(button)" >  
+                       <i class="fa {{ button.icon }}" aria-hidden="true" ></i>
+                  </button>
+                </div>  
+                <div class="btn-view">
+                  {{ button.menuView }}
+                </div>
+                <ul>
+                    <li *ngFor="let subitem of button.children">
+                        <div >
+                           <button type="button" 
+                           [title]="(toolbarEditor | findById: subitem).title"  
+                           (click)="loadsubView(subitem)"
+                           (click)="execCommand( toolbarEditor[subitem].command, toolbarEditor[subitem].options)"
+                           >
+                           {{toolbarEditor[subitem].title}}
+                              <i class="fa  {{toolbarEditor[subitem].icon}}" aria-hidden="true" ></i>
+                            </button>
+                        </div>  
+                        <div>
+                           {{toolbarEditor[subitem].menuView}}
+                        </div>
+                    </li>
+                </ul>
         </li>
         <li *ngFor="let button of toolbarAlign">  
                <button type="button" [title]="button.title">

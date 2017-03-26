@@ -42,6 +42,7 @@ export class EditorComponent implements OnInit {
 
     // Custom Angular Events    
      execCommand(command: string, options: string) {
+         alert('clicked');
         if (this.editMode) {
           return false;
         }
@@ -101,7 +102,7 @@ const myComponents =[
     {id : 7, component: HeadingMenuComponent,inputs: { showNum: 0 }},
     {id : 8, component: SectionsComponent,inputs: { showNum: 0 }},
     {id : 9, inputs: { showNum: 0 }},
-    {id : 10, component: SectionsComponent, inputs: { showNum: 0 }}
+    {id : 10, component: ButtontypeComponent, inputs: { showNum: 0 }}
 
 ];
 const toolbarEditor = [
@@ -109,16 +110,17 @@ const toolbarEditor = [
        title: 'Edit',
        command: 'enableEdit',
        icon: 'fa-pencil ',
-       children:[2,3,4,5,6,7,8,9,10]
+       children:[4,5,6,7,8,9,10,11]
    },
     {id: 2,  
         title: 'Settings',
         command: 'settings',
-
+        icon: 'fa-sliders',
         componentID : 2
     },
     {id: 3,  
         title: 'Sections', 
+        icon: 'fa-sliders',
         componentID : 8},
     {id: 4,  
          title: 'Bold',
@@ -135,6 +137,7 @@ const toolbarEditor = [
     {id: 6,  
         title:'Headlines', 
         icon: 'fa-header',
+        command: 'headlineView',
         componentID : 6, 
         menuComponentID : 7,
         menuView: 'Heading view'
@@ -151,15 +154,16 @@ const toolbarEditor = [
         componentID : 1},
     {id: 9,  
         title: 'Typography', 
+         icon: 'fa-font',
         componentID : 3},
     {id: 10,
         name:'Media', 
         icon: 'fa fa-picture-o',
         componentID :  4},
-    {id: 10,
+    {id: 11,
         name:'Button Type', 
         icon: 'fa-battery-empty',
-        componentID :  4}
+        componentID :  10}
 
 ];
 

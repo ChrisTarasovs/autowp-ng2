@@ -5,6 +5,8 @@ import { EditorComponent } from './editor.component';
 import { MenuTypePipe } from '../pipes/menu-type.pipe';
 import { FindByIdPipe } from '../pipes/find-by-id.pipe';
 
+import { HeadingMenuComponent } from './heading-menu/heading-menu.component';
+
 import { DynamicComponent } from './dynamic/dynamic.component';
 import { ButtontypeComponent } from './buttontype/buttontype.component';
 
@@ -17,7 +19,8 @@ import { ButtontypeComponent } from './buttontype/buttontype.component';
     FindByIdPipe,
     MenuTypePipe,
     DynamicComponent,
-    ButtontypeComponent
+    ButtontypeComponent,
+    HeadingMenuComponent
   ],
   exports: [
     EditorComponent

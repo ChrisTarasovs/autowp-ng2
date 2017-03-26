@@ -8,6 +8,7 @@ import { HeadingMenuComponent } from '../heading-menu/heading-menu.component';
 import { DndComponent } from '../../dnd/dnd.component';
 import { TextComponent } from '../../dnd/text/text.component';
 import { SectionsComponent } from '../../sections/sections.component';
+import { ButtontypeComponent } from '../buttontype/buttontype.component';
 
 
 @Component({
@@ -20,7 +21,8 @@ import { SectionsComponent } from '../../sections/sections.component';
       HeadingComponent,
       HeadingMenuComponent,
       SectionsComponent,
-      DndComponent
+      DndComponent,
+      ButtontypeComponent
   ], // Reference to the components must be here in order to dynamically create them
   template: `
     <div #dynamicComponentContainer></div>

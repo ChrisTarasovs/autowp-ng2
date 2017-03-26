@@ -19,7 +19,7 @@ import { TypographyComponent } from './editor/typography/typography.component';
 import { MediaComponent } from './editor/media/media.component';
 
 import { HeadingComponent } from './editor/heading/heading.component';
-import { HeadingMenuComponent } from './editor/heading-menu/heading-menu.component';
+
 import { SectionsComponent } from './sections/sections.component';
 import { KeysPipe } from './pipes/keys.pipe';
 
@@ -38,7 +38,6 @@ import { EditorModule } from './editor/editor.module';
     TypographyComponent,
     MediaComponent,
     HeadingComponent,
-    HeadingMenuComponent,
     SectionsComponent,
     KeysPipe
     
