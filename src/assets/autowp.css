@@ -39,3 +39,47 @@
   cursor: pointer;
 }
 
+
+
+
+wysiwyg-editor {
+    display: block;
+}
+
+      
+
+
+.wysiwyg-editor__container {
+    border: 1px solid red;
+    border-top: none;
+    border-radius: 0 0 3px 3px;
+    position: relative;
+}
+
+.wysiwyg-editor__content {
+    height: 120px;
+    background: #fff;
+    cursor: text;
+    outline: none;
+    padding: 15px
+}
+
+
+
+.wysiwyg-editor__src-container {
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+}
+
+.wysiwyg-editor__src {
+    height: 100%;
+    width: 100%;
+    resize: none;
+    padding: 20px 30px;
+    outline: none;
+    border: none;
+    box-sizing: border-box;
+}

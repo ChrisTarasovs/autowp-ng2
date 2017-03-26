@@ -1,7 +1,9 @@
+<div> <b>Demo output </b></div>
+
 {{ content }}
-
-<editor [(editMode)]="editMode"  (commandExecuted)="onCommandExecuted()"></editor>
-
+<Br />
+<div> <b>Demo edit mode</b> </div>
+<p> Need to add this in the drag and drop , type in somthing below.</p>
 
 <div class="wysiwyg-editor__container">
   <div class="wysiwyg-editor__src-container" *ngIf="editMode">
@@ -14,6 +16,8 @@
   ></div>
 </div>
 
+
+<editor [(editMode)]="editMode"  (commandExecuted)="onCommandExecuted()"></editor>
 
 <div class="panel panel-success">
   <div class="panel-body" dnd-sortable-container [sortableData]="containers" [dropZones]="['container-dropZone']">
