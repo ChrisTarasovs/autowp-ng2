@@ -1,14 +1,11 @@
 <div class="editor-wrapper">
     <ul class="toolbar">
         <li *ngFor="let button of toolbarEditor | menuType:MainMenu">   
-             <div (click)="loadView(button)" class="btn-menu">
-                {{button}}
+             <div class="btn-menu">
 
-                 <button type="button"  [title]="button.title" (click)="execCommand(button.command, button.options)">
-                          {{ button.title }}
+                 <button type="button"  [title]="button.title" (click)="execCommand(button.command, button.options)" (click)="loadView(button)" >  
+                     <i class="fa {{ button.icon }}" aria-hidden="true" ></i>
                 </button>
-
-              
               </div>  
               <div class="btn-view">
                 {{ button.menuView }}
@@ -16,13 +13,19 @@
             <ul>
                 <li *ngFor="let subitem of button.children">
                     <div (click)="loadsubView(subitem)">
-                     {{ (toolbarEditor | findById: subitem).title }}
+                    
+                      <i class="fa {{ (toolbarEditor | findById: subitem).icon }}" aria-hidden="true" ></i>
                     </div>  
                     <div>
                        {{ (toolbarEditor | findById: subitem).menuView }}
                     </div>
                 </li>
             </ul>
+        </li>
+        <li *ngFor="let button of toolbarAlign">  
+               <button type="button" [title]="button.title">
+                  <i class="fa {{ button.icon }}" aria-hidden="true" ></i>
+                </button>
         </li>
         <li>
           <button type="button"  (click)="loadBuilder()">

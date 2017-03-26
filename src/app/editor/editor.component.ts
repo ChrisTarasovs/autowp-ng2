@@ -10,6 +10,8 @@ import { HeadingComponent } from './heading/heading.component';
 import { HeadingMenuComponent } from './heading-menu/heading-menu.component';
 import { MenuTypePipe } from '../pipes/menu-type.pipe';
 import { SectionsComponent } from '../sections/sections.component';
+import { ButtontypeComponent } from './buttontype/buttontype.component';
+
 import * as _ from "lodash";
 
 
@@ -98,17 +100,21 @@ const myComponents =[
     {id : 6, component: HeadingComponent, inputs: { showNum: 0 }},
     {id : 7, component: HeadingMenuComponent,inputs: { showNum: 0 }},
     {id : 8, component: SectionsComponent,inputs: { showNum: 0 }},
-    {id : 9, inputs: { showNum: 0 }}
+    {id : 9, inputs: { showNum: 0 }},
+    {id : 10, component: SectionsComponent, inputs: { showNum: 0 }}
+
 ];
 const toolbarEditor = [
     {id: 1, 
        title: 'Edit',
        command: 'enableEdit',
-       children:[4,5,6,7,8,9,10,11,12,13]
+       icon: 'fa-pencil ',
+       children:[2,3,4,5,6,7,8,9,10]
    },
     {id: 2,  
         title: 'Settings',
         command: 'settings',
+
         componentID : 2
     },
     {id: 3,  
@@ -116,94 +122,67 @@ const toolbarEditor = [
         componentID : 8},
     {id: 4,  
          title: 'Bold',
+         icon: 'fa-bold',
          command: 'bold',
          tag: 'b'
     },
     {id: 5,  
         title:'Italic', 
         command: 'italic',
+        icon: 'fa-italic',
         tag: 'i',
         componentID : 2},
     {id: 6,  
         title:'Headlines', 
+        icon: 'fa-header',
         componentID : 6, 
         menuComponentID : 7,
         menuView: 'Heading view'
-    },
+    }, 
     {id: 7,  
-         title:'H1', 
-         command: 'formatBlock',
-         options: '<h1>',
-         tag: 'h1',
-        componentID : 6, 
-        menuComponentID : 7
-    },
-    {id: 8,  
-         title:'H2', 
-         command: 'formatBlock',
-         options: '<h2>',
-         tag: 'h2',
-        componentID : 6, 
-        menuComponentID : 7
-    },
-    {id: 9,  
-         title:'H3', 
-         command: 'formatBlock',
-         options: '<h3>',
-         tag: 'h3',
-        componentID : 6, 
-        menuComponentID : 7
-    },
-    {id: 10,  
-         title:'H4', 
-         command: 'formatBlock',
-         options: '<h4>',
-         tag: 'h4',
-         componentID : 6, 
-         menuComponentID : 7
-    },
-    {id: 11,  
-         title:'H5', 
-         command: 'formatBlock',
-         options: '<h5>',
-         tag: 'h5',
-        componentID : 6, 
-        menuComponentID : 7
-    },
-    {id: 12,  
         title:'Link', 
         command: 'createlink',
+        icon: 'fa-link',
         tag: 'a',
         componentID : 2},
-    {id: 13,  
-        title:'Color', 
+    {id: 8,  
+        title:'Color',
+        icon: 'fa-slack',
         componentID : 1},
-    {id: 14,  
+    {id: 9,  
         title: 'Typography', 
         componentID : 3},
-    {id: 14,
+    {id: 10,
         name:'Media', 
+        icon: 'fa fa-picture-o',
         componentID :  4},
-    {id: 15,
-        title:'Builder', 
-        componentID :  5}   
+    {id: 10,
+        name:'Button Type', 
+        icon: 'fa-battery-empty',
+        componentID :  4}
+
 ];
 
 const toolbarAlign = [    
     {id: 1,
         title:'Image left', 
+        icon: 'fa-align-left',
         componentID : 8},
     {id: 2,
         title:'Image center', 
+        icon: 'fa-align-center',
         componentID : 8},
     {id: 2,
         title:'Image justify', 
+        icon: 'fa-align-justify',
         componentID : 8},
     {id: 3,
         title:'Image hero', 
+        icon: 'fa-align-justify',
         componentID : 8},
     {id: 4,
         title:'Image right', 
+        icon: 'fa-align-right',
         componentID : 8
     }
 ];

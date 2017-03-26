@@ -68,29 +68,21 @@ export class AppComponent {
           
         }
           
-          drop(item){
-          var target = item.mouseEvent.target,
-              index;
-          
-          if(target.classList.contains('row')) {
-              index = target.getAttribute('data-index');
-          }
-          
-          if(target.classList.contains('item') && target.parentNode.classList.contains('row')) {
-              index = target.parentNode.getAttribute('data-index');
-          }
-          
-          if(index) {
-              console.log(this.containers);
-              console.log(this.containers[index]);
-              this.containers[index].widgets.push( item.dragData);
-          } else {
-              this.containers.push([ item.dragData]);
-          }
-          
-          
-         }
+
          // Wysiwyg funfctionality
+        ngOnInit() {
+          /*
+            document.execCommand('defaultParagraphSeparator', false, 'p');
+            ['mouseup', 'keydown', 'keyup'].forEach(event => {
+              this.subscriptions.push(Observable
+                .fromEvent(this.container.nativeElement, event)
+                .debounceTime(60)
+                .subscribe(e => {
+                  this.refreshActiveButtons();
+                }));
+            });
+            */
+          }
          onContentChanged() {
              this.content = this.container.nativeElement.innerHTML;
              this.propagateChange(this.content);
@@ -137,7 +129,26 @@ export class AppComponent {
         }
 
          // Drag and Drop functionality
-
+         drop(item){
+              var target = item.mouseEvent.target,
+                  index;
+          
+                if(target.classList.contains('row')) {
+                    index = target.getAttribute('data-index');
+                }
+          
+                if(target.classList.contains('item') && target.parentNode.classList.contains('row')) {
+                    index = target.parentNode.getAttribute('data-index');
+                }
+                
+                if(index) {
+                    console.log(this.containers);
+                    console.log(this.containers[index]);
+                    this.containers[index].widgets.push( item.dragData);
+                } else {
+                    this.containers.push([ item.dragData]);
+                }
+         }
          onDropSuccess(widget: any, event: any) {
             this.dragOperation = false;
             console.log('onDropSuccess', widget, event);

@@ -6,6 +6,7 @@ import { MenuTypePipe } from '../pipes/menu-type.pipe';
 import { FindByIdPipe } from '../pipes/find-by-id.pipe';
 
 import { DynamicComponent } from './dynamic/dynamic.component';
+import { ButtontypeComponent } from './buttontype/buttontype.component';
 
 @NgModule({
   imports: [
@@ -15,7 +16,8 @@ import { DynamicComponent } from './dynamic/dynamic.component';
     EditorComponent,
     FindByIdPipe,
     MenuTypePipe,
-    DynamicComponent
+    DynamicComponent,
+    ButtontypeComponent
   ],
   exports: [
     EditorComponent
