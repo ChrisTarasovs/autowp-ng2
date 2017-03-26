@@ -42,8 +42,9 @@ export class EditorComponent implements OnInit {
 
     // Custom Angular Events    
      execCommand(command: string, options: string) {
-         alert('clicked');
+      
         if (this.editMode) {
+            alert('it is false');
           return false;
         }
 
@@ -56,6 +57,7 @@ export class EditorComponent implements OnInit {
 
         let selection = document.getSelection().toString();
 
+        console.warn(selection);
         if (command === 'createlink' && selection === '') {
           document.execCommand('insertHtml', false, '<a href="' + options + '">' + options + '</a>');
         }
@@ -110,11 +112,10 @@ const toolbarEditor = [
        title: 'Edit',
        command: 'enableEdit',
        icon: 'fa-pencil ',
-       children:[4,5,6,7,8,9,10,11]
+       children:[3,4,5,6,7,8,9,10,11]
    },
     {id: 2,  
         title: 'Settings',
-        command: 'settings',
         icon: 'fa-sliders',
         componentID : 2
     },
@@ -132,8 +133,8 @@ const toolbarEditor = [
         title:'Italic', 
         command: 'italic',
         icon: 'fa-italic',
-        tag: 'i',
-        componentID : 2},
+        tag: 'i'
+    },
     {id: 6,  
         title:'Headlines', 
         icon: 'fa-header',
@@ -163,7 +164,8 @@ const toolbarEditor = [
     {id: 11,
         name:'Button Type', 
         icon: 'fa-battery-empty',
-        componentID :  10}
+        componentID :  10
+    }
 
 ];
 

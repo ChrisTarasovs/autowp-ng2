@@ -1,5 +1,20 @@
+{{ content }}
 
 <editor [(editMode)]="editMode"  (commandExecuted)="onCommandExecuted()"></editor>
+
+
+<div class="wysiwyg-editor__container">
+  <div class="wysiwyg-editor__src-container" *ngIf="editMode">
+    <textarea [value]="content" class="wysiwyg-editor__src"></textarea>
+  </div>
+  <div class="wysiwyg-editor__content" #editor contenteditable
+      (keyup)="onContentChanged()"
+      (change)="onContentChanged()"
+      (blur)="onBlur()"
+  ></div>
+</div>
+
+
 <div class="panel panel-success">
   <div class="panel-body" dnd-sortable-container [sortableData]="containers" [dropZones]="['container-dropZone']">
       
