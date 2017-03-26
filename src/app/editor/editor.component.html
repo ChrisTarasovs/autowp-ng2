@@ -1,22 +1,29 @@
 <div class="editor-wrapper">
-<ul>
-    <li *ngFor="let item of editor | menuType:MainMenu">   
-         <span (click)="loadView(item)">
-           {{item.name}} 
-          </span>  
-        <ul>
-            <li *ngFor="let subitem of item.children">
-                <span (click)="loadsubView(subitem)">
-                 {{ (editor | findById: subitem).name }}
-                </span>  
-            </li>
-        </ul>
-    </li>
-</ul>
+  <ul class="toolbar">
+      <li *ngFor="let item of editor | menuType:MainMenu">   
+           <div (click)="loadView(item)">
+             {{item.title}} 
+            </div>  
+            <div>
+              Menu view
+            </div>
+          <ul>
+              <li *ngFor="let subitem of item.children">
+                  <div (click)="loadsubView(subitem)">
+                   {{ (editor | findById: subitem).title }}
+                  </div>  
+                  <div>
+                    Menu view
+                  </div>
+              </li>
+          </ul>
+      </li>
+  </ul>
 
 <div class="view"> 
-    <dynamic-component [componentData]="menuComponentData"></dynamic-component>
-    <dynamic-component [componentData]="componentData"></dynamic-component>
+    <!--
+    <dynamiccontent-component [componentData]="menuComponentData"></dynamiccontent-component>-->
+    <dynamiccontent-component [componentData]="componentData"></dynamiccontent-component>
 </div>
 
 </div>

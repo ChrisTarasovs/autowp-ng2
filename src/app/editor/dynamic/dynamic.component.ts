@@ -11,7 +11,7 @@ import { SectionsComponent } from '../../sections/sections.component';
 
 
 @Component({
-  selector: 'dynamic-component',
+  selector: 'dynamiccontent-component',
   entryComponents: [
       ColorSelectorComponent, 
       LinksComponent,  
@@ -28,11 +28,11 @@ import { SectionsComponent } from '../../sections/sections.component';
 })
 export class DynamicComponent {
 
- currentComponent = null;
+  currentComponent = null;
 
   @ViewChild('dynamicComponentContainer', { read: ViewContainerRef }) dynamicComponentContainer: ViewContainerRef;
  
- // component: Class for the component you want to create
+  // component: Class for the component you want to create
   // inputs: An object with key/value pairs mapped to input name/input value
   @Input() set componentData(data: {component: any, inputs: any }) {
     if (!data) {

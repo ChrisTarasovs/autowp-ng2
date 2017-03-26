@@ -10,16 +10,14 @@ import {ColorPickerModule} from 'angular2-color-picker';
 import { AppComponent } from './app.component';
 import { DndComponent } from './dnd/dnd.component';
 import { TextComponent } from './dnd/text/text.component';
-import { EditorComponent } from './editor/editor.component';
-import { FindByIdPipe } from './find-by-id.pipe';
+
 import { ColorSelectorComponent } from './editor/color-selector/color-selector.component';
-import { DynamicComponent } from './editor/dynamic/dynamic.component';
 import { LinksComponent } from './editor/links/links.component';
 
 import * as _ from "lodash";
 import { TypographyComponent } from './editor/typography/typography.component';
 import { MediaComponent } from './editor/media/media.component';
-import { MenuTypePipe } from './pipes/menu-type.pipe';
+
 import { HeadingComponent } from './editor/heading/heading.component';
 import { HeadingMenuComponent } from './editor/heading-menu/heading-menu.component';
 import { SectionsComponent } from './sections/sections.component';
@@ -27,19 +25,20 @@ import { KeysPipe } from './pipes/keys.pipe';
 
 
 
+import { EditorModule } from './editor/editor.module';
+
+
 @NgModule({
   declarations: [
     AppComponent,
     DndComponent,
     TextComponent,
-    EditorComponent,
-    FindByIdPipe,
+    
     ColorSelectorComponent,
-    DynamicComponent,
+  
     LinksComponent,
     TypographyComponent,
     MediaComponent,
-    MenuTypePipe,
     HeadingComponent,
     HeadingMenuComponent,
     SectionsComponent,
@@ -47,6 +46,7 @@ import { KeysPipe } from './pipes/keys.pipe';
     
   ],
   imports: [
+    EditorModule,  /* Load Editor module and all dependecies are defined there. */
     BrowserModule,
     FormsModule,
     HttpModule,

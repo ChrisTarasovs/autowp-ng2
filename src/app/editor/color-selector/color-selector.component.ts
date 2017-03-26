@@ -12,39 +12,42 @@ import {ColorPickerService} from 'angular2-color-picker';
   styleUrls: ['./color-selector.component.css']
 })
 export class ColorSelectorComponent  {
-    color: string;
-    open: boolean;
+
+    private arrayColors: any = {};
+    private selectedColor: string = 'color';
+    
+    //open: boolean;
     colors: string[] = [];
-    selectedColor:  string;
+    //selectedColor:  string;
     
-    @ViewChild(ColorPickerDirective) colorPicker: ColorPickerDirective;
-    
- 
-    
+    //@ViewChild(ColorPickerDirective) colorPicker: ColorPickerDirective;
     //private arrayColors: any = {};
     
     
    
     
     constructor(private cpService: ColorPickerService) {
+       this.arrayColors['color'] = '#2883e9';
+       //this.arrayColors['color2'] = '#e920e9';
        this.colors = ['#2883e9','#e920e9']
-       
-       
-        
     }
     
     //saveColor() {
     //  this.colors.push(this.color);
     //  console.log(this.colors);
     //} 
+    
     confirm() {
+        this.colors.push(this.arrayColors[this.selectedColor]);
+        /*
         if(this.dialog) {
           this.colors.push(this.color);
           this.open = false;
         }
-
+        */
     }
     
+   /*  
     onChangeColor(color: string) {
         this.selectedColor = color;
         console.log(color);
@@ -60,7 +63,7 @@ export class ColorSelectorComponent  {
         }
       }
       
-  /*
+ 
     toggle(value) {
       if(value && !this.dialog) {
         this.dialog = (this.colorPicker as any).dialog;
@@ -72,13 +75,14 @@ export class ColorSelectorComponent  {
         }
       }
     }
-  */  
+  
   
     ngOnDestroy() {
       if(this.dialog) {
         this.dialog = null;
       }
     }
+    */  
 
 }
 
