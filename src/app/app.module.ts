@@ -23,8 +23,6 @@ import { HeadingMenuComponent } from './editor/heading-menu/heading-menu.compone
 import { SectionsComponent } from './sections/sections.component';
 import { KeysPipe } from './pipes/keys.pipe';
 
-
-
 import { EditorModule } from './editor/editor.module';
 
 

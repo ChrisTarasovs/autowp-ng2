@@ -1,5 +1,5 @@
 
-<editor></editor>
+<editor [(editMode)]="editMode"  (commandExecuted)="onCommandExecuted()"></editor>
 <div class="panel panel-success">
   <div class="panel-body" dnd-sortable-container [sortableData]="containers" [dropZones]="['container-dropZone']">
       
@@ -22,7 +22,11 @@
                      [dragEnabled]="!dragOperation" 
                      (onDragEnter)="onDragEnter(widget, $event)" >
                     
-                        <div class="item-item" contenteditable> 
+                        <div class="item-item" contenteditable
+                            (keyup)="onContentChanged()"
+                            (change)="onContentChanged()"
+                            (blur)="onBlur()"
+                        > 
                              {{widget.name}}
                         </div>
 

@@ -24,20 +24,64 @@ export class EditorComponent implements OnInit {
     componentData = null;
     menuComponentData = null;
     myComponents=[];
-    editor = [];
+    toolbarEditor = [];
+    toolbarAlign = [];
+
     constructor() {
-        this.editor = editor;
+        this.toolbarEditor = toolbarEditor;
+        this.toolbarAlign = toolbarAlign;
         this.myComponents = myComponents;
     }
+    
+    @Input() editMode: boolean;
 
+    @Output() editModeChange: EventEmitter<boolean> = new EventEmitter();
+    @Output() commandExecuted: EventEmitter<any> = new EventEmitter();
+
+    // Custom Angular Events    
+     execCommand(command: string, options: string) {
+        if (this.editMode) {
+          return false;
+        }
+
+        if (command === 'createlink') {
+          options = window.prompt('Please enter the URL', 'http://');
+          if (!options) {
+            return;
+          }
+        }
+
+        let selection = document.getSelection().toString();
+
+        if (command === 'createlink' && selection === '') {
+          document.execCommand('insertHtml', false, '<a href="' + options + '">' + options + '</a>');
+        }
+        else {
+          document.execCommand(command, false, options);
+        }
+
+        this.commandExecuted.emit();
+    }
+    isActive(command) {
+        return !!command && document.queryCommandState(command);
+    }
+    toggleEditMode() {
+        this.editMode = !this.editMode;
+        this.editModeChange.emit(this.editMode);
+    }
     loadView(item){
         this.componentData = _.find(this.myComponents,{id:item.componentID});
         this.menuComponentData = _.find(this.myComponents,{id:item.menuComponentID});
     }
     loadsubView(item){
-      this.componentData = _.find(this.myComponents,{id: this.editor[item].componentID});
-      this.menuComponentData = _.find(this.myComponents,{id: this.editor[item].menuComponentID});
+      this.componentData = _.find(this.myComponents,{id: this.toolbarEditor[item].componentID});
+      this.menuComponentData = _.find(this.myComponents,{id: this.toolbarEditor[item].menuComponentID});
     }
+    loadBuilder(){
+      this.componentData = _.find(this.myComponents,{id: 5});
+     // this.menuComponentData = _.find(this.myComponents,{id: this.toolbarEditor[item].menuComponentID});
+    }
+    
     ngOnInit() {
     }
  
@@ -50,23 +94,23 @@ const myComponents =[
     {id : 2, component: LinksComponent,inputs: { showNum: 0 }},
     {id : 3, component: TypographyComponent,inputs: { showNum: 0 }},
     {id : 4, component: MediaComponent,inputs: { showNum: 0 }},
-    {id : 5, component: DndComponent,inputs: { showNum: 0 }},
+    {id : 5, component: DndComponent,inputs: { showNum: 0 }}, // builder
     {id : 6, component: HeadingComponent, inputs: { showNum: 0 }},
     {id : 7, component: HeadingMenuComponent,inputs: { showNum: 0 }},
     {id : 8, component: SectionsComponent,inputs: { showNum: 0 }},
     {id : 9, inputs: { showNum: 0 }}
 ];
-const editor = [
+const toolbarEditor = [
     {id: 1, 
        title: 'Edit',
        command: 'enableEdit',
-      
-       children:[4,5,6,7,8,9,10]},
+       children:[4,5,6,7,8,9,10,11,12,13]
+   },
     {id: 2,  
         title: 'Settings',
         command: 'settings',
-       
-        componentID : 2},
+        componentID : 2
+    },
     {id: 3,  
         title: 'Sections', 
         componentID : 8},
@@ -83,7 +127,8 @@ const editor = [
     {id: 6,  
         title:'Headlines', 
         componentID : 6, 
-        menuComponentID : 7
+        menuComponentID : 7,
+        menuView: 'Heading view'
     },
     {id: 7,  
          title:'H1', 
@@ -114,8 +159,8 @@ const editor = [
          command: 'formatBlock',
          options: '<h4>',
          tag: 'h4',
-        componentID : 6, 
-        menuComponentID : 7
+         componentID : 6, 
+         menuComponentID : 7
     },
     {id: 11,  
          title:'H5', 
@@ -141,22 +186,24 @@ const editor = [
         componentID :  4},
     {id: 15,
         title:'Builder', 
-        componentID :  5},    
-    {id: 16,
+        componentID :  5}   
+];
+
+const toolbarAlign = [    
+    {id: 1,
         title:'Image left', 
         componentID : 8},
-    {id: 17,
+    {id: 2,
         title:'Image center', 
         componentID : 8},
-    {id: 18,
+    {id: 2,
         title:'Image justify', 
         componentID : 8},
-    {id: 19,
+    {id: 3,
         title:'Image hero', 
         componentID : 8},
-    {id: 20,
+    {id: 4,
         title:'Image right', 
-        componentID : 8},
- 
-    
+        componentID : 8
+    }
 ];
