@@ -27,11 +27,11 @@ export class EditorComponent implements OnInit {
     menuComponentData = null;
     myComponents=[];
     toolbarEditor = [];
-    toolbarAlign = [];
+    toolbarImageAlign = [];
 
     constructor() {
         this.toolbarEditor = toolbarEditor;
-        this.toolbarAlign = toolbarAlign;
+        this.toolbarImageAlign = toolbarImageAlign;
         this.myComponents = myComponents;
     }
     
@@ -86,7 +86,13 @@ export class EditorComponent implements OnInit {
       this.componentData = _.find(this.myComponents,{id: 5});
      // this.menuComponentData = _.find(this.myComponents,{id: this.toolbarEditor[item].menuComponentID});
     }
+    testLoad(){
+      this.componentData = _.find(this.myComponents,{id: 5});
+      this.menuComponentData = _.find(this.myComponents,{id: 2});
+    }
     
+    
+
     ngOnInit() {
     }
  
@@ -169,7 +175,7 @@ const toolbarEditor = [
 
 ];
 
-const toolbarAlign = [    
+const toolbarImageAlign = [    
     {id: 1,
         title:'Image left', 
         icon: 'fa-align-left',

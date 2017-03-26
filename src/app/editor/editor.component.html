@@ -1,4 +1,8 @@
 <div class="editor-wrapper">
+<div (click)="testLoad()">
+click to test
+
+</div>
     <ul class="toolbar">
         <li *ngFor="let button of toolbarEditor | menuType:MainMenu">   
                <div class="btn-menu">
@@ -7,6 +11,8 @@
                   </button>
                 </div>  
                 <div class="btn-view">
+
+                 <!-- <dynamiccontent-component [componentData]="menuComponentData"></dynamiccontent-component>-->
                   {{ button.menuView }}
                 </div>
                 <ul>
@@ -22,12 +28,13 @@
                             </button>
                         </div>  
                         <div>
+
                            {{toolbarEditor[subitem].menuView}}
                         </div>
                     </li>
                 </ul>
         </li>
-        <li *ngFor="let button of toolbarAlign">  
+        <li *ngFor="let button of toolbarImageAlign">  
                <button type="button" [title]="button.title">
                   <i class="fa {{ button.icon }}" aria-hidden="true" ></i>
                 </button>
@@ -45,8 +52,8 @@
     </ul>
 
   <div class="view"> 
-      <!--
-      <dynamiccontent-component [componentData]="menuComponentData"></dynamiccontent-component>-->
+     
+     
       <dynamiccontent-component [componentData]="componentData"></dynamiccontent-component>
   </div>
 
