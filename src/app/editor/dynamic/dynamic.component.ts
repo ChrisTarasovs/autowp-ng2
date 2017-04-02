@@ -1,28 +1,19 @@
 import {Component, Input, ViewContainerRef, ViewChild, ReflectiveInjector, ComponentFactoryResolver} from '@angular/core';
-import { ColorSelectorComponent } from '../color-selector/color-selector.component';
-import { LinksComponent } from '../links/links.component';
-import { TypographyComponent } from '../typography/typography.component';
-import { MediaComponent } from '../media/media.component';
-import { HeadingComponent } from '../heading/heading.component';
-import { HeadingMenuComponent } from '../heading-menu/heading-menu.component';
+
+//import { ColorSelectorComponent } from '../color-selector/color-selector.component';
+
 import { DndComponent } from '../../dnd/dnd.component';
 import { TextComponent } from '../../dnd/text/text.component';
-import { SectionsComponent } from '../../sections/sections.component';
-import { ButtontypeComponent } from '../buttontype/buttontype.component';
 
 
 @Component({
   selector: 'dynamiccontent-component',
   entryComponents: [
-      ColorSelectorComponent, 
-      LinksComponent,  
-      TypographyComponent,
-      MediaComponent, 
-      HeadingComponent,
-      HeadingMenuComponent,
-      SectionsComponent,
-      DndComponent,
-      ButtontypeComponent
+     // ColorSelectorComponent, 
+
+    
+      DndComponent
+
   ], // Reference to the components must be here in order to dynamically create them
   template: `
     <div #dynamicComponentContainer></div>

@@ -5,7 +5,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 
 export class MenuTypePipe implements PipeTransform {
-     private ids: number[] = [1,2,3,7,8,10,11];
+     private ids: number[] = [1];
 
     transform(items: any[]): any {
      return items.filter((key: any) => {

@@ -67,11 +67,13 @@ wysiwyg-editor {
 
 
 .wysiwyg-editor__src-container {
+  /*
     position: absolute;
     left: 0;
     top: 0;
     right: 0;
     bottom: 0;
+    */
 }
 
 .wysiwyg-editor__src {

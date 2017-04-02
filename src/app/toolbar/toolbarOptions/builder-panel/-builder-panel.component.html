@@ -1,0 +1,23 @@
+<widget-text></widget-text>
+
+<div class="panel panel-warning">
+  <div class="panel-heading">
+    Widgets
+  </div>
+  <div class="panel-body" 
+       dnd-sortable-container 
+       [dropZones]="['widget-dropZone']"
+       
+       [sortableData]="widgets">
+       
+            <div *ngFor="let widget of widgets; let i = index" 
+                 class="list-group-item" 
+                
+                 dnd-sortable [sortableIndex]="i" contenteditable >
+
+                        {{widget.name}}
+                                  
+              </div>
+        
+  </div>
+</div>
