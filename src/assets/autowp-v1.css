@@ -57,7 +57,7 @@ padding: 0px;
 .buttonlist {
     display: block;
 }
-.buttonlist li{ display: inline-block;width: 26px; }
+.buttonlist li { display: inline-block;width: 26px; }
 .buttonlist .filled{
     background-color: #fff;
     border: solid 1px;
@@ -78,3 +78,6 @@ padding: 0px;
 
 /*tempSettings*/
 .tempSettings{ width: 100px; }
+.activeSubMenu    {display:block;}
+.disabledSubMenu {display:none;}
+li.activeBtn { background-color: red; }

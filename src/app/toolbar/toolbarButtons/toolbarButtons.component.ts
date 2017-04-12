@@ -8,18 +8,21 @@ import {
 import {wysiwygComponent} from './wysiwyg/wysiwyg.component';
 
 
-
 @Component({
   selector: 'toolbar-buttons',
-  outputs: ['clickedBtn', 'clickedClrBtn', 'loadWidget'],
-  template:  ` 
+  outputs: ['clickedBtn', 'loadWidget'],
+  template:  `
   	<ul  class="toolbarButtons">
-  		<wysiwyg  (clickedBtn)="getCommand($event)" (clickedClrBtn)="getColor($event)"></wysiwyg>
+            <li>
+                <button (click)="enableEditMode()"><i class="fa fa-pencil"></i></button>
+                <wysiwyg  (clickedBtn)="getCommand($event)" (saveColors)="saveColorsFunc($event)" [ngClass]="(enableEdit == true ) ? 'activeSubMenu' : 'disabledSubMenu' "></wysiwyg>
+            </li>
             <li>
                 <button (click)="toggleEditMode()">HTML</button>
             </li>
             <li class="tempSettings">
-                <button type="button"  (click)="loadwidgetpanel('2222')">Settings</button>
+                <button type="button"  (click)="loadwidgetpanel('2222')">
+                <i class="fa fa-sliders"></i> Settings</button>
             </li>
             <li>
                 <button type="button"  (click)="loadwidgetpanel(6)">Examples</button>
@@ -39,23 +42,41 @@ import {wysiwygComponent} from './wysiwyg/wysiwyg.component';
 })
 
 export class toolbarButtonsComponent {
+          
+       
+          //Enable edit mode
+          enableEdit: boolean = false;
+          enableEditMode(){
+             this.enableEdit = !this.enableEdit;
+             if (this.editMode) {
+                  alert('it is false');
+                  return false;
+              }
+         }
+
 
           clickedBtn: EventEmitter<any> = new EventEmitter();
-          clickedClrBtn: EventEmitter<any> = new EventEmitter();
           clickedSetBtn: EventEmitter<any> = new EventEmitter();
           loadWidget: EventEmitter<any> = new EventEmitter();
 
            @Input() editMode: boolean;
            @Output() editModeChange: EventEmitter<boolean> = new EventEmitter();
          
+           @Input() radomData;
+
+
+
           getCommand(evt){
               console.log('toolbar buttons events registered', evt.command, evt.options);
               this.clickedBtn.emit(evt);
           }
-          getColor(color){
-            console.log('color in toolbar buttons is',color)
-            this.clickedClrBtn.emit(color);
+
+          @Output() saveColors: EventEmitter<any> = new EventEmitter();
+          saveColorsFunc(colorArray){
+            console.log('toolbarButtons selectedColor',colorArray)
+            this.saveColors.emit(colorArray);
           }
+
           toggleEditMode(){
              this.editMode = !this.editMode;
              this.editModeChange.emit(this.editMode);
@@ -73,4 +94,8 @@ export class toolbarButtonsComponent {
           loadExamples(){
 
           }
+
+          @Input() colorChanged;
+
+
 }

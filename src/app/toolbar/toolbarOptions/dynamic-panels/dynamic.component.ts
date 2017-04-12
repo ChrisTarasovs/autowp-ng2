@@ -1,8 +1,8 @@
 import {Component, Input, ViewContainerRef, ViewChild, ReflectiveInjector, ComponentFactoryResolver, SimpleChanges} from '@angular/core';
 
 
-import { HeadingComponent } from '../wysiwyg-panel/heading/heading.component';
-import { ColorSelectorComponent } from '../wysiwyg-panel/color-selector/color-selector.component';
+
+
 import {TypographyComponent} from '../wysiwyg-panel/typography/typography.component';
 
 import {LinksComponent} from '../wysiwyg-panel/links/links.component';
@@ -12,17 +12,19 @@ import { MediaComponent } from '../wysiwyg-panel/media/media.component';
 
 import { ExamplesComponent } from '../examples/examples.component';
 import {BuilderPanelComponent} from '../builder-panel/builder-panel.component';
-  
+import { ColorSelectorComponent } from '../wysiwyg-panel/color-selector/color-selector.component';
+import { HeadingComponent } from '../wysiwyg-panel/heading/heading.component';
 import { TextWidgetComponent } from '../builder-panel/text-widget/text-widget.component';
 
 import { DndComponent } from '../../../dnd/dnd.component';
+
 
 @Component({
   selector: 'dynamiccontent-component',
   entryComponents: [
 
 
-     HeadingComponent,
+    HeadingComponent,
      ColorSelectorComponent,
      TypographyComponent,
      MediaComponent,
@@ -36,28 +38,32 @@ import { DndComponent } from '../../../dnd/dnd.component';
   ], // Reference to the components must be here in order to dynamically create them
   template: `
     <div #dynamicComponentContainer  ></div>
+    {{dynamicData}}
   `
 })
 export class DynamicPanelComponent {
 
+
   @Input()
-  dynamicData: string;
+  dynamicData;
+
+
+
+  constructor(private resolver: ComponentFactoryResolver) {
+      console.log('log this shit',  this.dynamicData);
+  }
+
+
+
 
  newColor:string;
-
-  ngOnChanges(changes: SimpleChanges) {
-        // only run when property "data" changed
-        if (changes['dynamicData']) {
-            console.log('data is injected heeee',this.dynamicData)
-          this.newColor = this.dynamicData;
-           // this.groupPosts = this.colordata;
-             console.log('new color passed inside dynamic',this.dynamicData);
-        }
-    }
+ colordata: any;
 
 
-    //newColor:string;
-    //newColor = this.newColor;
+
+
+  //newColor:string;
+  //newColor = this.newColor;
   
 
   currentComponent = null;
@@ -66,19 +72,21 @@ export class DynamicPanelComponent {
  
   // component: Class for the component you want to create
   // inputs: An object with key/value pairs mapped to input name/input value
-  @Input() set componentData(data: {component: any, inputs: any}) {
-    console.log('data is' , data);
 
-    this.newColor ='00000';
-    
+
+  @Input() set componentData(data: {component: any, inputs: any}) {
+  //  console.log('data is' , data);
+
+    //this.newColor ='0002222';
+    //this.colordata= 'colordata';
 
     if (!data) {
       return;
     }
 
     // Inputs need to be in the following format to be resolved properly
-    //let inputProviders = Object.keys(data.inputs).map((inputName) => {return {provide: inputName, useValue: data.inputs[inputName]};});
-     let inputProviders = Object.keys(data.inputs).map((passDynamicData) => {return {provide: passDynamicData, useValue: this.newColor};});
+     let inputProviders = Object.keys(data.inputs).map((inputName) => {return {provide: inputName, useValue: data.inputs[inputName]};});
+   //  let inputProviders = Object.keys(data.inputs).map((inputName) => {return {provide: inputName, useValue: data.inputs[inputName]};});
    
      console.log('inputProviders load', inputProviders)
    
@@ -108,7 +116,5 @@ export class DynamicPanelComponent {
 
   
 
-  constructor(private resolver: ComponentFactoryResolver) {
-    
-  }
+
 }

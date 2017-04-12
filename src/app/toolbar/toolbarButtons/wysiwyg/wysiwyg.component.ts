@@ -13,6 +13,9 @@ import { ColorMenuComponent } from './widgets/color-menu/color-menu.component';
 import { MediaMenuComponent } from './widgets/media-menu/media-menu.component';
 import { TypographyMenuComponent } from './widgets/typography-menu/typography-menu.component';
 
+import {menuService} from '../../services/menu.service';
+
+import { BrowserModule } from '@angular/platform-browser';
 
    /*
 
@@ -53,63 +56,48 @@ if( false != button.componentMenuSelector){
   selector: 'wysiwyg',
   outputs: ['clickedBtn', 'clickedClrBtn'],
   /*template: makeTemplate()*/
-template:  ` 
-	 
-	        <li *ngFor="let button of buttons  | menuType:MainMenu">   
+  template:  ` 
 
-	               
-	                 <button type="button"  [title]="button.title" (click)="execCommand(button)"  >  
-	                   		<i class="fa {{ button.icon }}" aria-hidden="true" ></i>
-	                </button>
-	                <div class="btn-view" *ngIf=" 'buttontype' ==  button.componentMenuSelector ">
-	               	 YESSSS
-	                	{{button.componentMenuSelector}}
- 			 <!--<button.componentMenuSelector></button.componentMenuSelector>-->
-	                
-	                </div>
-	                <ul class="submenu">
-	                    <li *ngFor="let subitem of button.children ">
-	                        <div >
-     				
+	                <ul class="submenu" >
+	                    <li *ngFor="let button of buttons "  [ngClass]="(button.active == true ) ? 'activeBtn' : 'disabledBtn' ">
+	              
+	                        <div>
      				<button 
      					type="button" 
-		                        	[title]="buttons[subitem].title"  
-		                        	(click)="execCommand(buttons[subitem])">
-		                              <i class="fa  {{buttons[subitem].icon}}" aria-hidden="true" ></i>
+		                        	[title]="button.title"  
+		                        	(click)="execCommand(button,  $event)"
+		                        	>
+		                              <i class="fa  {{button.icon}}" aria-hidden="true" ></i>
 		                   	</button>
 	                        </div>  
 
-	                          <div class="btn-view"  *ngIf=" 'buttontype' ==  buttons[subitem].componentMenuSelector " >
-	                          	<buttontype></buttontype>
+			  <div class="btn-view"  *ngIf=" 'links-menu' ==  button.componentMenuSelector " >
+	                          	<links-menu [hidden]="!linkMenu"></links-menu>
 	                          </div>
-			  <div class="btn-view"  *ngIf=" 'links-menu' ==  buttons[subitem].componentMenuSelector " >
-	                          	<links-menu></links-menu>
+			  <div class="btn-view"  *ngIf=" 'color-menu' ==  button.componentMenuSelector " >
+	                          	<color-menu  (saveColors)="saveColorsFunc($event)" *ngIf="colorMenu"></color-menu>
 	                          </div>
-			  <div class="btn-view"  *ngIf=" 'color-menu' ==  buttons[subitem].componentMenuSelector " >
-	                          	<color-menu (clickedColor)="getColor($event)"></color-menu>
+			  <div class="btn-view"  *ngIf=" 'media-menu' ==  button.componentMenuSelector " >
+	                          	<media-menu *ngIf='createMedia'></media-menu>
 	                          </div>
-
-			
-			  <div class="btn-view"  *ngIf=" 'media-menu' ==  buttons[subitem].componentMenuSelector " >
-	                          	<media-menu></media-menu>
+	                          <div class="btn-view"  *ngIf=" 'buttontype' ==  button.componentMenuSelector " >
+	                          	<buttontype *ngIf='createButtons'></buttontype>
 	                          </div>
 	                          <!--
-			  <div class="btn-view"  *ngIf=" 'typography-menu' ==  buttons[subitem].componentMenuSelector " >
+			  <div class="btn-view"  *ngIf=" 'typography-menu' ==  button.componentMenuSelector " >
 	                          	<typography-menu></typography-menu>
 	                          </div>
 	                          -->
 	                    </li>
 	                   
 	                </ul>
-	        </li>
+	  
 	   
   `
   
 })
 
 export class wysiwygComponent {
-	buttons:  any  = WysiwygMenu;
-	editMode: boolean = false;
 
 	command:any
 	option: any
@@ -119,14 +107,68 @@ export class wysiwygComponent {
  	
  	@Output() commandExecuted: EventEmitter<any> = new EventEmitter();
 
-	execCommand(button){
-		//console.log('hello', button)
+
+ 	@Output () saveColors: EventEmitter<any> = new EventEmitter();
+ 	
+ 	
+ 	// Disable menu views
+	subMenu: boolean = false;
+	colorMenu: boolean = false;
+	linkMenu: boolean = false;
+	createMedia: boolean = false;
+	createButtons: boolean = false;
+	execCommand(button: any, $event ){
+		// enable the menu item
+		this._menuService.enableMenu(button, $event ); 
+		let selection = this._menuService.getSelected()  
+		if (button.command === 'wysiwygMenu') {
+		
+		} else if(button.command === 'color' ){
+			this.colorMenu = !this.colorMenu
+
+			this.linkMenu = false;
+			this.createMedia = false;
+			this.createButtons = false
+
+		}else if( button.command === 'createlink' && selection === ''){
+
+			this.linkMenu = !this.linkMenu
+
+			this.colorMenu = false;
+			this.createMedia = false;
+			this.createButtons = false;
+
+			//console.log('testin', this.linkMenu )
+			// document.execCommand('insertHtml', false, '<a href="' + options + '">' + options + '</a>');
+		}else if(button.command === 'createMedia' ){
+			this.createMedia = !this.createMedia
+
+			this.linkMenu = false;
+			this.colorMenu = false;
+			this.createButtons = false
+
+		}else if(button.command === 'createButtons'){
+			this.createButtons = !this.createButtons
+
+			this.linkMenu = false;
+			this.colorMenu = false;
+			this.createMedia = false
+
+		}else {
+		 	 document.execCommand(button.command, false, button.options);
+		}
+
+
 		
 
-		if (this.editMode) {
-		    alert('it is false');
-		  return false;
-		}
+
+		//console.log('hello', button)
+		// const tabs = this.button.children.toArray();
+
+
+
+
+		
 /*
 		if (command === 'createlink') {
 		  options = window.prompt('Please enter the URL', 'http://');
@@ -135,33 +177,25 @@ export class wysiwygComponent {
 		  }
 		}
 */
-		let selection = document.getSelection().toString();
-
-		console.warn(selection);
 		
-		if (button.command === 'createlink' && selection === '') {
-//		  document.execCommand('insertHtml', false, '<a href="' + options + '">' + options + '</a>');
-		}
-		else {
-		  document.execCommand(button.command, false, button.options);
-		}
+		
 		
 		this.clickedBtn.emit(button)
-		//this.commandExecuted.emit();
 	}	
-	getColor(color){
-	//	console.log('color event in wysiwyg is ', color)
-		this.clickedClrBtn.emit(color)
+	saveColorsFunc(colorArray){
+		//console.log('wysiwyg component logs color selectedColor ', colorArray)
+		this.saveColors.emit(colorArray)
 	}
 
-	onBlur() { // This function needs to be called out of layouts
-		this.buttons.forEach(x => x.active = false);
-	} 
-
-	constructor (){
-
-		//console.log('buttons lits' ,this.buttons);
-	}
+	onBlur() {} 
 	
+	constructor ( private _menuService: menuService, ){
+	}
+
+	// Set menu list
+	buttons: any = []
+	ngOnInit(){
+		this.buttons =  this._menuService.buttonlist; 
+	}
 
 }

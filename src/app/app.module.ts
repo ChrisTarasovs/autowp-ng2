@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, ApplicationRef } from '@angular/core';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule , FormBuilder, FormGroup} from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import {DndModule} from 'tarasov';
 
@@ -50,7 +50,7 @@ import { TypographyComponent } from './toolbar/toolbarOptions/wysiwyg-panel/typo
 import { MediaComponent } from './toolbar/toolbarOptions/wysiwyg-panel/media/media.component';
 import { ExamplesComponent } from './toolbar/toolbarOptions/examples/examples.component';
 import { TextWidgetComponent } from './toolbar/toolbarOptions/builder-panel/text-widget/text-widget.component';
-
+import {menuService} from './toolbar/services/menu.service';
 
 
 
@@ -97,10 +97,10 @@ import { TextWidgetComponent } from './toolbar/toolbarOptions/builder-panel/text
     HttpModule,
     ColorPickerModule,
     CommonModule,
-
+    ReactiveFormsModule,
     DndModule.forRoot()
   ],
-  providers: [],
+  providers: [menuService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

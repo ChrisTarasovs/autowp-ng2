@@ -13,7 +13,7 @@ export const  componentList = [
     {id : 1, component: HeadingComponent,inputs: { showNum: 9 }}, // H1
     {id : 2, component: ColorSelectorComponent,
         inputs: {
-         showNum: 9
+         showNum : 'colordata'
        } //[colordata]="newColor"
      }, // Color
     {id : 3, component: LinksComponent,inputs: { showNum: 0 }}, // links
