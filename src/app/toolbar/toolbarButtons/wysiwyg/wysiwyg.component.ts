@@ -4,18 +4,16 @@ import {
   Output,
   EventEmitter
 } from '@angular/core';
-import { MenuTypePipe } from '../../../pipes/menu-type.pipe';
-import  {WysiwygMenu} from './wysiwyg-menu';
+import { BrowserModule } from '@angular/platform-browser';
+
 import { ButtonTypeComponent  } from './widgets/buttonType-menu/button-type.component';
 import { LinksMenuComponent } from './widgets/links-menu/links-menu.component';
 import { ColorMenuComponent } from './widgets/color-menu/color-menu.component';
-
 import { MediaMenuComponent } from './widgets/media-menu/media-menu.component';
 import { TypographyMenuComponent } from './widgets/typography-menu/typography-menu.component';
-
 import {menuService} from '../../services/menu.service';
+import {widgetsService} from '../../services/widgets.service';
 
-import { BrowserModule } from '@angular/platform-browser';
 
    /*
 
@@ -59,7 +57,7 @@ if( false != button.componentMenuSelector){
   template:  ` 
 
 	                <ul class="submenu" >
-	                    <li *ngFor="let button of buttons "  [ngClass]="(button.active == true ) ? 'activeBtn' : 'disabledBtn' ">
+	                    <li *ngFor="let button of buttons "  [ngClass]="(button.active == true ) ? 'activeBtn' : 'disabledBtn' " style="width: 160px;">
 	              
 	                        <div>
      				<button 
@@ -98,6 +96,7 @@ if( false != button.componentMenuSelector){
 })
 
 export class wysiwygComponent {
+	constructor ( private _menuService: menuService,private _widgetsService: widgetsService){}
 
 	command:any
 	option: any
@@ -105,7 +104,7 @@ export class wysiwygComponent {
 	clickedBtn: EventEmitter<any> = new EventEmitter();
 	clickedClrBtn: EventEmitter<any> = new EventEmitter();
  	
- 	@Output() commandExecuted: EventEmitter<any> = new EventEmitter();
+ 	//@Output() commandExecuted: EventEmitter<any> = new EventEmitter();
 
 
  	@Output () saveColors: EventEmitter<any> = new EventEmitter();
@@ -118,9 +117,13 @@ export class wysiwygComponent {
 	createMedia: boolean = false;
 	createButtons: boolean = false;
 	execCommand(button: any, $event ){
+		console.log('button data', button)
 		// enable the menu item
 		this._menuService.enableMenu(button, $event ); 
-		let selection = this._menuService.getSelected()  
+		
+		// Decorate HTML
+		this._menuService.decorateHtml();
+
 		if (button.command === 'wysiwygMenu') {
 		
 		} else if(button.command === 'color' ){
@@ -130,7 +133,7 @@ export class wysiwygComponent {
 			this.createMedia = false;
 			this.createButtons = false
 
-		}else if( button.command === 'createlink' && selection === ''){
+		}else if( button.command === 'createlink' && this._menuService.getSelected()  === ''){
 
 			this.linkMenu = !this.linkMenu
 
@@ -158,6 +161,7 @@ export class wysiwygComponent {
 		 	 document.execCommand(button.command, false, button.options);
 		}
 
+		this._widgetsService.loadWidget(button);
 
 		
 
@@ -180,8 +184,10 @@ export class wysiwygComponent {
 		
 		
 		
-		this.clickedBtn.emit(button)
-	}	
+		//this.clickedBtn.emit(button)
+	}
+	
+
 	saveColorsFunc(colorArray){
 		//console.log('wysiwyg component logs color selectedColor ', colorArray)
 		this.saveColors.emit(colorArray)
@@ -189,8 +195,7 @@ export class wysiwygComponent {
 
 	onBlur() {} 
 	
-	constructor ( private _menuService: menuService, ){
-	}
+	
 
 	// Set menu list
 	buttons: any = []

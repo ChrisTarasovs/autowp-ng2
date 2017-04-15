@@ -31,8 +31,10 @@ export interface ToolbarButton {
   template:
  ` 
  <toolbar  (commandExecuted)="onCommandExecuted()"></toolbar>
+ 
   <layout></layout>
-  <editor ></editor>
+  
+
  `
   ,
   styleUrls: ['./app.component.css']

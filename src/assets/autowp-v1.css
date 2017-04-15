@@ -57,12 +57,12 @@ padding: 0px;
 .buttonlist {
     display: block;
 }
-.buttonlist li { display: inline-block;width: 26px; }
-.buttonlist .filled{
+.buttonlist li { display: inline-block;width: 26px; height: 12px; }
+.buttonlist.filled li{
     background-color: #fff;
     border: solid 1px;
 }
-.buttonlist .bordered{
+.buttonlist.bordered li{
     background-color: transparent;
     border: solid 1px;
 }

@@ -9,6 +9,9 @@ import { TextComponent } from './text/text.component';
   //directives : [TextComponent]
 })
 export class DndComponent  {
+
+dragstarted(ev){ console.log('started', ev)}
+
    // dragOperation: Boolean = false;
     widgets: Array<any> = [];
   //  containers: Array<any> = [];
@@ -20,7 +23,8 @@ export class DndComponent  {
     
     this.widgets.push(new Widget('Text a'));
      this.widgets.push(new Widget('Text b'));
-    console.log(this.widgets);
+     console.log('new widget', new Widget('Text a'))
+    console.log('this is an arrray of widgets', this.widgets);
    }
    
 

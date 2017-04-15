@@ -11,6 +11,7 @@ import { TextComponent } from './dnd/text/text.component';
 
 
 import * as _ from "lodash";
+import * as moment from "moment";
 
 import { EditorModule } from './editor/editor.module';
 
@@ -50,9 +51,22 @@ import { TypographyComponent } from './toolbar/toolbarOptions/wysiwyg-panel/typo
 import { MediaComponent } from './toolbar/toolbarOptions/wysiwyg-panel/media/media.component';
 import { ExamplesComponent } from './toolbar/toolbarOptions/examples/examples.component';
 import { TextWidgetComponent } from './toolbar/toolbarOptions/builder-panel/text-widget/text-widget.component';
+import { ButtonTypeWidgetComponent } from './toolbar/toolbarOptions/wysiwyg-panel/button-type/button-type-widget.component';
+import { VideoComponent } from './toolbar/toolbarOptions/video-panel/video.component';
+import {VideoItemComponent} from  './toolbar/toolbarOptions/video-panel/video-item/video-item.component';
+import {videoSearchBoxComponent} from  './toolbar/toolbarButtons/videoSearch/videoSearch.component';
+
+import {SectionsComponent} from './sections/sections.component';
+
 import {menuService} from './toolbar/services/menu.service';
+import {widgetsService} from './toolbar/services/widgets.service';
+import {videoService} from './toolbar/services/video.service';
+import {AppState} from './toolbar/services/app-state.service';
+import { YoutubeSafeUrlPipe } from './pipes/youtube-safe-url.pipe';
 
 
+//import {Ng2PaginationModule} from 'ng2-pagination';
+import {NgxPaginationModule} from 'ngx-pagination'; 
 
 @NgModule({
   declarations: [
@@ -86,7 +100,13 @@ import {menuService} from './toolbar/services/menu.service';
       TypographyComponent,
       MediaComponent,
       ExamplesComponent,
-      TextWidgetComponent
+      TextWidgetComponent,
+      ButtonTypeWidgetComponent,
+      videoSearchBoxComponent,
+      VideoComponent,VideoItemComponent,
+       
+      SectionsComponent,
+      YoutubeSafeUrlPipe
 
   ],
   imports: [
@@ -98,9 +118,10 @@ import {menuService} from './toolbar/services/menu.service';
     ColorPickerModule,
     CommonModule,
     ReactiveFormsModule,
+    NgxPaginationModule,
     DndModule.forRoot()
   ],
-  providers: [menuService],
+  providers: [menuService,widgetsService, videoService, AppState],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

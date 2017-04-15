@@ -1,29 +1,23 @@
 import {Component, Input, ViewContainerRef, ViewChild, ReflectiveInjector, ComponentFactoryResolver, SimpleChanges} from '@angular/core';
-
-
-
-
 import {TypographyComponent} from '../wysiwyg-panel/typography/typography.component';
-
 import {LinksComponent} from '../wysiwyg-panel/links/links.component';
 import { ImagePanelComponent } from '../image-panel/image-panel.component';
 import { MediaComponent } from '../wysiwyg-panel/media/media.component';
-
-
 import { ExamplesComponent } from '../examples/examples.component';
 import {BuilderPanelComponent} from '../builder-panel/builder-panel.component';
 import { ColorSelectorComponent } from '../wysiwyg-panel/color-selector/color-selector.component';
 import { HeadingComponent } from '../wysiwyg-panel/heading/heading.component';
 import { TextWidgetComponent } from '../builder-panel/text-widget/text-widget.component';
-
+import {  ButtonTypeWidgetComponent} from '../wysiwyg-panel/button-type/button-type-widget.component'
 import { DndComponent } from '../../../dnd/dnd.component';
+import {VideoComponent} from '../video-panel/video.component';
+
+import {SectionsComponent} from '../../../sections/sections.component';
 
 
 @Component({
   selector: 'dynamiccontent-component',
   entryComponents: [
-
-
     HeadingComponent,
      ColorSelectorComponent,
      TypographyComponent,
@@ -33,7 +27,10 @@ import { DndComponent } from '../../../dnd/dnd.component';
      ExamplesComponent,
      BuilderPanelComponent,
      DndComponent,
-     TextWidgetComponent
+     TextWidgetComponent,
+     ButtonTypeWidgetComponent,
+     VideoComponent,
+     SectionsComponent
 
   ], // Reference to the components must be here in order to dynamically create them
   template: `

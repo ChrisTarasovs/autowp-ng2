@@ -1,12 +1,12 @@
 
 <form [formGroup]="colorsForm" class="form-inline" (ngSubmit)="onSubmit()">
-   	 <input type="text" class="form-control" id="colorHex" formControlName="colorHex" placeholder="#fff">
+   	 <input type="text" class="form-control"  formControlName="colorHex" placeholder="#fff" [value]="currentColor" 
+   	 (ngModelChange) = "currentColor = $event"
+
+   	 >
     <button type="submit" class="btn btn-default">Submit</button>
 </form>
-<div class="color-picker-wrapper">
-     <input type="text" [(ngModel)]="colorValue"   (ngModelChange)="colorValueChange($event)" #colorInput/>
-     <button (click)="saveColor(colorInput.value)" class="confirm">Confirm</button>
-</div>
+
 
 
 

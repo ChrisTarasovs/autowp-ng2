@@ -6,6 +6,8 @@ import {
 } from '@angular/core';
 
 import {wysiwygComponent} from './wysiwyg/wysiwyg.component';
+import {widgetsService} from '../services/widgets.service'
+import {menuService} from '../services/menu.service'
 
 
 @Component({
@@ -15,44 +17,44 @@ import {wysiwygComponent} from './wysiwyg/wysiwyg.component';
   	<ul  class="toolbarButtons">
             <li>
                 <button (click)="enableEditMode()"><i class="fa fa-pencil"></i></button>
-                <wysiwyg  (clickedBtn)="getCommand($event)" (saveColors)="saveColorsFunc($event)" [ngClass]="(enableEdit == true ) ? 'activeSubMenu' : 'disabledSubMenu' "></wysiwyg>
+                <wysiwyg  (saveColors)="saveColorsFunc($event)" [ngClass]="(enableEdit == true ) ? 'activeSubMenu' : 'disabledSubMenu' "></wysiwyg>
             </li>
-            <li>
+               <li style="width: 200px !important;">
+                <button type="button"  (click)="loadwidgetpanel('VideoComponent')">Video</button>
+                <div class="btn-view" *ngIf='videoSearchBox'>
+                      <video-search-box></video-search-box>
+                </div>
+            </li>
+            <li style="width: 200px !important;">
                 <button (click)="toggleEditMode()">HTML</button>
             </li>
-            <li class="tempSettings">
-                <button type="button"  (click)="loadwidgetpanel('2222')">
-                <i class="fa fa-sliders"></i> Settings</button>
+            <li style="width: 200px !important;">
+                <button type="button"  (click)="loadwidgetpanel('SectionsComponent')">
+                Settings</button>
             </li>
-            <li>
-                <button type="button"  (click)="loadwidgetpanel(6)">Examples</button>
+             <li style="width: 200px !important;">
+                <button type="button"  (click)="loadwidgetpanel('ExamplesComponent')">Examples</button>
             </li>
-            <li>
-                <button type="button"  (click)="loadButtonTypes()">Button types</button>
-                <div class="btn-view">
+             <li style="width: 200px !important;">
+                <button type="button"  (click)="loadwidgetpanel('ButtonTypeWidgetComponent')">Button types</button>
+                <div class="btn-view" *ngIf='buttonstypes'>
                       <buttontype></buttontype>
                 </div>
             </li>
+          
   		<image></image>
             <li>
-                <button type="button"  (click)="loadwidgetpanel(8)">Builder</button>
+                <button type="button"  (click)="loadwidgetpanel('DndComponent')">Builder</button>
             </li>
   	</ul>
   `
 })
 
 export class toolbarButtonsComponent {
-          
+           constructor(private _widgetsService: widgetsService, private _menuService: menuService) {}
        
-          //Enable edit mode
-          enableEdit: boolean = false;
-          enableEditMode(){
-             this.enableEdit = !this.enableEdit;
-             if (this.editMode) {
-                  alert('it is false');
-                  return false;
-              }
-         }
+         
+
 
 
           clickedBtn: EventEmitter<any> = new EventEmitter();
@@ -66,36 +68,49 @@ export class toolbarButtonsComponent {
 
 
 
-          getCommand(evt){
-              console.log('toolbar buttons events registered', evt.command, evt.options);
-              this.clickedBtn.emit(evt);
-          }
 
-          @Output() saveColors: EventEmitter<any> = new EventEmitter();
-          saveColorsFunc(colorArray){
-            console.log('toolbarButtons selectedColor',colorArray)
-            this.saveColors.emit(colorArray);
-          }
 
           toggleEditMode(){
              this.editMode = !this.editMode;
              this.editModeChange.emit(this.editMode);
              console.log('event is toggle mode');
           }
-          loadButtonTypes(){
 
-          }
 
-          loadwidgetpanel(widgetID){
+           //Enable edit mode
+          enableEdit: boolean = false;
+         
+          enableEditMode(){
+            this.videoSearchBox = false;
+             this.enableEdit = !this.enableEdit;
+             if (this.editMode) {
+                  alert('it is false');
+                  return false;
+              }
+         }
+
+
+          //Top level Menu buttons
+         buttonstypes:boolean = false;
+         videoSearchBox:boolean = false;
+         
+         loadwidgetpanel(widgetID){
+          
+                if(widgetID == 'ButtonTypeWidgetComponent'){
+                     this.buttonstypes = !this.buttonstypes;
+                }else if(widgetID == 'VideoComponent'){
+                    this.videoSearchBox = !this.videoSearchBox;
+                }else if (widgetID == 'ExamplesComponent'){
+
+                }
+
+
+                this._widgetsService.loadWidget(widgetID);
                 console.log('in toolbarButtons ID', widgetID);
-               this.loadWidget.emit(widgetID);
-          }
-
-          loadExamples(){
 
           }
 
-          @Input() colorChanged;
+
 
 
 }

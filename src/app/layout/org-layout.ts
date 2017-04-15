@@ -39,57 +39,8 @@ export const EDITOR_VALUE_ACCESSOR = {
 
 
 
-	{{ content }}
-	<Br />
-
-	<div class="wysiwyg-editor__container">
-	ddddd
-	  <div class="wysiwyg-editor__src-container" *ngIf="!editMode">
-	    <textarea [value]="content" class="wysiwyg-editor__src"></textarea>
-	  </div>
-	  adsasdasd
-	  <div class="wysiwyg-editor__content" #editor contenteditable *ngIf="!editMode"
-	      (keyup)="onContentChanged()"
-	      (change)="onContentChanged()"
-	    
-	  ></div>
-	  <!-- ORGIN
-	  <div class="wysiwyg-editor__content" #editor contenteditable *ngIf="!editMode"
-	      (keyup)="onContentChanged()"
-	      (change)="onContentChanged()"
-	      (blur)="onBlur()"
-	  ></div> -->
-	  asdas
-	</div>
-
-
-
-
-
-<div id="masterLayout" style="height: 200px;width: 100%;background-color: #dedede"
-
-
-dnd-droppable
-
- [dropZones]="['canvas-dropZone']"
-
-(onDropSuccess)="chicken($event)"
- (onDragEnter)="chicken($event)"
-
->
-<div *ngIf="containers?.length > 3">
-	<div *ngFor="let container of containers" >
-	xxxx
-	</div>
-</div>
-
-
-
-
-</div>
-
 empty
-<div >{{containers | json}}</div>
+<div *ngFor="let data of receivedData">{{data | json}}</div>
 empty
 <Br style="clear:both;" />
 	<div class="panel panel-success">
@@ -104,34 +55,22 @@ empty
 		             (onDragSuccess)="onMouseUp($event)"
 
 		             (onDragEnter)="onDragEnter(widget, $event)"
-
 		             class="item-container-wrapper"
-
 		             >
 			          <div class="panel-heading">
 			               Menu items for the ROW ( ID:  {{container.id}}, Drag operation : {{dragOperation}} )<a (mousedown)="onMouseDown()">move</a>
 			          </div>
 		            	
 		            	<!-- Block  column-->
-			           <div dnd-sortable-container 
-			           	      [sortableData]="container.widgets" 
-			           	      [dropZones]="['widget-dropZone']" 
-			           	      class="item-container"
-				      (onDropSuccess)="onDropSuccess(widget, $event,  'row')" 
-
-			           	  >
+			           <div dnd-sortable-container [sortableData]="container.widgets" [dropZones]="['widget-dropZone']" class="item-container">
 					               
 					               <!-- Block -->
 					                <div *ngFor="let widget of container.widgets; let j = index" 
 					                     class="item-column list-group-item " 
 					                     dnd-sortable [sortableIndex]="j" 
 					                     [dragEnabled]="!dragOperation" 
-
-
 					                     (onDragEnter)="onDragEnter(widget, $event)" 
-					                     (onDropSuccess)="onDropSuccess(widget, $event, 'block')" 
-
-
+					                     (onDropSuccess)="onDropSuccess(widget, $event)" 
 					                     (dblclick)="eventEmitDoubleClick(widget, container.widgets)"
 						         contenteditable="true"
 					                     >
@@ -244,34 +183,19 @@ export class LayoutComponent  implements OnInit, ControlValueAccessor {
                     this.containers.push([ item.dragData]);
                 }
          }
-         onDropSuccess(widget: any, event: any, objecType: string) {
-         	console.log('dropped on ', objecType)
-         	if( objecType == 'row'){
-         		console.log('dropped on', objecType)
-         	}
-         	else if(objecType == 'block'){
-         		console.log('dropped on ', objecType)
-         	}
+         onDropSuccess(widget: any, event: any) {
             this.dragOperation = false;
-            console.log('onDropSuccess x', widget, event);
-
-            console.log('containers', this.containers)
+            console.log('onDropSuccess', widget, event);
          }
          
          onDragStart(widget: any, event: any) {
             console.log('onDragStart', widget, event);
          }
-        
+         
          onDragEnter(widget: any, event: any) {
             console.log('onDragEnter', widget, event);
-            console.log('drag enter containers', this.containers)
          }
-
-           chicken(event) {
-            console.log('onDragEnter chicken', event);
          
-         }
-
          onDragSuccess(widget: any, event: any) {
             console.log('onDragSuccess', widget, event);
          }

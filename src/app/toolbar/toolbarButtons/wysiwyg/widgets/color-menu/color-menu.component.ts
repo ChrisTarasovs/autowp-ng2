@@ -15,7 +15,7 @@ export class ColorMenuComponent  implements OnChanges{
 
    colorsForm: FormGroup;
    colorHex: any = '';
-
+   currentColor: string;
 
    constructor(private fb: FormBuilder, private _sharedService: SharedColorService) {
        this.createForm();
@@ -26,8 +26,17 @@ export class ColorMenuComponent  implements OnChanges{
                         colorHex: data
                     });
             });
+         
+
+      this._sharedService.lastSelectColor$.subscribe(
+        data => {
+          this.currentColor = data; 
+        });
 
    }
+
+
+
    createForm() {
         this.colorsForm = this.fb.group({
             colorHex: ''
@@ -40,9 +49,14 @@ export class ColorMenuComponent  implements OnChanges{
    onSubmit(): void {
         // console.log('Sibling1Component-received from sibling2: ' + this._sharedService.subscribeData());
         console.log('Form submitted-sibling1Form');
-        let colorHex = this.colorsForm.get('colorHex').value;
-        this._sharedService.publishData(colorHex);
+        //let colorHex = this.colorsForm.get('colorHex').value;
+
+        // adding new data to string
+        this._sharedService.publishData(this.currentColor);
+
     }
+   
+
 
 
   // Set default value

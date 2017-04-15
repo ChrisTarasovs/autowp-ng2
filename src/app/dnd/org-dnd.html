@@ -6,12 +6,12 @@
   </div>
   <div class="panel-body" 
        dnd-sortable-container 
-      
-       [dropZones]="['widget-dropZone', 'canvas-dropZone']"
+       [dropZones]="['widget-dropZone']"
+       [dropZones]="['widget-dropZone', 'zone2']"
        [sortableData]="widgets">
        
           <!--  <div *ngFor="let widget of widgets; let i = index"  class="list-group-item"  dnd-sortable [sortableIndex]="i"  >-->
-           <div *ngFor="let widget of widgets; let i = index"  class="list-group-item"  dnd-sortable [sortableIndex]="i"  (onDragStart)="dragstarted(event)">
+           <div *ngFor="let widget of widgets; let i = index"  class="list-group-item"  dnd-sortable [sortableIndex]="i"  >
 
                         {{widget.name}}
                                   
