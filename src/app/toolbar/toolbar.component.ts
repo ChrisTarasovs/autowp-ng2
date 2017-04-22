@@ -18,6 +18,7 @@ import {componentList} from './toolbarOptions/components-list';
 
 import {DynamicPanelComponent} from './toolbarOptions/dynamic-panels/dynamic.component';
 
+import { Font, GoogleFonts, GoogleFontInterface  } from './toolbarOptions/wysiwyg-panel/typography/typograpy-interfaces';
 
 
 //import * as _ from "lodash";
@@ -51,7 +52,7 @@ export const EDITOR_VALUE_ACCESSOR = {
   selector: 'toolbar',
 
   template:  ` 
-  	<toolbar-buttons  [radomData]="radomData"        
+  	<toolbar-buttons      
       [(editMode)]="editMode"   
 
       (clickedBtn)="getMenuCommand($event)" 
@@ -170,9 +171,6 @@ export class toolbarComponent {
         
 
        }
-      @Output() colors: string[] = ['#ZZZ'];
-       // Save new color
-     
 
 
     
@@ -183,43 +181,14 @@ export class toolbarComponent {
 
   //  this.buttons.forEach(x => x.active = tags.indexOf(x.tag.toUpperCase()) > - 1); 
 
-
-          //this.clickedBtn.emit(evt);
-    //  componentData = null;
-    //  menuComponentData = null;
-    
-    //  components:any = componentList;
-
-
-          console.log('button list is' , this.buttons);
-          console.log('toolbar  events registered', evt.command, evt.options);
-          console.log('this component is', this.components);
-          console.log('this event component ID', evt.componentID);
-          this.componentData = _.find(this.components,{id:evt.componentID});
+      this.componentData = _.find(this.components,{id:evt.componentID});
           this.commandExecuted.emit() // Giving it a command to launch for changes in the text
        
-      
-
-     
-      newColor: string;
 
       @Output() commandExecuted: EventEmitter<any> = new EventEmitter();
       dynamicData: any;
-      radomData:any;
+  
 
-      getColor(selectedColor){
-        this.radomData = selectedColor;
-            this.newColor = selectedColor;
-            this.dynamicData = selectedColor;
-      	//console.log('color event in toolbar main is ', color)
-            console.log('toolbar selectedColor', this.newColor);
-      }
-
-      loadwidgetpanel(widgetID){
-         // console.log('widget id', widgetID);
-           //console.log('this components', this.components);
-           this.componentData = _.find(this.components,{id: widgetID} );
-      }
 */
 
 }

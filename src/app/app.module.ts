@@ -12,6 +12,9 @@ import { TextComponent } from './dnd/text/text.component';
 
 import * as _ from "lodash";
 import * as moment from "moment";
+import * as WebFont from 'webfontloader';
+//import {WebFont } from 'webfontloader';
+
 
 import { EditorModule } from './editor/editor.module';
 
@@ -39,6 +42,8 @@ import { ColorMenuComponent } from './toolbar/toolbarButtons/wysiwyg/widgets/col
 import { MediaMenuComponent } from './toolbar/toolbarButtons/wysiwyg/widgets/media-menu/media-menu.component';
 import { TypographyMenuComponent } from './toolbar/toolbarButtons/wysiwyg/widgets/typography-menu/typography-menu.component';
 import { MenuTypePipe } from './pipes/menu-type.pipe';
+import { FontSizePipe, FontStylesPipe, StatefulSlicePipe } from './pipes/typography.pipe';
+
 
 import { HeadingComponent } from './toolbar/toolbarOptions/wysiwyg-panel/heading/heading.component';
 import { ImagePanelComponent } from './toolbar/toolbarOptions/image-panel/image-panel.component';
@@ -61,12 +66,17 @@ import {SectionsComponent} from './sections/sections.component';
 import {menuService} from './toolbar/services/menu.service';
 import {widgetsService} from './toolbar/services/widgets.service';
 import {videoService} from './toolbar/services/video.service';
+
+
 import {AppState} from './toolbar/services/app-state.service';
 import { YoutubeSafeUrlPipe } from './pipes/youtube-safe-url.pipe';
-
-
-//import {Ng2PaginationModule} from 'ng2-pagination';
 import {NgxPaginationModule} from 'ngx-pagination'; 
+
+
+import {fontsService} from './toolbar/services/fonts.service';
+
+//import { Font } from './toolbar/toolbarOptions/wysiwyg-panel/typography/typograpy-interfaces';
+
 
 @NgModule({
   declarations: [
@@ -106,7 +116,9 @@ import {NgxPaginationModule} from 'ngx-pagination';
       VideoComponent,VideoItemComponent,
        
       SectionsComponent,
-      YoutubeSafeUrlPipe
+      YoutubeSafeUrlPipe,
+
+      FontSizePipe, FontStylesPipe, StatefulSlicePipe 
 
   ],
   imports: [
@@ -119,9 +131,14 @@ import {NgxPaginationModule} from 'ngx-pagination';
     CommonModule,
     ReactiveFormsModule,
     NgxPaginationModule,
+   // WebFont,
     DndModule.forRoot()
   ],
-  providers: [menuService,widgetsService, videoService, AppState],
+  providers: [menuService,widgetsService, videoService, AppState, 
+ fontsService
+ //Font, 
+  //, GoogleFonts, GoogleFontInterface 
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

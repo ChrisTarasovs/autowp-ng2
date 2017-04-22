@@ -53,10 +53,6 @@ import {menuService} from '../services/menu.service'
 export class toolbarButtonsComponent {
            constructor(private _widgetsService: widgetsService, private _menuService: menuService) {}
        
-         
-
-
-
           clickedBtn: EventEmitter<any> = new EventEmitter();
           clickedSetBtn: EventEmitter<any> = new EventEmitter();
           loadWidget: EventEmitter<any> = new EventEmitter();
@@ -64,10 +60,7 @@ export class toolbarButtonsComponent {
            @Input() editMode: boolean;
            @Output() editModeChange: EventEmitter<boolean> = new EventEmitter();
          
-           @Input() radomData;
-
-
-
+      
 
 
           toggleEditMode(){
