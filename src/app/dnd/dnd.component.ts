@@ -5,6 +5,7 @@ import { TextComponent } from './text/text.component';
 @Component({
   selector: 'builder',
   templateUrl: './dnd.component.html',
+  //template: ` zzz`,
   styleUrls: ['./dnd.component.css']
   //directives : [TextComponent]
 })

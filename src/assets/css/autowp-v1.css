@@ -1,0 +1,84 @@
+ul, li { 
+padding: 0px; 
+}
+.toolbarButtons{ background-color: #444; border: solid 1px #dedede; display: inline-block;}
+.toolbarButtons wysiwyg > li { }
+.toolbarButtons image > li { }
+.toolbarButtons builder > li { }
+
+.toolbarButtons button{
+    background: transparent;
+    border: solid 0px;
+}
+
+.toolbarButtons li{
+    height: 26px;
+    vertical-align: top;
+    word-spacing: normal;
+    /* padding: 4px; */
+    display: inline-block;
+    text-decoration: none;
+    color: #fff;
+}
+.toolbarButtons li>button{
+    height: 26px;
+    width: 26px;
+    line-height: 26px;
+    vertical-align: middle;
+    text-align: center;
+    display: block;
+    color: white;
+}
+
+
+.submenu{
+    position: relative;
+    top: -26px;
+    left: 26px;
+    opacity: 1;
+    width: auto;
+    overflow: hidden;
+}
+
+.btn-view{
+    position: relative;
+    top: -26px;
+    left: 26px;
+    opacity: 1;
+    width: auto;
+    overflow: hidden;
+        margin-right: 26px;
+        background-color: red;
+}
+.btn-view input{
+    color: #000;
+}
+
+/*Button type style*/
+.buttonlist {
+    display: block;
+}
+.buttonlist li { display: inline-block;width: 26px; height: 12px; }
+.buttonlist.filled li{
+    background-color: #fff;
+    border: solid 1px;
+}
+.buttonlist.bordered li{
+    background-color: transparent;
+    border: solid 1px;
+}
+.buttonlist .rd{
+    border-radius: 15px;
+}
+.buttonlist .smooth{
+    border-radius: 8px;
+}
+.buttonlist .sq{
+    border-radius: 0px;
+}
+
+/*tempSettings*/
+.tempSettings{ width: 100px; }
+.activeSubMenu    {display:block;}
+.disabledSubMenu {display:none;}
+li.activeBtn { background-color: red; }

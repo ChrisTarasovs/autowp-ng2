@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { videoService} from '../../services/video.service';
-import { AppState } from '../../services/app-state.service';
+import { videoState } from '../../services/videoState.service';
 import { Video } from "../../toolbarOptions/video-panel/video.model";
 import * as moment from "moment";
 
@@ -33,12 +33,12 @@ import * as moment from "moment";
 })
 export class videoSearchBoxComponent{
 
-  constructor(private _videoService: videoService, private _appState: AppState) {}
+  constructor(private _videoService: videoService, private _videoState: videoState) {}
 
   search(query: string) {
     this._videoService.fetchVideos(query)
       .subscribe(data => {
-        this._appState.videoList = data.items.map(item => {
+        this._videoState.videoList = data.items.map(item => {
           return new Video(
             item.id.videoId,
             item.snippet.title,

@@ -64,7 +64,8 @@ export const EDITOR_VALUE_ACCESSOR = {
 
 
 
-
+<div >{{containers | json}}</div>
+empty
 
 <div id="masterLayout" style="height: 200px;width: 100%;background-color: #dedede"
 
@@ -85,12 +86,6 @@ dnd-droppable
 
 
 
-
-</div>
-
-empty
-<div >{{containers | json}}</div>
-empty
 <Br style="clear:both;" />
 	<div class="panel panel-success">
 	  	  <!-- Block  containers -->
@@ -100,11 +95,8 @@ empty
 		        <div *ngFor="let container of containers; let i = index" 
 		             dnd-sortable [sortableIndex]="i" 
 		             [dragEnabled]="dragOperation" 
-		             
 		             (onDragSuccess)="onMouseUp($event)"
-
 		             (onDragEnter)="onDragEnter(widget, $event)"
-
 		             class="item-container-wrapper"
 
 		             >
@@ -149,6 +141,8 @@ empty
 
 		  </div>	
 	</div>
+-->
+
 
 <style>
     /* Color to identify */

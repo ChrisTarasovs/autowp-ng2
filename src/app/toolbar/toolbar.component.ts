@@ -11,6 +11,8 @@ import {
   EventEmitter,
   Renderer } from '@angular/core';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
+import { AppState } from '../app.service';
+
 
 import { toolbarButtonsComponent } from './toolbarButtons/toolbarButtons.component';
 import {WysiwygMenu} from './toolbarButtons/wysiwyg/wysiwyg-menu';
@@ -30,9 +32,8 @@ import 'rxjs/add/observable/fromEvent';
 import 'rxjs/add/operator/debounceTime';
 
 import {SharedColorService} from './services/shared.service'
-
+import {videoState} from './services/videoState.service'
 import {widgetsService} from './services/widgets.service'
-import {AppState} from './services/app-state.service'
 
 // Componets
 //import { HeadingComponent } from './toolbarOptions/wysiwyg-panel/heading/heading.component';
@@ -64,17 +65,13 @@ export const EDITOR_VALUE_ACCESSOR = {
        (saveColors)="saveColorsFunc($event)"
 
       ></toolbar-buttons>
-
- 
-
-  	<dynamiccontent-component [componentData]="componentData" (widgetData)="getWidgetData($event)"></dynamiccontent-component>
-    
-     <div class="embed-container" *ngIf="_appState.activeVideo?.videoId != null">
+     <dynamiccontent-component [componentData]="componentData" (widgetData)="getWidgetData($event)"></dynamiccontent-component>
+     <div class="embed-container" *ngIf="_videoState.activeVideo?.videoId != null">
         <iframe width="560"
                 height="315"
                 frameborder="0"
                 allowfullscreen
-                [src]="_appState.activeVideo?.videoId | youtubeSafeUrl">
+                [src]="_videoState.activeVideo?.videoId | youtubeSafeUrl">
         </iframe>
       </div>
 
@@ -88,7 +85,7 @@ export const EDITOR_VALUE_ACCESSOR = {
 
 export class toolbarComponent {
       newWidget:any;
-      constructor(private _widgetsService: widgetsService, private _appState: AppState) {
+      constructor(public appState: AppState, private _widgetsService: widgetsService, private _videoState: videoState) {
 
             this._widgetsService.newWidget$.subscribe(
               data => {

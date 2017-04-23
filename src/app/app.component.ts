@@ -1,48 +1,68 @@
-import { 
-  Component,
+/*
+ * Angular 2 decorators and services
+ */
+import {
+   Component,
   Input,
   OnInit,
   OnChanges,
- ElementRef,
+  ElementRef,
   ViewChild,
   forwardRef,
- SimpleChanges,
+  SimpleChanges,
   Output,
   EventEmitter,
-  Renderer
+  Renderer,
+  ViewEncapsulation
 } from '@angular/core';
-
-import { toolbarComponent } from './toolbar/toolbar.component';
-import { LayoutComponent } from './layout/layout.component';
-
+import { AppState } from './app.service';
 
 /*
-export interface ToolbarButton {
-  title: string;
-  command: string;
-  tag: string;
-  options?: any;
-  active?: boolean;
-}
-*/
-
+ * App Component
+ * Top Level Component
+ */
 @Component({
-  selector: 'app-root',
-  template:
- ` 
- <toolbar  (commandExecuted)="onCommandExecuted()"></toolbar>
- 
-  <layout></layout>
-  
+  selector: 'app',
+  encapsulation: ViewEncapsulation.None,
+  styleUrls: [
+    './app.component.css'
+  ],
+  template: `
 
- `
-  ,
-  styleUrls: ['./app.component.css']
- 
+   <toolbar  (commandExecuted)="onCommandExecuted()"></toolbar>
+   <layout></layout>
+
+<!--  
+  asdasdas
+
+    <nav>
+      <a [routerLink]=" ['./'] "
+        routerLinkActive="active" [routerLinkActiveOptions]= "{exact: true}">
+        Index
+      </a>
+      <a [routerLink]=" ['./home'] "
+        routerLinkActive="active" [routerLinkActiveOptions]= "{exact: true}">
+        Home
+      </a>  
+    </nav>
+
+
+    <main>
+      <router-outlet></router-outlet>
+    </main>
+-->
+
+
+
+  `
 })
+export class AppComponent implements OnInit {
+  constructor(
+     public appState: AppState
+  ) {}
 
-export class AppComponent {
-    onCommandExecuted(){
-    }
- 
+  public ngOnInit() {
+   // console.log('Initial App State', this.appState.state);
+  }
+
 }

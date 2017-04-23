@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 import {Http} from "@angular/http";
 import { Subject }    from 'rxjs/Subject';
-import {AppState} from "./app-state.service";
+import {videoState} from "./videoState.service";
 
 import 'rxjs/add/operator/map';
 
 @Injectable()
 export class videoService {
-	  constructor(private http: Http, private appState: AppState) {}
+	  constructor(private http: Http, private _videoState: videoState) {}
 
 	  fetchVideos(query: string) {
 	  // https://www.googleapis.com/youtube/v3/search?part=snippet&q=%27movie%27&maxResults=50&type=video&key=AIzaSyCVYzrBm1lzl9iZtNArxlwRym1LnUdQpPs

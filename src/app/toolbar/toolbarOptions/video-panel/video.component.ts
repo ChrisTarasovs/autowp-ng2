@@ -4,7 +4,7 @@ import {
   OnInit
 } from '@angular/core';
 import {videoService} from '../../services/video.service';
-import { AppState } from '../../services/app-state.service';
+import { videoState } from '../../services/videoState.service';
 import { Video } from "./video.model";
 import * as moment from "moment";
 import {VideoItemComponent} from './video-item/video-item.component';
@@ -20,8 +20,8 @@ import {VideoItemComponent} from './video-item/video-item.component';
  <ul class="list-group border">
 
  	<li 
- 	 *ngFor="let video of _appState.videoList  | paginate: { itemsPerPage: 2, currentPage: p }"
- 	 class="list-group-item" [class.playing] = "video === _appState.activeVideo" >
+ 	 *ngFor="let video of _videoState.videoList  | paginate: { itemsPerPage: 2, currentPage: p }"
+ 	 class="list-group-item" [class.playing] = "video === _videoState.activeVideo" >
 	 	<video-list-item [video]="video"></video-list-item>
 	 </li>
 
@@ -78,14 +78,14 @@ export class VideoComponent implements OnInit {
 
   videoList:Video[] = [];
 
-  constructor(private _videoService : videoService, private _appState:AppState) {}
+  constructor(private _videoService : videoService, private _videoState: videoState) {}
 	
 	results:any;
 
 	  ngOnInit() {
 		    this._videoService.fetchVideos('typescript') .subscribe(data => {
 		 	this.results = data;
-		 	 this._appState.videoList = data.items.map(item => {
+		 	 this._videoState.videoList = data.items.map(item => {
 		 	 	  return new Video(
 		 	 	  	item.id.videoId,
 				            item.snippet.title,
