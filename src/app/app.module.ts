@@ -74,6 +74,7 @@ import {SectionsComponent} from './sections/sections.component';
 //Import Autowp Servicer
 import {menuService} from './toolbar/services/menu.service';
 import {widgetsService} from './toolbar/services/widgets.service';
+import {dndService} from './toolbar/services/dnd.service';
 import {videoService} from './toolbar/services/video.service';
 import {fontsService} from './toolbar/services/fonts.service';
 
@@ -163,7 +164,7 @@ type StoreType = {
   providers: [ // expose our Services and Providers into Angular's dependency injection
     ENV_PROVIDERS,
     APP_PROVIDERS,
-    menuService,widgetsService, videoService, videoState, fontsService
+    menuService,widgetsService, videoService, videoState, fontsService,dndService
   ]
 })
 export class AppModule {

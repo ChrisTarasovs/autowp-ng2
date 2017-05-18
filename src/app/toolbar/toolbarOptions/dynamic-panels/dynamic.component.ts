@@ -46,22 +46,11 @@ export class DynamicPanelComponent {
 
 
 
-  constructor(private resolver: ComponentFactoryResolver) {
-      console.log('log this shit',  this.dynamicData);
-  }
-
-
-
+  constructor(private resolver: ComponentFactoryResolver) {  }
 
  newColor:string;
  colordata: any;
 
-
-
-
-  //newColor:string;
-  //newColor = this.newColor;
-  
 
   currentComponent = null;
 
@@ -72,10 +61,6 @@ export class DynamicPanelComponent {
 
 
   @Input() set componentData(data: {component: any, inputs: any}) {
-  //  console.log('data is' , data);
-
-    //this.newColor ='0002222';
-    //this.colordata= 'colordata';
 
     if (!data) {
       return;

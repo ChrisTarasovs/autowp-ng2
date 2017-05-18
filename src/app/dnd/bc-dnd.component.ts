@@ -7,20 +7,21 @@ import {dndService} from '../toolbar/services/dnd.service';
   //templateUrl: './dnd.component.html',
   template: `
 
-  <div class="panel-body" >
-  
-
-           <div 
-           *ngFor="let widget of widgets"  
-          
+  <div class="panel-body" 
+       dnd-sortable-container 
+      
+       [dropZones]="['widget-dropZone', 'canvas-dropZone']"
+       [sortableData]="widgets">
        
-                dnd-draggable
-                [dragEnabled]="true"
-                [dragData]="transferData"
-                [dropZones]="['widget-dropZone', 'canvas-dropZone', 'row-dropZone',  'column-dropZone', 'widget-dropZone' ]"
-                (onDragStart)="onDragStart(widget)"
+          <!--  <div *ngFor="let widget of widgets; let i = index"  class="list-group-item"  dnd-sortable [sortableIndex]="i"  >-->
 
-                class="list-group-item">
+          
+           <div 
+           *ngFor="let widget of widgets; let i = index"  
+            dnd-sortable [sortableIndex]="i"  
+            (onDragStart)="onDragStart(widget)"
+            
+            class="list-group-item" >
                         {{widget.name}}  
               </div>
   </div>
@@ -33,7 +34,6 @@ import {dndService} from '../toolbar/services/dnd.service';
 })
 export class DndComponent  {
 
-   transferData: Object = {widgetType: 'text'};
 
 
    // dragOperation: Boolean = false;
@@ -53,7 +53,7 @@ export class DndComponent  {
   
   onDragStart(widget){ 
     this._dndService.addDraggedItem(widget);
-    console.log('started in dnd component', widget)
+    console.log('started', widget)
   }
 
 }

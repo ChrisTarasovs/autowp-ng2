@@ -22,7 +22,7 @@ import { TextComponent } from '../dnd/text/text.component';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/fromEvent';
 import 'rxjs/add/operator/debounceTime';
-
+import {dndService} from '../toolbar/services/dnd.service';
 
 export const EDITOR_VALUE_ACCESSOR = {
   provide: NG_VALUE_ACCESSOR,
@@ -37,131 +37,72 @@ export const EDITOR_VALUE_ACCESSOR = {
   selector: 'layout',
   template:  ` 
 
-
-
-	{{ content }}
-	<Br />
-
-	<div class="wysiwyg-editor__container">
-	ddddd
-	  <div class="wysiwyg-editor__src-container" *ngIf="!editMode">
-	    <textarea [value]="content" class="wysiwyg-editor__src"></textarea>
-	  </div>
-	  adsasdasd
-	  <div class="wysiwyg-editor__content" #editor contenteditable *ngIf="!editMode"
-	      (keyup)="onContentChanged()"
-	      (change)="onContentChanged()"
-	    
-	  ></div>
-	  <!-- ORGIN
-	  <div class="wysiwyg-editor__content" #editor contenteditable *ngIf="!editMode"
-	      (keyup)="onContentChanged()"
-	      (change)="onContentChanged()"
-	      (blur)="onBlur()"
-	  ></div> -->
-	  asdas
-	</div>
-
-
-
-<div >{{containers | json}}</div>
-empty
-
-<div id="masterLayout" style="height: 200px;width: 100%;background-color: #dedede"
-
-
+<div 
+class="canvas"
 dnd-droppable
-
- [dropZones]="['canvas-dropZone']"
-
-(onDropSuccess)="chicken($event)"
- (onDragEnter)="chicken($event)"
-
+[dropZones]="['canvas-dropZone']"
+(onDragEnter)="onDragEnter($event)"
+(onDropSuccess)="onDropSuccess($event,  'canvas')" 
 >
-<div *ngIf="containers?.length > 3">
-	<div *ngFor="let container of containers" >
-	xxxx
+	<div    
+		*ngFor="let row of canvas; let rowIndex = index" 
+		dnd-droppable
+		[dropZones]="['row-dropZone']"
+		(onDragEnter)="onDragEnter($event)"
+		(onDropSuccess)="onDropSuccess($event,  'row', rowIndex )" 
+
+		class="AWrowWrapper" 
+		 [ngStyle]="{'padding-top': row.properties[0].location[0].top  + 'px'}" 
+
+		>
+		<div class="AWrow">
+
+			<div 
+				*ngFor="let column of row.column; let columnIndex = index" 
+				dnd-droppable
+				[dropZones]="['column-dropZone']"
+				(onDragEnter)="onDragEnter($event)"
+				(onDropSuccess)="onDropSuccess($event,  'column', rowIndex, columnIndex )" 
+
+
+				class="AWcolumnWrapper"
+				[ngStyle]="{'padding-left': column.properties[0].location[0].left + 'px'}"
+
+			>
+
+			
+				<div class="AWcolumn">
+					<div  
+					*ngFor="let widget of column.widgets; let widgetIndex = index" 
+
+					dnd-droppable
+					[dropZones]="['widget-dropZone']"
+					(onDragEnter)="onDragEnter($event)"
+					(onDropSuccess)="onDropSuccess($event,  'widget', rowIndex, columnIndex, widgetIndex )" 
+
+					class="AWwidget" 
+					[ngStyle]="{'padding-left': widget.properties[0].location[0].left + 'px'}"
+					>
+					
+
+{{widget.properties[0].location[0].left | json}}
+					
+
+
+						
+					</div>		
+				</div>
+			</div>
+		  </div>
 	</div>
+
 </div>
 
+ `
+/*
+			
+			*/ 
 
-
-<Br style="clear:both;" />
-	<div class="panel panel-success">
-	  	  <!-- Block  containers -->
-		  <div class="panel-body" dnd-sortable-container [sortableData]="containers" [dropZones]="['container-dropZone']" >
-		      
-		      <!-- Block  row -->
-		        <div *ngFor="let container of containers; let i = index" 
-		             dnd-sortable [sortableIndex]="i" 
-		             [dragEnabled]="dragOperation" 
-		             (onDragSuccess)="onMouseUp($event)"
-		             (onDragEnter)="onDragEnter(widget, $event)"
-		             class="item-container-wrapper"
-
-		             >
-			          <div class="panel-heading">
-			               Menu items for the ROW ( ID:  {{container.id}}, Drag operation : {{dragOperation}} )<a (mousedown)="onMouseDown()">move</a>
-			          </div>
-		            	
-		            	<!-- Block  column-->
-			           <div dnd-sortable-container 
-			           	      [sortableData]="container.widgets" 
-			           	      [dropZones]="['widget-dropZone']" 
-			           	      class="item-container"
-				      (onDropSuccess)="onDropSuccess(widget, $event,  'row')" 
-
-			           	  >
-					               
-					               <!-- Block -->
-					                <div *ngFor="let widget of container.widgets; let j = index" 
-					                     class="item-column list-group-item " 
-					                     dnd-sortable [sortableIndex]="j" 
-					                     [dragEnabled]="!dragOperation" 
-
-
-					                     (onDragEnter)="onDragEnter(widget, $event)" 
-					                     (onDropSuccess)="onDropSuccess(widget, $event, 'block')" 
-
-
-					                     (dblclick)="eventEmitDoubleClick(widget, container.widgets)"
-						         contenteditable="true"
-					                     >
-					                    	
-					                    	 <div class="item-item" > 
-					                             {{widget.name}}
-					                        </div>
-					                       
-
-					                </div>
-			               
-			            </div>
-		        </div>
-
-
-		  </div>	
-	</div>
--->
-
-
-<style>
-    /* Color to identify */
-    .item-container-wrapper {background-color:darkcyan; position: relative;}
-    .item-container{background-color: blue}
-    .item-column {background-color:pink; }
-    .item-item {background-color: red;}
-
-    /*temporal CSS*/
-    .item-column{ display: inline-block;vertical-align: top;}
-   /* .panel-heading{ position: absolute; top: -20px;z-index: 10;}*/
-    
-    /*temporal width*/
-    .item-column, .item-item{ width: 200px;}
-    .item-column { height: 200px; }
-    
-</style>
-
- ` 
   ,
   styleUrls: ['./layout.component.css'],
   providers: [EDITOR_VALUE_ACCESSOR]
@@ -169,192 +110,221 @@ dnd-droppable
 
 
 export class LayoutComponent  implements OnInit, ControlValueAccessor {
+ canvas: Array<any> = [];
+ //row: Array<any> = [];
 
 
 
-	// One consturtor for both uses
-	constructor(private renderer: Renderer){
-	          this.containers.push(
-		          	new Container(1, 
-		          	[new Widget('Lorem ipsumrci viverra auctor')]
-		          	)
-	          );
-	          this.containers.push(
-	          	new Container(2, 
-	          	[new Widget('Lorem ipsumura auctor')]
-	          	)
-	          );
-	          
-	}
+
+// One consturtor for both uses
+constructor(private renderer: Renderer, private _dndService: dndService){}
+ngOnInit() {}
 
 
-        // Drag and Drop definitions
-        dragOperation: Boolean = false;
-        contenteditable: Boolean = false;
-       
 
-        containers: Array<any> = [];
-        content: string;
-
-	eventEmitDoubleClick(widget, containerWidgets) {
-		//this.dragEnabled: true;
-		 // dragEnabled= "dragOperation" ;
-		 //event.target.
-		if(this.dragOperation){
-		  this.dragOperation = false;
-		  this.contenteditable = true;
-		}else{ 
-		 this.dragOperation = true;
-		  this.contenteditable = false;
-		}	
-		 console.log('index',widget.index)
-		console.log('widget is ',widget);
-		console.log('widget container is ',containerWidgets);
-
-
-		console.log('double click has happened');
-		//this.eventEmitterDoubleClick.emit(event);
-	}
-
-        drop(item){
-        	alert('dropped')
-        	console.log('dropping event', item)
-                var target = item.mouseEvent.target,
-                  index;
-          
-                if(target.classList.contains('row')) {
-                    index = target.getAttribute('data-index');
-                }
-          
-                if(target.classList.contains('item') && target.parentNode.classList.contains('row')) {
-                    index = target.parentNode.getAttribute('data-index');
-                }
-                
-                if(index) {
-                    console.log(this.containers);
-                    console.log(this.containers[index]);
-                    this.containers[index].widgets.push( item.dragData);
-                } else {
-                    this.containers.push([ item.dragData]);
-                }
-         }
-         onDropSuccess(widget: any, event: any, objecType: string) {
-         	console.log('dropped on ', objecType)
-         	if( objecType == 'row'){
-         		console.log('dropped on', objecType)
-         	}
-         	else if(objecType == 'block'){
-         		console.log('dropped on ', objecType)
-         	}
-            this.dragOperation = false;
-            console.log('onDropSuccess x', widget, event);
-
-            console.log('containers', this.containers)
-         }
-         
-         onDragStart(widget: any, event: any) {
-            console.log('onDragStart', widget, event);
-         }
-        
-         onDragEnter(widget: any, event: any) {
-            console.log('onDragEnter', widget, event);
-            console.log('drag enter containers', this.containers)
-         }
-
-           chicken(event) {
-            console.log('onDragEnter chicken', event);
-         
-         }
-
-         onDragSuccess(widget: any, event: any) {
-            console.log('onDragSuccess', widget, event);
-         }
-         
-         onDragOver(widget: any, event: any) {
-            console.log('onDragOver', widget, event);
-         }
-         
-         onDragEnd(widget: any, event: any) {
-            console.log('onDragOver', widget, event);
-         }
-         onDragLeave(widget: any, event: any) {
-            console.log('onDragLeave', widget, event);
-         }
-
-         onMouseDown(){
-            this.dragOperation = true;
-            console.log('mouse down');
-         }
-         
-         onMouseUp(event: any){
-            console.log(event);
-            this.dragOperation = false;
-         }
-
-  
-      
-
-	//********* Editor functions ********//
-
-	subscriptions: Subscription[] = []
-        	//containers: Array<any> = [];
-        	//content: string;
-
-  	
-
- 	@ViewChild('editor') container: ElementRef;
-
-     
-	    ngOnInit() {
-	/*      
-	        document.execCommand('defaultParagraphSeparator', false, 'p');
-	        ['mouseup', 'keydown', 'keyup'].forEach(event => {
-	          this.subscriptions.push(Observable
-	            .fromEvent(this.container.nativeElement, event)
-	            .debounceTime(60)
-	            .subscribe(e => {
-	             // this.refreshActiveButtons();
-	               //  const tags = this.getTagsRecursive(document.getSelection().focusNode); //NEED TO LINK TO THE MENU
-	                // this.buttons.forEach(x => x.active = tags.indexOf(x.tag.toUpperCase()) > - 1);  //NEED TO LINK TO THE MENU
-	            }));
-	        });
-	*/       
-	  }
-
-
-	onCommandExecuted() {
-	    this.onContentChanged();
-	  //  this.refreshActiveButtons()
-	  }
-	 onContentChanged() {
-	     this.content = this.container.nativeElement.innerHTML;
-	     this.propagateChange(this.content);
-	  }
-	 writeValue(value: any) {
-	    if (value) {
-	      this.content = value;
-	      this.renderer.setElementProperty(this.container.nativeElement, 'innerHTML', this.content);
-	    }
-	  }
-
-
-	  propagateChange: any = (_: any) => { };
-
-	 registerOnChange(fn: any) {
-	          this.propagateChange = fn;
-	 }
-
-	registerOnTouched() { }
-
-	ngOnDestroy() {
-		this.subscriptions.forEach(subscription => subscription.unsubscribe());
-	}
+onDragEnter(event: any) {
+	console.log('drag enter', event)
+}
+onDropSuccess(event: any, droppedOn: string, rowIndex, columnIndex, widgetIndex) {
+	
 
 	
+
+
+	//console.log('drop success', event, droppedOn )
+//	console.log('container count items ' ,this.canvas)
+//	console.log('mouse event data', event.mouseEvent.clientY)
+
+	// Check if canvas is empty
+	if(this.canvas == [] || this.canvas == null  || this.canvas == 0 && droppedOn == 'canvas'){
+
+		alert('we run emptu')
+	
+		this.canvas.push(
+		          new Row(
+		          		[new Column(
+		          			[new Widget('Lorem ipsumrci viverra auctor', 
+		          				//Widget location
+		          				[new Properties(
+		          					[new Dimension( 200,0,0,0 )], [new Location( 0,0,0,0 )]
+
+		          				  )]
+		          				//[new Location(0,0,0,0)]
+		          			)],
+		          			// Column location
+		          			[new Properties(
+	          					[new Dimension( 200 ,0, event.mouseEvent.clientX + 200,0 )], [new Location(0,0,0,event.mouseEvent.clientX )]
+		          			)]
+		          		)],
+		          		// Row Location
+		          		[new Properties(
+	          				[new Dimension( 0,0,0,0 )], [new Location(event.mouseEvent.clientY,0,0,0)]
+		          		)]
+		          	)]
+
+
+
+		);
+		
+
+	}
+	
+	// Check if canvas is  not empty && I am dragging ontop of canvas
+	else if(droppedOn == 'canvas' ){
+		//let highestId = this.canvas.slice().sort((a, b) => a.id-b.id)[this.canvas.length-1].id;
+		//let lastRowId = 
+
+		
+
+		// calculate position top 
+
+/*
+		this.canvas.push(
+		          new Row(
+		          		[new Column(
+		          			[new Widget('Lorem ipsumrci viverra auctor', 
+		          				//Widget location
+		          				[new Properties(
+		          					[new Dimension( 0,0,0,0 )], [new Location( 0,0,0,0 )]
+
+		          				  )]
+		          			)],
+		          			// Column location
+		          			[new Properties(
+		          					[new Dimension( 0,0,0,0 )], [new Location(0,0,0,event.mouseEvent.clientX )]
+
+		          			)]
+		          		)],
+		          		// Row Location
+		          		[new Properties(
+          					[new Dimension( 0,0,0,0 )], [new Location(0,0,0,event.mouseEvent.clientX )]
+	          			)]
+		          	)
+*/
+
+	}
+	// Check if I am dropping ontop a row hotspot
+	else if(droppedOn != 'canvas'  && droppedOn == 'row'){
+		alert('started')
+		console.log('aaaaa 1',this.canvas)
+
+		// calculate new column position
+		// because it is on the row hotspot, means you can get last element position to calculate
+		let mouseDropOn = event.mouseEvent.clientX;
+		let columndata = this.canvas[rowIndex].column
+		
+		//let lastRowColumnPosition = this.canvas[rowIndex].column[lastRowColumn].Location.
+
+		let totalwidth = 0;
+		console.log( this.canvas[rowIndex])
+		let columnLength =   this.canvas[rowIndex].column.find(x => x === x.column)
+
+		 //this.canvas[rowIndex].column.filter(function(obj) {return  obj == 'Column'})
+
+		console.log('columnLength' ,columnLength)
+
+		for (var i = 0; i < columnLength.length; i++) {
+			alert('gone one')
+			console.log(this.canvas[rowIndex].column)
+			console.log('lenght', this.canvas[rowIndex].column.length)
+			console.log('index', i)
+			
+			console.log('yes')
+			console.log(this.canvas[rowIndex].column[i].properties)
+			console.log('zzzzz',this.canvas[rowIndex].column[i].properties[0].dimension[0].widthtotal)
+			totalwidth = + this.canvas[rowIndex].column[i].properties[0].dimension[0].widthtotal 
+			console.log('sum is ', totalwidth)
+		}
+		let setPadding = mouseDropOn - totalwidth;
+
+		console.log('aaaaa 2' ,this.canvas)
+
+
+		//console.log('give me data ',mouseDropOn, lastRowColumn, columndata)
+
+		//let highestId = this.canvas.Row[elementIndex].slice().sort((a, b) => a.id-b.id)[this.canvas.Row[elementIndex].length-1].id;
+		//let highesrowId = this.canvas[elementIndex].widgets.slice().sort((a, b) => a.id-b.id)[this.canvas[elementIndex].widgets.length-1].id;
+		//console.log(elementIndex, this.canvas[elementIndex].widgets.length,  highesrowId, this.canvas )
+
+		
+		this.canvas[0].column.push(
+				new Column(
+		          			[new Widget('Lorem ipsumrci viverra auctor', 
+		          				//Widget location
+		          				[new Properties(
+		          					[new Dimension( 200,0,0,0 )], [new Location(0,0,0,0 )]
+
+		          				)]
+		          			)],
+		          			// Column location
+		          			[new Properties(
+		          					[new Dimension(  200, 0, setPadding + 200,0 )], [new Location(0,0,0, setPadding )]
+
+		          			)]
+		          		),
+		          		// Row Location
+		          		[new Properties(
+	          					[new Dimension( event.mouseEvent.clientY,0,0,0 )], [new Location(0,0,0,event.mouseEvent.clientX )]
+
+	          			)]
+		          	)	
+
+		)
+
+		console.log('aaaaa 3 ',this.canvas)
+		/*
+		this.canvas[elementIndex].column.widgets.push(
+		          		new Widget( 'Lorem ipsumrci viverra auctor', 
+		          			[new Location(0,0,0,event.mouseEvent.clientX)]
+		          		)
+		          	)	
+
+		);
+		*/
+	
+
+	}else if(droppedOn != 'canvas'  && droppedOn == 'column'){
+		alert('column')
+
+		this.canvas[rowIndex].column[columnIndex].widgets.push(
+				new Widget('Lorem ipsumrci viverra auctor', 
+		          				//Widget location
+		          				[new Location(0,0,0,0)]
+		          			),
+		          			// Column location
+		          			[new Location(0,0,0,event.mouseEvent.clientX)]
+		          		)
+		          	)	
+
+		);
+
+
+		console.log(rowIndex, columnIndex, widgetIndex, this.canvas)
+	}else{
+
+
+	}
+
+
 }
-class Container {
-    constructor(public id: Number, public widgets: Array<Widget>) {}
+	
+}
+
+class Row {
+	constructor( public column: Array<Column>, public properties: Array<Properties>) {}
+}
+class Column{
+	constructor( public widgets: Array<Widget>, public properties: Array<Properties>) {}
 }
 class Widget {
-    constructor(public name: string) {}
+	constructor(public name: string, public properties: Array<Properties>) {}
+}
+class Properties{
+	constructor(public dimension: Array<Dimension>, public location: Array<Location>){}
+}
+class Dimension{
+	constructor(public width: number,public height: number, public widthtotal: number, public heighttotal: number ){}
+}
+class Location{
+	constructor(public top: number,public right: number, public bottom: number , public left : number){}
 }
