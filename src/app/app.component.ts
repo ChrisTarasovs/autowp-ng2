@@ -29,6 +29,11 @@ import { AppState } from './app.service';
   ],
   template: `
 
+
+
+
+
+
    <toolbar  (commandExecuted)="onCommandExecuted()"></toolbar>
    <layout></layout>
 
@@ -51,6 +56,7 @@ import { AppState } from './app.service';
       <router-outlet></router-outlet>
     </main>
 -->
+
 
 
 

@@ -2,6 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { TextComponent } from './text/text.component';
 import {dndService} from '../toolbar/services/dnd.service';
 
+import { ullist } from './widgets/widgets.component';
+
+
+
 @Component({
   selector: 'builder',
   //templateUrl: './dnd.component.html',
@@ -16,7 +20,7 @@ import {dndService} from '../toolbar/services/dnd.service';
        
                 dnd-draggable
                 [dragEnabled]="true"
-                [dragData]="transferData"
+                [dragData]="widget"
                 [dropZones]="['widget-dropZone', 'canvas-dropZone', 'row-dropZone',  'column-dropZone', 'widget-dropZone' ]"
                 (onDragStart)="onDragStart(widget)"
 
@@ -33,11 +37,77 @@ import {dndService} from '../toolbar/services/dnd.service';
 })
 export class DndComponent  {
 
-   transferData: Object = {widgetType: 'text'};
 
 
    // dragOperation: Boolean = false;
-    widgets: Array<any> = [];
+    widgets: Array<any> = [
+        {
+          name: 'TextComponent ',
+          isLoaded:false,
+          widgetype: 'textblock',
+          widgetdata: `
+                <div> 
+                <strong> Reder this please now </strong>
+                <input type="text" placehoder="dddd"/></div> 
+                <p contenteditable="true"> change me </p>', 'textblock'
+
+
+          `,
+          widgetComponent:  {
+                  component: TextComponent,
+                  inputs: {
+                      name: 'example'
+                  }
+            }
+
+        },
+          {
+          name: 'same TextComponent',
+          isLoaded:false,
+          widgetype: 'textblock',
+          widgetdata: `
+                <div> 
+                <strong> Reder this please now </strong>
+                <input type="text" placehoder="dddd"/></div> 
+                <p contenteditable="true"> change me </p>', 'textblock'
+
+
+          `,
+          widgetComponent:  {
+                  component: TextComponent,
+                  inputs: {
+                      name: 'example'
+                  }
+            }
+
+        },
+          {
+          name: 'UL list component',
+          isLoaded:false,
+          widgetype: 'textblock',
+          widgetdata: `
+                <div> 
+                <strong> Reder this please now </strong>
+                <input type="text" placehoder="dddd"/></div> 
+                <p contenteditable="true"> change me </p>', 'textblock'
+
+          `,
+          widgetComponent:  {
+                  component: ullist,
+                  inputs: {
+                      name: 'example'
+                  }
+            }
+
+        }
+
+
+    ];
+
+//https://docs.google.com/document/d/1QejU5toLhNgFsDHoPE0_2J8eV1apWqv0oHzY7ESOpYc/edit
+
+
+
   //  containers: Array<any> = [];
   
     
@@ -45,14 +115,14 @@ export class DndComponent  {
    // this.containers.push(new Container(1, [new Widget('Lorem ipsum asdasdasdasd adasd asdas das das das dasd ')]));
    // this.containers.push(new Container(2, [new Widget('Lorem ipsum asdasdasdasd adasd asdas das das das dasd ')]));
     
-    this.widgets.push(new Widget('Text a', 'textblock'));
-     this.widgets.push(new Widget('Text b', 'textlist'));
+     this.widgets.push(new Widget('testing', 'textblock','<div> <strong> Reder this please now </strong><input type="text" placehoder="dddd"/></div> <p contenteditable="true"> change me </p>'));
+     this.widgets.push(new Widget('Text b', 'textlist', 'dddddd'));
      //console.log('new widget', new Widget('Text a'))
      // console.log('this is an arrray of widgets', this.widgets);
    }
   
   onDragStart(widget){ 
-    this._dndService.addDraggedItem(widget);
+    //this._dndService.addDraggedItem(widget);
     console.log('started in dnd component', widget)
   }
 
@@ -62,15 +132,16 @@ export class DndComponent  {
 
 
 class Container {
-    constructor(public id: Number, public widgets: Array<Widget>) {}
+    constructor(public id: Number, public widgets: Array<Widget> ) {}
 }
 
 class Widget {
-    constructor(
-      public name: string,
+    constructor( 
+      public name: string,  
       public widgetype: string,
+      public widgetdata: any
 
-      ) {}
+     ) {}
 }
 
 

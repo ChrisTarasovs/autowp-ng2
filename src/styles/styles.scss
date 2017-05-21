@@ -12,14 +12,15 @@ toolbar { position: absolute;top: 850px; left: 0px; width: 900px;z-index: 9;}
 
 
 
-
+//https://codyhouse.co/demo/stretchy-navigation/index.html#0
 
 
 
 
 .AWrowWrapper{
-    display :inline-block;
+  display :inline-block;
   width: 100%;
+  background-color:  rgb(127, 127, 0);
 }
 .AWrow{
   display :inline-block;
@@ -30,17 +31,23 @@ toolbar { position: absolute;top: 850px; left: 0px; width: 900px;z-index: 9;}
 .AWcolumnWrapper{
     display :inline-block; 
     vertical-align: top;
+    background-color: rgb(159, 96, 97);
 }
+
 .AWcolumn{
    width: 200px;
    background-color: pink;
   vertical-align: top;
 
 }
+.AWwidgetWrapper{
+  background-color: rgb(41, 107, 17);
+  text-align: center;
+}
 .AWwidget{
   width: 100%;
 
-  background-color: grey;
+  background-color: rgb(70, 183, 30);
 }
 
 

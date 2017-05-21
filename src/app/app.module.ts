@@ -71,6 +71,11 @@ import {VideoItemComponent} from  './toolbar/toolbarOptions/video-panel/video-it
 import {videoSearchBoxComponent} from  './toolbar/toolbarButtons/videoSearch/videoSearch.component';
 import {SectionsComponent} from './sections/sections.component';
 
+// All Component widgets
+import { ullist } from './dnd/widgets/widgets.component';
+
+
+
 //Import Autowp Servicer
 import {menuService} from './toolbar/services/menu.service';
 import {widgetsService} from './toolbar/services/widgets.service';
@@ -83,7 +88,7 @@ import { MenuTypePipe } from './pipes/menu-type.pipe';
 import { FontSizePipe, FontStylesPipe, StatefulSlicePipe } from './pipes/typography.pipe';
 import {videoState} from './toolbar/services/videoState.service';
 import { YoutubeSafeUrlPipe } from './pipes/youtube-safe-url.pipe';
-
+import { Safe} from './pipes/safehtml.pipe'
 // Import AutoWp modules
 import { ColorPickerModule} from 'angular2-color-picker';
 import { EditorModule } from './editor/editor.module';
@@ -147,7 +152,8 @@ type StoreType = {
     NoContentComponent,
     XLargeDirective,
     YoutubeSafeUrlPipe,
-    FontSizePipe, FontStylesPipe, StatefulSlicePipe 
+    FontSizePipe, FontStylesPipe, StatefulSlicePipe, Safe,
+    ullist
   ],
   imports: [ // import Angular's modules
     BrowserModule,

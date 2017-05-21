@@ -46,7 +46,7 @@ export class DynamicPanelComponent {
 
 
 
-  constructor(private resolver: ComponentFactoryResolver) {  }
+  constructor(private _ComponentFactoryResolver: ComponentFactoryResolver) {  }
 
  newColor:string;
  colordata: any;
@@ -80,7 +80,9 @@ export class DynamicPanelComponent {
     let injector = ReflectiveInjector.fromResolvedProviders(resolvedInputs, this.dynamicComponentContainer.parentInjector);
     
     // We create a factory out of the component we want to create
-    let factory = this.resolver.resolveComponentFactory(data.component);
+    //To get the components we use the ComponentFactoryResolver, inject it into the constructor and declare to let factory variable  which will receive our components:
+    // let factory will now get the component.
+    let factory = this._ComponentFactoryResolver.resolveComponentFactory(data.component);
     
     // We create the component using the factory and the injector
     let component = factory.create(injector);
@@ -89,10 +91,11 @@ export class DynamicPanelComponent {
     this.dynamicComponentContainer.insert(component.hostView);
     
     // We can destroy the old component is we like by calling destroy
-    if (this.currentComponent) {
-      this.currentComponent.destroy();
-    }
     
+    if (this.currentComponent) {
+       this.currentComponent.destroy();
+    }
+   
     this.currentComponent = component;
   }
 
@@ -100,3 +103,9 @@ export class DynamicPanelComponent {
 
 
 }
+
+
+// Article
+//https://blog.thecodecampus.de/angular-2-dynamically-render-components/ 
+//http://plnkr.co/edit/wh4VJG?p=preview
+//http://stackoverflow.com/questions/38888008/how-can-i-use-create-dynamic-template-to-compile-dynamic-component-with-angular/38888009#38888009
