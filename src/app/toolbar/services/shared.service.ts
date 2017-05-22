@@ -3,7 +3,7 @@ import { Subject }    from 'rxjs/Subject';
 
 
 @Injectable()
-export class SharedColorService {
+export class colorService {
    //private colorHex: any;
    	
 

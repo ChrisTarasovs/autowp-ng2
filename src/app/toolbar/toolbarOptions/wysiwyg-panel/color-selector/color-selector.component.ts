@@ -15,7 +15,7 @@ import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import {ColorPickerModule, ColorPickerDirective} from 'angular2-color-picker';
 import {ColorPickerService} from 'angular2-color-picker';
 
-import {SharedColorService} from '../../../services/shared.service';
+import {colorService} from '../../../services/shared.service';
 
 
 @Component({
@@ -60,12 +60,12 @@ private selectedColor: string = 'color';
 
 constructor(
   private fb: FormBuilder, 
-  private _sharedService: SharedColorService, 
+  private _colorService: colorService, 
   private cpService: ColorPickerService, 
   private injector: Injector , 
   private elRef: ElementRef) {
 
-         this._sharedService.colorHex$.subscribe(
+         this._colorService.colorHex$.subscribe(
             data => {
                 console.log('got the form: ' + data);
                 // Add color  to colors from shared service
@@ -75,13 +75,13 @@ constructor(
 
 
           // Gets preset colors array from a menu module.
-          this.colors = this._sharedService.colors
-          this.arrayColors = this._sharedService.arrayColors;
+          this.colors = this._colorService.colors
+          this.arrayColors = this._colorService.arrayColors;
         
   }
   
   colorChanged(event){
-      this._sharedService.colorChaged(event)
+      this._colorService.colorChaged(event)
    }
     
 

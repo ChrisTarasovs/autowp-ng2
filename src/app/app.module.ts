@@ -41,23 +41,23 @@ import {DndModule} from 'tarasov';
 
 // Import AutoWp Components
 import { DndComponent } from './dnd/dnd.component';
-import { TextComponent } from './dnd/text/text.component';
+
 import { LayoutComponent } from './layout/layout.component';
 import { ColorSelectorComponent } from './toolbar/toolbarOptions/wysiwyg-panel/color-selector/color-selector.component';
 import { toolbarComponent } from './toolbar/toolbar.component';
 import { toolbarButtonsComponent } from './toolbar/toolbarButtons/toolbarButtons.component';
-import { toolbarOptionsComponent } from './toolbar/toolbarOptions/toolbarOptions.component';
+//import { toolbarOptionsComponent } from './toolbar/toolbarOptions/toolbarOptions.component';
 import { wysiwygComponent } from './toolbar/toolbarButtons/wysiwyg/wysiwyg.component';
 import { imageComponent } from './toolbar/toolbarButtons/image/image.component';
 import { builderComponent } from './toolbar/toolbarButtons/builder/builder.component';
 import { ButtonTypeComponent  } from './toolbar/toolbarButtons/wysiwyg/widgets/buttonType-menu/button-type.component';
 import { LinksMenuComponent } from './toolbar/toolbarButtons/wysiwyg/widgets/links-menu/links-menu.component';
 import { ColorMenuComponent } from './toolbar/toolbarButtons/wysiwyg/widgets/color-menu/color-menu.component';
-import { MediaMenuComponent } from './toolbar/toolbarButtons/wysiwyg/widgets/media-menu/media-menu.component';
+
 import { TypographyMenuComponent } from './toolbar/toolbarButtons/wysiwyg/widgets/typography-menu/typography-menu.component';
 import { HeadingComponent } from './toolbar/toolbarOptions/wysiwyg-panel/heading/heading.component';
 import { ImagePanelComponent } from './toolbar/toolbarOptions/image-panel/image-panel.component';
-import { wysiwygPanelComponent } from './toolbar/toolbarOptions/wysiwyg-panel/wysiwyg-panel.component';
+//import { wysiwygPanelComponent } from './toolbar/toolbarOptions/wysiwyg-panel/wysiwyg-panel.component';
 import { BuilderPanelComponent } from './toolbar/toolbarOptions/builder-panel/builder-panel.component';
 import { DynamicPanelComponent } from './toolbar/toolbarOptions/dynamic-panels/dynamic.component' ;
 import { LinksComponent } from './toolbar/toolbarOptions/wysiwyg-panel/links/links.component';
@@ -72,9 +72,11 @@ import {videoSearchBoxComponent} from  './toolbar/toolbarButtons/videoSearch/vid
 import {SectionsComponent} from './sections/sections.component';
 
 // All Component widgets
-import { ullist } from './dnd/widgets/widgets.component';
+import {  text, textarea,ullist,singleImage, images, accordion,tabs, video, googlemaps,testimonials, modalBox,slide} from './dnd/widgets/widgets.component';
 
-
+// All Component settings
+import { widgetSettingsComponent } from './toolbar/toolbarOptions/widgetSettings/widgetSettings.component';
+import { setMediaComponent } from './toolbar/toolbarOptions/widgetSettings/set-media.component';
 
 //Import Autowp Servicer
 import {menuService} from './toolbar/services/menu.service';
@@ -82,6 +84,9 @@ import {widgetsService} from './toolbar/services/widgets.service';
 import {dndService} from './toolbar/services/dnd.service';
 import {videoService} from './toolbar/services/video.service';
 import {fontsService} from './toolbar/services/fonts.service';
+import {canvasService} from './toolbar/services/canvas.service';
+
+
 
 //Import AutoWp Pipes
 import { MenuTypePipe } from './pipes/menu-type.pipe';
@@ -118,24 +123,23 @@ type StoreType = {
   declarations: [
     AppComponent,
     DndComponent,
-    TextComponent,
     LayoutComponent,
     ColorSelectorComponent,
     ColorSelectorComponent,
     toolbarComponent,
     toolbarButtonsComponent ,
-    toolbarOptionsComponent ,
+    //toolbarOptionsComponent ,
     wysiwygComponent ,
     imageComponent,
     builderComponent ,
     ButtonTypeComponent ,
     LinksMenuComponent ,
     ColorMenuComponent,
-    MediaMenuComponent ,
+    
     TypographyMenuComponent ,
     HeadingComponent,
     ImagePanelComponent ,
-    wysiwygPanelComponent ,
+   // wysiwygPanelComponent ,
     BuilderPanelComponent,
      DynamicPanelComponent ,
     LinksComponent,
@@ -153,7 +157,11 @@ type StoreType = {
     XLargeDirective,
     YoutubeSafeUrlPipe,
     FontSizePipe, FontStylesPipe, StatefulSlicePipe, Safe,
-    ullist
+     text, textarea, ullist,singleImage, images, accordion, tabs, video, googlemaps,testimonials, modalBox,slide,
+
+     // Component settings
+     widgetSettingsComponent,
+     setMediaComponent 
   ],
   imports: [ // import Angular's modules
     BrowserModule,
@@ -170,7 +178,7 @@ type StoreType = {
   providers: [ // expose our Services and Providers into Angular's dependency injection
     ENV_PROVIDERS,
     APP_PROVIDERS,
-    menuService,widgetsService, videoService, videoState, fontsService,dndService
+    menuService,widgetsService, videoService, videoState, fontsService,dndService, canvasService
   ]
 })
 export class AppModule {

@@ -62,6 +62,7 @@ export class menuService {
 		    componentMenuSelector: 'typography-menu',
 		    componentName : TypographyComponent
 		},
+		/*
 		{id: 6,  title:'Media', icon: 'fa fa-picture-o',
 
 		    active: false, 
@@ -71,6 +72,7 @@ export class menuService {
 		    componentMenuSelector: 'media-menu',
 		    componentName :  ImagePanelComponent
 		},
+		*/
 		{id: 11,
 		    title:'Button Type', 
 		    icon: 'fa-battery-empty',

@@ -3,7 +3,7 @@ import {FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import {ColorPickerModule, ColorPickerDirective} from 'angular2-color-picker';
 import {ColorPickerService} from 'angular2-color-picker';
 import {ColorSelectorComponent } from '../../../../../toolbar/toolbarOptions/wysiwyg-panel/color-selector/color-selector.component';
-import {SharedColorService} from '../../../../services/shared.service'
+import {colorService} from '../../../../services/shared.service'
 
 
 @Component({
@@ -17,9 +17,9 @@ export class ColorMenuComponent  implements OnChanges{
    colorHex: any = '';
    currentColor: string;
 
-   constructor(private fb: FormBuilder, private _sharedService: SharedColorService) {
+   constructor(private fb: FormBuilder, private _colorService: colorService) {
        this.createForm();
-           this._sharedService.colorHex$.subscribe(
+           this._colorService.colorHex$.subscribe(
                 data => {
                     console.log('Sibling2Component-received from sibling1: ' + data);
                     this.colorsForm.patchValue({
@@ -28,7 +28,7 @@ export class ColorMenuComponent  implements OnChanges{
             });
          
 
-      this._sharedService.lastSelectColor$.subscribe(
+      this._colorService.lastSelectColor$.subscribe(
         data => {
           this.currentColor = data; 
         });
@@ -52,7 +52,7 @@ export class ColorMenuComponent  implements OnChanges{
         //let colorHex = this.colorsForm.get('colorHex').value;
 
         // adding new data to string
-        this._sharedService.publishData(this.currentColor);
+        this._colorService.publishData(this.currentColor);
 
     }
    
@@ -74,39 +74,28 @@ export class ColorMenuComponent  implements OnChanges{
   }
 
   // Save color
-   saveColor(inputValue) {
-       // Push the color to array
-       this.colors.push(inputValue);
-       console.log('color string', this.colors)
-       this.saveColors.emit(this.colors)
-      
-       
-     
+  saveColor(inputValue) {
+         // Push the color to array
+         this.colors.push(inputValue);
+         console.log('color string', this.colors)
+         this.saveColors.emit(this.colors)    
    }
 
 
 
   @Input() colorChange:string = ' xxx '; 
-
   private arrayColors: any = {};
-
-
-selectedColor: string = '#dddeee';
-
+  selectedColor: string = '#dddeee';
 
 /*
- 
   constructor(private cpService: ColorPickerService) {
-     // this.addSelectedColor.value
-     this.colorChange = this.colorChange;
+      // this.addSelectedColor.value
+      this.colorChange = this.colorChange;
     	this.arrayColors['color'] = this.selectedColor;
-    //  alert(this.arrayColors['color']);
-
-
+      //  alert(this.arrayColors['color']);
     	this.colors = ['#2883e9','#e920e9']
-
    }
-   */
+*/
 
 
 

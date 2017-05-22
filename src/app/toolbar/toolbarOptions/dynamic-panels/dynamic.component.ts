@@ -2,7 +2,7 @@ import {Component, Input, ViewContainerRef, ViewChild, ReflectiveInjector, Compo
 import {TypographyComponent} from '../wysiwyg-panel/typography/typography.component';
 import {LinksComponent} from '../wysiwyg-panel/links/links.component';
 import { ImagePanelComponent } from '../image-panel/image-panel.component';
-import { MediaComponent } from '../wysiwyg-panel/media/media.component';
+//import { MediaComponent } from '../wysiwyg-panel/media/media.component';
 import { ExamplesComponent } from '../examples/examples.component';
 import {BuilderPanelComponent} from '../builder-panel/builder-panel.component';
 import { ColorSelectorComponent } from '../wysiwyg-panel/color-selector/color-selector.component';
@@ -13,7 +13,7 @@ import { DndComponent } from '../../../dnd/dnd.component';
 import {VideoComponent} from '../video-panel/video.component';
 
 import {SectionsComponent} from '../../../sections/sections.component';
-
+import {widgetSettingsComponent} from '../widgetSettings/widgetSettings.component'
 
 @Component({
   selector: 'dynamiccontent-component',
@@ -21,7 +21,8 @@ import {SectionsComponent} from '../../../sections/sections.component';
     HeadingComponent,
      ColorSelectorComponent,
      TypographyComponent,
-     MediaComponent,
+     //MediaComponent,
+     widgetSettingsComponent,
      LinksComponent,
      ImagePanelComponent,
      ExamplesComponent,

@@ -3,12 +3,11 @@ import { CommonModule } from '@angular/common';
 
 import { toolbarComponent } from './toolbar.component';
 import { toolbarButtonsComponent } from './toolbarButtons/toolbarButtons.component';
-import { toolbarOptionsComponent } from './toolbarOptions/toolbarOptions.component';
+//import { toolbarOptionsComponent } from './toolbarOptions/toolbarOptions.component';
 
 import { wysiwygComponent } from './toolbarButtons/wysiwyg/wysiwyg.component';
 import { imageComponent } from './toolbarButtons/image/image.component';
 import { builderComponent } from './toolbarButtons/builder/builder.component';
-
 
 import { ButtonTypeComponent  } from './toolbarButtons/wysiwyg/widgets/buttonType-menu/button-type.component';
 import { LinksMenuComponent } from './toolbarButtons/wysiwyg/widgets/links-menu/links-menu.component';
@@ -20,7 +19,7 @@ import { MenuTypePipe } from '../pipes/menu-type.pipe';
 
 import { HeadingComponent } from './toolbarOptions/wysiwyg-panel/heading/heading.component';
 import { ImagePanelComponent } from './toolbarOptions/image-panel/image-panel.component';
-import { wysiwygPanelComponent } from './toolbarOptions/wysiwyg-panel/wysiwyg-panel.component';
+//import { wysiwygPanelComponent } from './toolbarOptions/wysiwyg-panel/wysiwyg-panel.component';
 import { BuilderPanelComponent } from './toolbarOptions/builder-panel/builder-panel.component';
 import { DynamicPanelComponent } from './toolbarOptions/dynamic-panels/dynamic.component' ;
 
@@ -39,7 +38,7 @@ import { TextWidgetComponent } from './toolbarOptions/builder-panel/text-widget/
    declarations: [
    	toolbarComponent,
    	toolbarButtonsComponent,
-   	toolbarOptionsComponent,
+   //	toolbarOptionsComponent,
    	wysiwygComponent,
    	imageComponent,
    	builderComponent,
@@ -53,7 +52,7 @@ import { TextWidgetComponent } from './toolbarOptions/builder-panel/text-widget/
 
       HeadingComponent,
       ImagePanelComponent,
-      wysiwygPanelComponent,
+    //  wysiwygPanelComponent,
       BuilderPanelComponent,
       DynamicPanelComponent,
     

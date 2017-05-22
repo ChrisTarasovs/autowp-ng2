@@ -28,6 +28,9 @@ toolbar { position: absolute;top: 850px; left: 0px; width: 900px;z-index: 9;}
   padding: 20px;
   background-color: yellow;
 }
+.AWrow .AWrow{
+   background-color: pink;
+}
 .AWcolumnWrapper{
     display :inline-block; 
     vertical-align: top;

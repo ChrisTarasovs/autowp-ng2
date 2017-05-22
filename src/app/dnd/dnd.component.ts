@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { TextComponent } from './text/text.component';
-import {dndService} from '../toolbar/services/dnd.service';
 
-import { ullist } from './widgets/widgets.component';
+import {dndService} from '../toolbar/services/dnd.service';
+import {  text, textarea,ullist,singleImage, images, accordion,tabs,video, googlemaps,testimonials, modalBox} from './widgets/widgets.component';
 
 
 
@@ -21,11 +20,11 @@ import { ullist } from './widgets/widgets.component';
                 dnd-draggable
                 [dragEnabled]="true"
                 [dragData]="widget"
-                [dropZones]="['widget-dropZone', 'canvas-dropZone', 'row-dropZone',  'column-dropZone', 'widget-dropZone' ]"
+                [dropZones]="['widget-dropZone', 'canvas-dropZone', 'rowWrapper', 'row-dropZone',  'column-dropZone', 'widget-dropZone' ]"
                 (onDragStart)="onDragStart(widget)"
 
                 class="list-group-item">
-                        {{widget.name}}  
+                        {{widget.settings[0].name}}
               </div>
   </div>
 
@@ -41,107 +40,265 @@ export class DndComponent  {
 
    // dragOperation: Boolean = false;
     widgets: Array<any> = [
-        {
-          name: 'TextComponent ',
-          isLoaded:false,
-          widgetype: 'textblock',
-          widgetdata: `
-                <div> 
-                <strong> Reder this please now </strong>
-                <input type="text" placehoder="dddd"/></div> 
-                <p contenteditable="true"> change me </p>', 'textblock'
-
-
-          `,
-          widgetComponent:  {
-                  component: TextComponent,
-                  inputs: {
-                      name: 'example'
-                  }
-            }
-
-        },
           {
-          name: 'same TextComponent',
-          isLoaded:false,
-          widgetype: 'textblock',
-          widgetdata: `
-                <div> 
-                <strong> Reder this please now </strong>
-                <input type="text" placehoder="dddd"/></div> 
-                <p contenteditable="true"> change me </p>', 'textblock'
+            settings: [
+                {
+                  isLoaded:false,
+                  name: 'Text ',
+                  componentName: 'text',
+                  innerhtml: {}
+                }
 
+            ],
+            widgetProperties: {
+                  dimension: [ 0,0,0,0 ], 
+                  location: [0,0,0,0]
+            },
+            widgetComponent:  {
+                    component: text,
+                    inputs: {
+                        name: 'example'
+                    }
+            },
+            {
+            settings: [
+                {
+                  isLoaded:false,
+                  name: 'Textarea',
+                  componentName: 'textarea',
+                  innerhtml: {}
+                }
 
-          `,
-          widgetComponent:  {
-                  component: TextComponent,
-                  inputs: {
-                      name: 'example'
-                  }
+            ],
+            widgetProperties: {
+                  dimension: [ 0,0,0,0 ], 
+                  location: [0,0,0,0]
+            },
+            widgetComponent:  {
+                    component: textarea,
+                    inputs: {
+                        name: 'example'
+                    }
+            },
+            {
+            settings: [
+                {
+                  isLoaded:false,
+                  name: 'Ullist',
+                  componentName: 'ullist',
+                  innerhtml: {}
+                }
+
+            ],
+            widgetProperties: {
+                  dimension: [ 0,0,0,0 ], 
+                  location: [0,0,0,0]
+            },
+            widgetComponent:  {
+                    component: ullist,
+                    inputs: {
+                        name: 'example'
+                    }
+            },
+            {
+            settings: [
+                {
+                  isLoaded:false,
+                  name: 'singleImage',
+                  componentName: 'singleImage',
+                  innerhtml: {}
+                }
+
+            ],
+            widgetProperties: {
+                  dimension: [ 0,0,0,0 ], 
+                  location: [0,0,0,0]
+            },
+            widgetComponent:  {
+                    component: singleImage,
+                    inputs: {
+                        name: 'example'
+                    }
+            },
+            {
+            settings: [
+                {
+                  isLoaded:false,
+                  name: 'images',
+                  componentName: 'images',
+                  singleimage: false,
+                  gallery: true,
+                  carousel: true;
+                  imageUrl: [
+                                     { 
+                                       alt: 'placeholder', 
+                                       org: 'https://placeholdit.imgix.net/~text?txtsize=33&txt=350×150&w=350&h=150', 
+                                       xsize: 'https://placeholdit.imgix.net/~text?txtsize=33&txt=350×150&w=350&h=150'
+                                     },
+                                     { 
+                                       alt: 'placeholder', 
+                                       org: 'https://placeholdit.imgix.net/~text?txtsize=33&txt=350×150&w=350&h=150', 
+                                       xsize: 'https://placeholdit.imgix.net/~text?txtsize=33&txt=350×150&w=350&h=150'
+                                     },
+                                     { 
+                                       alt: 'placeholder', 
+                                       org: 'https://placeholdit.imgix.net/~text?txtsize=33&txt=350×150&w=350&h=150', 
+                                       xsize: 'https://placeholdit.imgix.net/~text?txtsize=33&txt=350×150&w=350&h=150'
+                                     }
+                  ]
+                }
+
+            ],
+            widgetProperties: {
+                  dimension: [ 0,0,0,0 ], 
+                  location: [0,0,0,0]
+            },
+            widgetComponent:  {
+                    component: images,
+                    inputs: {
+                        name: 'example'
+                    }
+            },
+            {
+            settings: [
+                {
+                  isLoaded:false,
+                  name: 'accordion',
+                  componentName: 'accordion',
+                  innerhtml: {}
+                }
+
+            ],
+            widgetProperties: {
+                  dimension: [ 0,0,0,0 ], 
+                  location: [0,0,0,0]
+            },
+            widgetComponent:  {
+                    component: accordion,
+                    inputs: {
+                        name: 'example'
+                    }
+            },
+            {
+            settings: [
+                {
+                  isLoaded:false,
+                  name: 'tabs',
+                  componentName: 'tabs',
+                  innerhtml: {}
+                }
+
+            ],
+            widgetProperties: {
+                  dimension: [ 0,0,0,0 ], 
+                  location: [0,0,0,0]
+            },
+            widgetComponent:  {
+                    component: tabs,
+                    inputs: {
+                        name: 'example'
+                    }
+            },
+            {
+            settings: [
+                {
+                  isLoaded:false,
+                  name: 'video',
+                  componentName: 'video',
+                  innerhtml: {}
+                }
+
+            ],
+            widgetProperties: {
+                  dimension: [ 0,0,0,0 ], 
+                  location: [0,0,0,0]
+            },
+            widgetComponent:  {
+                    component: video,
+                    inputs: {
+                        name: 'example'
+                    }
+            },
+            {
+            settings: [
+                {
+                  isLoaded:false,
+                  name: 'googlemaps',
+                  componentName: 'googlemaps',
+                  innerhtml: {}
+                }
+
+            ],
+            widgetProperties: {
+                  dimension: [ 0,0,0,0 ], 
+                  location: [0,0,0,0]
+            },
+            widgetComponent:  {
+                    component: tabs,
+                    inputs: {
+                        name: 'example'
+                    }
+            },
+            {
+            settings: [
+                {
+                  isLoaded:false,
+                  name: 'testimonials',
+                  componentName: 'testimonials',
+                  innerhtml: {}
+                }
+
+            ],
+            widgetProperties: {
+                  dimension: [ 0,0,0,0 ], 
+                  location: [0,0,0,0]
+            },
+            widgetComponent:  {
+                    component: tabs,
+                    inputs: {
+                        name: 'example'
+                    }
+            },
+            {
+            settings: [
+                {
+                  isLoaded:false,
+                  name: 'modalBox',
+                  componentName: 'modalBox',
+                  innerhtml: {}
+                }
+
+            ],
+            widgetProperties: {
+                  dimension: [ 0,0,0,0 ], 
+                  location: [0,0,0,0]
+            },
+            widgetComponent:  {
+                    component: tabs,
+                    inputs: {
+                        name: 'example'
+                    }
             }
-
-        },
-          {
-          name: 'UL list component',
-          isLoaded:false,
-          widgetype: 'textblock',
-          widgetdata: `
-                <div> 
-                <strong> Reder this please now </strong>
-                <input type="text" placehoder="dddd"/></div> 
-                <p contenteditable="true"> change me </p>', 'textblock'
-
-          `,
-          widgetComponent:  {
-                  component: ullist,
-                  inputs: {
-                      name: 'example'
-                  }
-            }
-
-        }
-
 
     ];
 
+
 //https://docs.google.com/document/d/1QejU5toLhNgFsDHoPE0_2J8eV1apWqv0oHzY7ESOpYc/edit
 
-
-
-  //  containers: Array<any> = [];
-  
-    
-   constructor(private _dndService: dndService){
-   // this.containers.push(new Container(1, [new Widget('Lorem ipsum asdasdasdasd adasd asdas das das das dasd ')]));
-   // this.containers.push(new Container(2, [new Widget('Lorem ipsum asdasdasdasd adasd asdas das das das dasd ')]));
-    
-     this.widgets.push(new Widget('testing', 'textblock','<div> <strong> Reder this please now </strong><input type="text" placehoder="dddd"/></div> <p contenteditable="true"> change me </p>'));
-     this.widgets.push(new Widget('Text b', 'textlist', 'dddddd'));
-     //console.log('new widget', new Widget('Text a'))
-     // console.log('this is an arrray of widgets', this.widgets);
-   }
-  
-  onDragStart(widget){ 
+constructor(private _dndService: dndService){ }
+onDragStart(widget){ 
     //this._dndService.addDraggedItem(widget);
     console.log('started in dnd component', widget)
   }
 
 }
 
-
-
-
 class Container {
     constructor(public id: Number, public widgets: Array<Widget> ) {}
 }
 
 class Widget {
-    constructor( 
-      public name: string,  
-      public widgetype: string,
-      public widgetdata: any
-
-     ) {}
+    constructor( ) {}
 }
 
 

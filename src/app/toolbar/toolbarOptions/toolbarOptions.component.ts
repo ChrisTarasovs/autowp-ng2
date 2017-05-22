@@ -1,3 +1,4 @@
+/*
 import { 
   Component,
   Input
@@ -24,3 +25,4 @@ export class toolbarOptionsComponent {
 
 
 }
+*/

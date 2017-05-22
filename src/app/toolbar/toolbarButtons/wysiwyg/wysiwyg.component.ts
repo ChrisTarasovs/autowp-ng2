@@ -9,7 +9,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { ButtonTypeComponent  } from './widgets/buttonType-menu/button-type.component';
 import { LinksMenuComponent } from './widgets/links-menu/links-menu.component';
 import { ColorMenuComponent } from './widgets/color-menu/color-menu.component';
-import { MediaMenuComponent } from './widgets/media-menu/media-menu.component';
+//import { MediaMenuComponent } from './widgets/media-menu/media-menu.component';
 import { TypographyMenuComponent } from './widgets/typography-menu/typography-menu.component';
 import {menuService} from '../../services/menu.service';
 import {widgetsService} from '../../services/widgets.service';
@@ -75,9 +75,7 @@ if( false != button.componentMenuSelector){
 			  <div class="btn-view"  *ngIf=" 'color-menu' ==  button.componentMenuSelector " >
 	                          	<color-menu  (saveColors)="saveColorsFunc($event)" *ngIf="colorMenu"></color-menu>
 	                          </div>
-			  <div class="btn-view"  *ngIf=" 'media-menu' ==  button.componentMenuSelector " >
-	                          	<media-menu *ngIf='createMedia'></media-menu>
-	                          </div>
+			  
 	                          <div class="btn-view"  *ngIf=" 'buttontype' ==  button.componentMenuSelector " >
 	                          	<buttontype *ngIf='createButtons'></buttontype>
 	                          </div>
@@ -87,9 +85,7 @@ if( false != button.componentMenuSelector){
 	                          </div>
 	                          -->
 	                    </li>
-	                   
 	                </ul>
-	  
 	   
   `
   
@@ -143,14 +139,8 @@ export class wysiwygComponent {
 
 			//console.log('testin', this.linkMenu )
 			// document.execCommand('insertHtml', false, '<a href="' + options + '">' + options + '</a>');
-		}else if(button.command === 'createMedia' ){
-			this.createMedia = !this.createMedia
-
-			this.linkMenu = false;
-			this.colorMenu = false;
-			this.createButtons = false
-
-		}else if(button.command === 'createButtons'){
+		}
+		else if(button.command === 'createButtons'){
 			this.createButtons = !this.createButtons
 
 			this.linkMenu = false;
@@ -164,11 +154,6 @@ export class wysiwygComponent {
 		this._widgetsService.loadWidget(button);
 
 		
-
-
-		//console.log('hello', button)
-		// const tabs = this.button.children.toArray();
-
 
 
 
@@ -202,5 +187,6 @@ export class wysiwygComponent {
 	ngOnInit(){
 		this.buttons =  this._menuService.buttonlist; 
 	}
+	
 
 }

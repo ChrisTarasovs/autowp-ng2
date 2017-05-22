@@ -5,7 +5,19 @@ import { Component, OnInit } from '@angular/core';
 @Component({
   selector: 'text',
   template: 
-	`<p contenteditable='true'></p>`
+	`<p contenteditable='true'>
+	Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+	Praesent ultricies pretium arcu eu rutrum. 
+	Sed non metus gravida, rutrum ligula nec, suscipit turpis. 
+	Nullam finibus eget risus hendrerit varius. 
+	Ut facilisis, magna vel imperdiet tristique, urna elit malesuada ante, 
+	quis ultricies dolor est non risus. Curabitur nisi orci, viverra non est
+	 nec, mollis fermentum velit. In nec metus accumsan, 
+	 malesuada nulla non, rhoncus eros. Suspendisse a dui facilisis, 
+	 sodales ante ut, laoreet diam. Nulla vel lorem pharetra, 
+	 feugiat nulla eget, laoreet nulla.
+
+	</p>`
   
   //styleUrls: ['./text.component.css']
 })
@@ -14,9 +26,17 @@ export class text  {}
 
 // textarea
 @Component({
-  selector: 'textarea',
+  selector: 'html-textarea',
   template: 
-	`<textarea contenteditable='true'></textarea>`
+	`<textarea contenteditable="true">
+		Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+		Praesent ultricies pretium arcu eu rutrum. 
+		Sed non metus gravida, rutrum ligula nec, suscipit turpis. 
+		Nullam finibus eget risus hendrerit varius. 
+		Ut facilisis, magna vel imperdiet tristique, urna elit malesuada ante, 
+		quis ultricies dolor est non risus.
+	</textarea>
+	`
   
   //styleUrls: ['./text.component.css']
 })
@@ -47,38 +67,44 @@ export class singleImage  {}
 
 
 // Gallery image & Carousel Slider
+// Single image, multiple image and carousel is all 1 
+
 @Component({
-  selector: 'gallery-image',
+  selector: 'html-images',
   template: 
 	`
-	<carousel>
+	
+	<div class="carousel">
 	  <slide>
-	    <img src="https://placeholdit.imgix.net/~text?txtsize=33&txt=350×150&w=350&h=150">
-	    <div class="carousel-caption">
-	      <h3>First slide label</h3>
-	      <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
-	    </div>
+	    
 	  </slide>
-	  <slide>
-	    <img src="https://placeholdit.imgix.net/~text?txtsize=33&txt=350×150&w=350&h=150">
-	    <div class="carousel-caption">
-	      <h3>Second slide label</h3>
-	      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-	    </div>
-	  </slide>
-	  <slide>
-	    <img src="https://placeholdit.imgix.net/~text?txtsize=33&txt=350×150&w=350&h=150">
-	    <div class="carousel-caption">
-	      <h3>Third slide label</h3>
-	      <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
-	    </div>
-	  </slide>
-	</carousel>
+	 
+	</div>
+	
 	`
   
   //styleUrls: ['./text.component.css']
 })
-export class galleryImage  {}
+export class images  {}
+
+@Component({
+  selector: 'slide',
+  template: 
+	`  
+	   <img src="https://placeholdit.imgix.net/~text?txtsize=33&txt=350×150&w=350&h=150">
+	    <div class="carousel-caption">
+	      <h3>First slide label</h3>
+	      <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+	    </div>
+	`
+})
+export class slide  {}
+
+
+
+
+
+
 
 // FAQ
 @Component({
@@ -98,7 +124,7 @@ export class galleryImage  {}
 		    Open only one at a time
 		  </label>
 		</div>
- 	 -->
+ 	
 	<accordion [closeOthers]="oneAtATime">
 		  <accordion-group heading="Static Header, initially expanded"
 			       heading="Static Header, initially expanded"
@@ -123,6 +149,7 @@ export class galleryImage  {}
 		    <p>Content 2</p>
 		  </accordion-group>
 	</accordion>
+	 -->
 
 	`
   
@@ -149,7 +176,7 @@ export class accordion  {}
 		    Open only one at a time
 		  </label>
 		</div>
- 	 -->
+ 	
 	  <tabset #staticTabs>
 	    <tab heading="Static title">Static content</tab>
 	    <tab heading="Static Title 1">Static content 1</tab>
@@ -162,7 +189,7 @@ export class accordion  {}
 	      I've got an HTML heading, and a select callback. Pretty cool!
 	    </tab>
 	  </tabset>
-
+	   -->
 	`
   
   //styleUrls: ['./text.component.css']
@@ -173,15 +200,20 @@ import {videoState} from '../../toolbar/services/videoState.service'
 
 // Video
 @Component({
-  selector: 'video',
+  selector: 'html-video',
   template: 
 	`
+	
 	    <div class="embed-container" *ngIf="_videoState.activeVideo?.videoId != null">
 	        <iframe width="560"
 	                height="315"
 	                frameborder="0"
 	                allowfullscreen
-	                [src]="_videoState.activeVideo?.videoId | youtubeSafeUrl">
+	                [src]="_videoState.activeVideo?.videoId | youtubeSafeUrl"
+	                style="border: solid 1px black"
+
+
+	                >
 	        </iframe>
 	      </div>
 
@@ -213,7 +245,7 @@ export class video  {
 		    Open only one at a time
 		  </label>
 		</div>
- 	 -->
+ 	
 	  <tabset #staticTabs>
 	    <tab heading="Static title">Static content</tab>
 	    <tab heading="Static Title 1">Static content 1</tab>
@@ -226,7 +258,7 @@ export class video  {
 	      I've got an HTML heading, and a select callback. Pretty cool!
 	    </tab>
 	  </tabset>
-
+ -->
 	`
   
   //styleUrls: ['./text.component.css']
@@ -238,6 +270,7 @@ export class googlemaps  {}
   selector: 'testimonials',
   template: 
 	`
+	<!--
 	<testimonials>
 	  <testimonial>
 	    <img src="https://placeholdit.imgix.net/~text?txtsize=33&txt=350×150&w=350&h=150">
@@ -261,7 +294,7 @@ export class googlemaps  {}
 	    </div>
 	  </testimonial>
 	</testimonials>
-
+-->
 	`
   
   //styleUrls: ['./text.component.css']

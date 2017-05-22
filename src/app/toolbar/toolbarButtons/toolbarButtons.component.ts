@@ -29,9 +29,9 @@ import {menuService} from '../services/menu.service'
                 <button (click)="toggleEditMode()">HTML</button>
             </li>
             <li style="width: 200px !important;">
-                <button type="button"  (click)="loadwidgetpanel('SectionsComponent')">
-                Settings</button>
+                <button type="button"  (click)="loadwidgetpanel('widgetSettingsComponent')"> Settings</button>
             </li>
+
              <li style="width: 200px !important;">
                 <button type="button"  (click)="loadwidgetpanel('ExamplesComponent')">Examples</button>
             </li>
@@ -88,7 +88,7 @@ export class toolbarButtonsComponent {
          videoSearchBox:boolean = false;
          
          loadwidgetpanel(widgetID){
-          
+          /*
                 if(widgetID == 'ButtonTypeWidgetComponent'){
                      this.buttonstypes = !this.buttonstypes;
                 }else if(widgetID == 'VideoComponent'){
@@ -96,7 +96,7 @@ export class toolbarButtonsComponent {
                 }else if (widgetID == 'ExamplesComponent'){
 
                 }
-
+*/
 
                 this._widgetsService.loadWidget(widgetID);
                 console.log('in toolbarButtons ID', widgetID);

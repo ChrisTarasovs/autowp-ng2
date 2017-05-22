@@ -7,7 +7,7 @@ import {ExamplesComponent} from '../toolbarOptions/examples/examples.component';
 import {BuilderPanelComponent} from '../toolbarOptions/builder-panel/builder-panel.component'
 import {VideoComponent} from '../toolbarOptions/video-panel/video.component';
 
-import {SectionsComponent} from '../../sections/sections.component';
+import {widgetSettingsComponent} from '../toolbarOptions/widgetSettings/widgetSettings.component';
 
 import { DndComponent } from '../../dnd/dnd.component';
 import{ButtonTypeWidgetComponent} from  '../toolbarOptions/wysiwyg-panel/button-type/button-type-widget.component';
@@ -24,7 +24,6 @@ export class widgetsService {
 	constructComponent:any;
 
 	loadWidget(button)  {
-
 		if(!button.componentName){
 
 				if(typeof(button) === 'string'){
@@ -44,9 +43,9 @@ export class widgetsService {
 						this.constructComponent = { 
 							component: VideoComponent ,inputs: { showNum: 0 }
 						}
-					}else if(button === 'SectionsComponent'){
+					}else if(button === 'widgetSettingsComponent'){
 						this.constructComponent ={
-							component: SectionsComponent, inputs:{showNum: 0}
+							component: widgetSettingsComponent, inputs:{showNum: 0}
 						}
 					}	
 				}else{}

@@ -7,15 +7,6 @@ import {ExamplesComponent} from '../../toolbarOptions/examples/examples.componen
 import {BuilderPanelComponent} from '../../toolbarOptions/builder-panel/builder-panel.component'
 
 export const  WysiwygMenu = [
-//  Styling
-	// ID
-	// Button title
-	// Button icon/
-// functions
-	// Button command
-	// button tag
-	
-	// Component Menu 	
 	
 	    {id: 1,  title: 'Edit',  icon: 'fa-pencil ',
 
@@ -85,6 +76,7 @@ export const  WysiwygMenu = [
 	        componentMenuSelector: 'typography-menu',
 	        componentID : 4
 	    },
+	    /*
 	    {id: 10,  title:'Media', icon: 'fa fa-picture-o',
 	       
 	        command: 'createMedia',
@@ -92,6 +84,7 @@ export const  WysiwygMenu = [
  	        componentMenuSelector: 'media-menu',
 	        componentID :  5
 	    },
+	    */
 	    {id: 11,
 	        title:'Button Type', 
 	        icon: 'fa-battery-empty',
