@@ -6,6 +6,7 @@ import {
 } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
+import {VideoSettingsComponent} from './set-video/video.component'
 
 @Component({
   selector: 'settings',
@@ -14,6 +15,7 @@ import { BrowserModule } from '@angular/platform-browser';
   template:  ` 
 
 <set-media></set-media>
+<set-video></set-video>
 `
   
 })

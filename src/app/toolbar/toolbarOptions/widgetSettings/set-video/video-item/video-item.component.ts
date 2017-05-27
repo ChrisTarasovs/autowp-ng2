@@ -4,7 +4,7 @@ import {
   OnInit
 } from '@angular/core';
 import { Video } from "../video.model";
-import { videoState } from '../../../services/videoState.service';
+import { videoState } from '../../../../services/videoState.service';
 
 @Component({
   selector: 'video-list-item',

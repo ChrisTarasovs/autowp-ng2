@@ -113,6 +113,7 @@ export class wysiwygComponent {
 	createMedia: boolean = false;
 	createButtons: boolean = false;
 	execCommand(button: any, $event ){
+		console.log('old', button,$event )
 		//console.log('button data', button)
 		// enable the menu item
 		this._menuService.enableMenu(button, $event ); 

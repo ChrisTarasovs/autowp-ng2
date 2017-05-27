@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { Video } from "../toolbarOptions/video-panel/video.model";
+import { Video } from "../toolbarOptions/widgetSettings/set-video/video.model";
 
 
 @Injectable()

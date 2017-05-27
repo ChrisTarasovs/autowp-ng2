@@ -3,16 +3,15 @@ import {
   Input,
   OnInit
 } from '@angular/core';
-import {videoService} from '../../services/video.service';
-import { videoState } from '../../services/videoState.service';
+import {videoService} from '../../../services/video.service';
+import { videoState } from '../../../services/videoState.service';
 import { Video } from "./video.model";
 import * as moment from "moment";
 import {VideoItemComponent} from './video-item/video-item.component';
 
 
 @Component({
-  selector: 'video-panel',
-  //templateUrl: './heading.component.html',
+  selector: 'set-video',
   template: `
 
 
@@ -74,7 +73,7 @@ import {VideoItemComponent} from './video-item/video-item.component';
   
 })
 
-export class VideoComponent implements OnInit {
+export class VideoSettingsComponent implements OnInit {
 
   videoList:Video[] = [];
 

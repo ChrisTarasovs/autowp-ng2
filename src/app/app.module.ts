@@ -46,9 +46,12 @@ import { LayoutComponent } from './layout/layout.component';
 import { ColorSelectorComponent } from './toolbar/toolbarOptions/wysiwyg-panel/color-selector/color-selector.component';
 import { toolbarComponent } from './toolbar/toolbar.component';
 import { toolbarButtonsComponent } from './toolbar/toolbarButtons/toolbarButtons.component';
+import { tButtonsComponent } from './toolbar/toolbarButtons/tbuttons.component';
+
+
 //import { toolbarOptionsComponent } from './toolbar/toolbarOptions/toolbarOptions.component';
 import { wysiwygComponent } from './toolbar/toolbarButtons/wysiwyg/wysiwyg.component';
-import { imageComponent } from './toolbar/toolbarButtons/image/image.component';
+//import { imageComponent } from './toolbar/toolbarButtons/image/image.component';
 import { builderComponent } from './toolbar/toolbarButtons/builder/builder.component';
 import { ButtonTypeComponent  } from './toolbar/toolbarButtons/wysiwyg/widgets/buttonType-menu/button-type.component';
 import { LinksMenuComponent } from './toolbar/toolbarButtons/wysiwyg/widgets/links-menu/links-menu.component';
@@ -66,8 +69,10 @@ import { MediaComponent } from './toolbar/toolbarOptions/wysiwyg-panel/media/med
 import { ExamplesComponent } from './toolbar/toolbarOptions/examples/examples.component';
 import { TextWidgetComponent } from './toolbar/toolbarOptions/builder-panel/text-widget/text-widget.component';
 import { ButtonTypeWidgetComponent } from './toolbar/toolbarOptions/wysiwyg-panel/button-type/button-type-widget.component';
-import { VideoComponent } from './toolbar/toolbarOptions/video-panel/video.component';
-import {VideoItemComponent} from  './toolbar/toolbarOptions/video-panel/video-item/video-item.component';
+
+import { VideoSettingsComponent } from './toolbar/toolbarOptions/widgetSettings/set-video/video.component';
+import { VideoItemComponent } from  './toolbar/toolbarOptions/widgetSettings/set-video/video-item/video-item.component';
+
 import {videoSearchBoxComponent} from  './toolbar/toolbarButtons/videoSearch/videoSearch.component';
 import {SectionsComponent} from './sections/sections.component';
 
@@ -85,6 +90,7 @@ import {dndService} from './toolbar/services/dnd.service';
 import {videoService} from './toolbar/services/video.service';
 import {fontsService} from './toolbar/services/fonts.service';
 import {canvasService} from './toolbar/services/canvas.service';
+import {wysiwygService} from './toolbar/services/wysiwyg.service';
 
 
 
@@ -128,9 +134,10 @@ type StoreType = {
     ColorSelectorComponent,
     toolbarComponent,
     toolbarButtonsComponent ,
+    tButtonsComponent,
     //toolbarOptionsComponent ,
     wysiwygComponent ,
-    imageComponent,
+   // imageComponent,
     builderComponent ,
     ButtonTypeComponent ,
     LinksMenuComponent ,
@@ -148,7 +155,7 @@ type StoreType = {
     ExamplesComponent ,
     TextWidgetComponent ,
     ButtonTypeWidgetComponent ,
-    VideoComponent ,
+    
     VideoItemComponent,
     videoSearchBoxComponent,
     SectionsComponent,
@@ -161,7 +168,8 @@ type StoreType = {
 
      // Component settings
      widgetSettingsComponent,
-     setMediaComponent 
+     setMediaComponent,
+     VideoSettingsComponent 
   ],
   imports: [ // import Angular's modules
     BrowserModule,
@@ -178,7 +186,7 @@ type StoreType = {
   providers: [ // expose our Services and Providers into Angular's dependency injection
     ENV_PROVIDERS,
     APP_PROVIDERS,
-    menuService,widgetsService, videoService, videoState, fontsService,dndService, canvasService
+    menuService,widgetsService, videoService, videoState, fontsService,dndService, canvasService,wysiwygService
   ]
 })
 export class AppModule {

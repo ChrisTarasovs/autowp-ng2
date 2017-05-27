@@ -5,7 +5,7 @@ import {TypographyComponent} from '../toolbarOptions/wysiwyg-panel/typography/ty
 import {ImagePanelComponent} from '../toolbarOptions/image-panel/image-panel.component';
 import {ExamplesComponent} from '../toolbarOptions/examples/examples.component';
 import {BuilderPanelComponent} from '../toolbarOptions/builder-panel/builder-panel.component'
-import {VideoComponent} from '../toolbarOptions/video-panel/video.component';
+//import {VideoComponent} from '../toolbarOptions/video-panel/video.component';
 
 import {widgetSettingsComponent} from '../toolbarOptions/widgetSettings/widgetSettings.component';
 
@@ -39,11 +39,16 @@ export class widgetsService {
 						this.constructComponent = { 
 							component: ExamplesComponent ,inputs: { showNum: 0 }
 						}
-					}else if(button === 'VideoComponent'){
+					}
+					/*
+					else if(button === 'VideoComponent'){
 						this.constructComponent = { 
 							component: VideoComponent ,inputs: { showNum: 0 }
 						}
-					}else if(button === 'widgetSettingsComponent'){
+						
+					}
+					*/
+					else if(button === 'widgetSettingsComponent'){
 						this.constructComponent ={
 							component: widgetSettingsComponent, inputs:{showNum: 0}
 						}
@@ -51,7 +56,7 @@ export class widgetsService {
 				}else{}
 
 					
-		 } else{
+		 }else{
 			this.constructComponent = { 
 				component: button.componentName ,inputs: { showNum: 0 }
 			}

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { videoService} from '../../services/video.service';
 import { videoState } from '../../services/videoState.service';
-import { Video } from "../../toolbarOptions/video-panel/video.model";
+import { Video } from "../../toolbarOptions/widgetSettings/set-video/video.model";
 import * as moment from "moment";
 
 

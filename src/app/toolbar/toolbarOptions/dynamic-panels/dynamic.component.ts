@@ -10,7 +10,7 @@ import { HeadingComponent } from '../wysiwyg-panel/heading/heading.component';
 import { TextWidgetComponent } from '../builder-panel/text-widget/text-widget.component';
 import {  ButtonTypeWidgetComponent} from '../wysiwyg-panel/button-type/button-type-widget.component'
 import { DndComponent } from '../../../dnd/dnd.component';
-import {VideoComponent} from '../video-panel/video.component';
+import { VideoSettingsComponent} from '../widgetSettings/set-video/video.component';
 
 import {SectionsComponent} from '../../../sections/sections.component';
 import {widgetSettingsComponent} from '../widgetSettings/widgetSettings.component'
@@ -21,7 +21,6 @@ import {widgetSettingsComponent} from '../widgetSettings/widgetSettings.componen
     HeadingComponent,
      ColorSelectorComponent,
      TypographyComponent,
-     //MediaComponent,
      widgetSettingsComponent,
      LinksComponent,
      ImagePanelComponent,
@@ -30,7 +29,7 @@ import {widgetSettingsComponent} from '../widgetSettings/widgetSettings.componen
      DndComponent,
      TextWidgetComponent,
      ButtonTypeWidgetComponent,
-     VideoComponent,
+     VideoSettingsComponent,
      SectionsComponent
 
   ], // Reference to the components must be here in order to dynamically create them

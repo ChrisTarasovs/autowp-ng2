@@ -1,57 +1,53 @@
-import { 
-  Component,
-  Input,
-  Output,
-  EventEmitter
-} from '@angular/core';
+import {   Component, Input,  Output,  EventEmitter} from '@angular/core';
 
 import {wysiwygComponent} from './wysiwyg/wysiwyg.component';
 import {widgetsService} from '../services/widgets.service'
 import {menuService} from '../services/menu.service'
-
+import {wysiwygService} from '../services/wysiwyg.service'
+import {canvasService} from '../services/canvas.service'
 
 @Component({
   selector: 'toolbar-buttons',
   outputs: ['clickedBtn', 'loadWidget'],
   template:  `
+      <div *ngIf="viewBuilder">
+        <tbuttons [btnlist]="builder" (buttonClick)="this._widgetsService.loadWidget($event.componentNameString)" ></tbuttons>
+      </div>
+      <div *ngIf="viewWysiwyg">
+         <tbuttons [btnlist]="wysiwyg" (buttonClick)="this._wysiwygService.execCommand($event)"  ></tbuttons>
+      </div>
+      <div *ngIf="viewImgAlignment">
+          <tbuttons [btnlist]="imgAlignment"></tbuttons>
+      </div>
+      <div *ngIf="viewBtnSettings">
+        <tbuttons [btnlist]="btnSettings" (buttonClick)="buttonsettings()"></tbuttons>
+      </div>
+      <div *ngIf="viewMiscellaneous">
+        <tbuttons [btnlist]="miscellaneous" (buttonClick)="this._widgetsService.loadWidget($event.componentNameString)"></tbuttons>
+      </div>
+
+<!--
   	<ul  class="toolbarButtons">
             <li>
                 <button (click)="enableEditMode()"><i class="fa fa-pencil"></i></button>
                 <wysiwyg  (saveColors)="saveColorsFunc($event)" [ngClass]="(enableEdit == true ) ? 'activeSubMenu' : 'disabledSubMenu' "></wysiwyg>
             </li>
-               <li style="width: 200px !important;">
-                <button type="button"  (click)="loadwidgetpanel('VideoComponent')">Video</button>
-                <div class="btn-view" *ngIf='videoSearchBox'>
-                      <video-search-box></video-search-box>
-                </div>
-            </li>
+            
             <li style="width: 200px !important;">
                 <button (click)="toggleEditMode()">HTML</button>
             </li>
-            <li style="width: 200px !important;">
-                <button type="button"  (click)="loadwidgetpanel('widgetSettingsComponent')"> Settings</button>
-            </li>
 
-             <li style="width: 200px !important;">
-                <button type="button"  (click)="loadwidgetpanel('ExamplesComponent')">Examples</button>
-            </li>
-             <li style="width: 200px !important;">
-                <button type="button"  (click)="loadwidgetpanel('ButtonTypeWidgetComponent')">Button types</button>
-                <div class="btn-view" *ngIf='buttonstypes'>
-                      <buttontype></buttontype>
-                </div>
-            </li>
-          
-  		<image></image>
-            <li>
-                <button type="button"  (click)="loadwidgetpanel('DndComponent')">Builder</button>
-            </li>
   	</ul>
+    -->
   `
 })
 
 export class toolbarButtonsComponent {
-           constructor(private _widgetsService: widgetsService, private _menuService: menuService) {}
+           constructor(
+             private _canvas: canvasService, 
+             private _widgetsService: widgetsService, 
+             private _menuService: menuService,  
+             private _wysiwygService: wysiwygService) {}
        
           clickedBtn: EventEmitter<any> = new EventEmitter();
           clickedSetBtn: EventEmitter<any> = new EventEmitter();
@@ -61,7 +57,6 @@ export class toolbarButtonsComponent {
            @Output() editModeChange: EventEmitter<boolean> = new EventEmitter();
          
       
-
 
           toggleEditMode(){
              this.editMode = !this.editMode;
@@ -82,28 +77,35 @@ export class toolbarButtonsComponent {
               }
          }
 
+        buttonsettings(){alert('something')}
 
           //Top level Menu buttons
-         buttonstypes:boolean = false;
-         videoSearchBox:boolean = false;
-         
-         loadwidgetpanel(widgetID){
-          /*
-                if(widgetID == 'ButtonTypeWidgetComponent'){
-                     this.buttonstypes = !this.buttonstypes;
-                }else if(widgetID == 'VideoComponent'){
-                    this.videoSearchBox = !this.videoSearchBox;
-                }else if (widgetID == 'ExamplesComponent'){
+         //buttonstypes:boolean = false;
+       //  videoSearchBox:boolean = false;
 
-                }
-*/
 
-                this._widgetsService.loadWidget(widgetID);
-                console.log('in toolbarButtons ID', widgetID);
 
+          // Set menu list
+          wysiwyg: any = []
+          imgAlignment: any = []
+          builder: any = []
+          btnSettings: any = []
+          miscellaneous: any =[]
+
+          viewWysiwyg: boolean = false;
+          viewImgAlignment: boolean = false;
+          viewBuilder: boolean = false;
+          viewBtnSettings: boolean = false;
+          viewMiscellaneous: boolean = false;
+
+          ngOnInit(){
+            this.viewBuilder = true;
+            this.wysiwyg =  this._menuService.toolbarBtns[0].wysiwyg; 
+            this.imgAlignment = this._menuService.toolbarBtns[0].imgAligmnet; 
+            this.builder = this._menuService.toolbarBtns[0].Builder;
+            this.btnSettings = this._menuService.toolbarBtns[0].ButtonSettings;
+            this.miscellaneous = this._menuService.toolbarBtns[0].miscellaneous;
           }
-
-
-
+  
 
 }

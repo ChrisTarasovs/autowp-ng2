@@ -85,7 +85,10 @@ export class singleImage  {}
   
   //styleUrls: ['./text.component.css']
 })
-export class images  {}
+export class images  {
+
+	
+}
 
 @Component({
   selector: 'slide',

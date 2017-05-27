@@ -40,8 +40,7 @@ import { text, textarea,ullist,singleImage, images, accordion,tabs, video, googl
 
   ],  // Reference to the components must be here in order to dynamically create them
   template:  ` 
-
-
+{{ canvas | json}}
 
 <div 
 class="canvas"
