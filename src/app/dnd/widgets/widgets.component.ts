@@ -1,11 +1,15 @@
 
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit , EventEmitter, Input,  Output, Injector} from '@angular/core';
+import {FormsModule} from '@angular/forms'
 
 //text
 @Component({
   selector: 'text',
   template: 
-	`<p contenteditable='true'>
+
+	`
+	this is text
+	<p contenteditable='true'>
 	Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
 	Praesent ultricies pretium arcu eu rutrum. 
 	Sed non metus gravida, rutrum ligula nec, suscipit turpis. 
@@ -28,19 +32,54 @@ export class text  {}
 @Component({
   selector: 'html-textarea',
   template: 
-	`<textarea contenteditable="true">
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
-		Praesent ultricies pretium arcu eu rutrum. 
-		Sed non metus gravida, rutrum ligula nec, suscipit turpis. 
-		Nullam finibus eget risus hendrerit varius. 
-		Ut facilisis, magna vel imperdiet tristique, urna elit malesuada ante, 
-		quis ultricies dolor est non risus.
+	`
+	dddddd
+	{{widget | json}}
+	ddddddd
+	<!--
+	{{widget.innerhtml | json}}
+
+this is textare
+
+zzzzz
+{{showNum | json}}
+pppp
+
+	<button (click)="run()">button</button>
+	<textarea contenteditable="true" [innerHTML]="theHtmlString">
+		
 	</textarea>
+	-->
 	`
   
   //styleUrls: ['./text.component.css']
 })
-export class textarea  {}
+export class textarea  {
+	public showNum;
+	public widget;
+
+
+	run(){
+		//this.widget.settings.innerhtml = { 'ddd': 'aaaaa'}
+	}
+	
+	//@Input('widgetData') public widget;
+
+	constructor(private injector: Injector) {
+	    //this.showNum = this.injector.get('showNum');
+	     this.widget = this.injector.get('widget');
+	}
+
+	/*
+	
+	theHtmlString:any  = 'dddddddd'
+
+	constructor(private injector: Injector) {
+	    this.showNum = this.injector.get('showNum');
+	}
+	*/
+
+}
 
 
 // UL list
@@ -68,40 +107,80 @@ export class singleImage  {}
 
 // Gallery image & Carousel Slider
 // Single image, multiple image and carousel is all 1 
+import {widgetsService} from '../../toolbar/services/widgets.service'
 
 @Component({
   selector: 'html-images',
   template: 
 	`
+	{{widget.settings.slides | json}}
+	<button (click)="this._widgetsService.loadWidget('widgetSettingsComponent', widget)">settings</button>
 	
-	<div class="carousel">
-	  <slide>
-	    
-	  </slide>
+	<ul class="carousel">
+	  <slide [slidedata]="slides"> </slide>
 	 
-	</div>
+	</ul>
 	
 	`
   
   //styleUrls: ['./text.component.css']
 })
-export class images  {
 
-	
+export class images  {
+	public widget;
+	//@Input('widgetData') public widget;
+	slides: Array<any>;
+	constructor(private _widgetsService:widgetsService, private injector: Injector){
+		
+		   
+		this.widget = this.injector.get('widget');
+		this.slides = this.widget.settings.slides
+
+/*
+		this.slides = [{ 
+	                                       name: 'Awesome',
+	                                       content: '<p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>',
+	                                       alt: 'placeholder', 
+	                                       org: 'https://placeholdit.imgix.net/~text?txtsize=33&txt=350×150&w=350&h=150', 
+	                                       xsize: 'https://placeholdit.imgix.net/~text?txtsize=33&txt=350×150&w=350&h=150'
+	                                     },
+	                                     { 
+	                                       name: 'Fun day',
+	                                       content: '<p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>',
+	                                       alt: 'placeholder', 
+	                                       org: 'https://placeholdit.imgix.net/~text?txtsize=33&txt=350×150&w=350&h=150', 
+	                                       xsize: 'https://placeholdit.imgix.net/~text?txtsize=33&txt=350×150&w=350&h=150'
+	                                     },
+	                                     { 
+	                                       name: 'Fun day two',
+	                                       content: '<p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>',
+	                                       alt: 'placeholder', 
+	                                       org: 'https://placeholdit.imgix.net/~text?txtsize=33&txt=350×150&w=350&h=150', 
+	                                       xsize: 'https://placeholdit.imgix.net/~text?txtsize=33&txt=350×150&w=350&h=150'
+	                  		}]
+*/
+			
+	}
 }
 
 @Component({
   selector: 'slide',
   template: 
 	`  
-	   <img src="https://placeholdit.imgix.net/~text?txtsize=33&txt=350×150&w=350&h=150">
-	    <div class="carousel-caption">
-	      <h3>First slide label</h3>
-	      <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
-	    </div>
+	SLIDES DATA
+	{{ slides | json }}
+		<li *ngFor="let slide of slides">
+			 <img [src]="slide.org" [alt]="slide.title">
+			<h3>{{slide.name}}</h3>
+			<div [innerHTML]="slide.content"></div>
+		</li>
+	  
 	`
 })
-export class slide  {}
+export class slide  {
+	@Input('slidedata') public slides;
+
+}
 
 
 

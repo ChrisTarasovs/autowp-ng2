@@ -241,17 +241,7 @@ export class menuService {
 		    componentMenuSelector: 'typography-menu',
 		    componentName : TypographyComponent
 		},
-		/*
-		{id: 6,  title:'Media', icon: 'fa fa-picture-o',
-
-		    active: false, 
-		    command: 'createMedia',
-		    
-		    
-		    componentMenuSelector: 'media-menu',
-		    componentName :  ImagePanelComponent
-		},
-		*/
+	
 		{id: 11,
 		    title:'Button Type', 
 		    icon: 'fa-battery-empty',
@@ -295,54 +285,4 @@ export class menuService {
 		tag: 'h5'
 	}
 	]
-
-	//Enable Menu
-	enableMenu(button, $event){
- 		$event.stopPropagation();
-		this.buttonlist.forEach(b => {
-			//console.log(b);
-			  b.active = false;
-			//  b.children && b.children.forEach(b => b.active = false);
-		});
-		button.active = true; 
- 	}
-
-
-	decorateHtml(){
-		// get selection
-		let selection = this.getSelected()  
-		//console.log('selection is', selection);
-		//console.log('getting the selected content',document.getSelection().focusNode);
-		const tags = this.getTagsRecursive(document.getSelection().focusNode);
-		//console.log('tags are', tags);
-	}
- 	getSelected(){
- 		return document.getSelection().toString();
- 	}
- 	getTagsRecursive(element, tags?: any[]) {
- 			//console.log('getting elements', element)
-
-	                tags = tags || (element && element.tagName ? [element.tagName] : []);
-	              //  console.log('inside tags' , tags)
-
-	                if (element && element.parentNode) {
-	                  element = element.parentNode;
-	               //   console.log('parent node tags' , tags)
-	                } else {
-	                //	console.log('return tags' , tags)
-	                  return tags;
-	                }
-
-	                const tag = element.tagName;
-	                if (tag === 'DIV') {
-	                  return tags;
-	                }
-	             //    console.log('push tags' , tags)
-	                tags.push(tag);
-	               //   console.log('return tags recurisve tags' , element, tags)
-	                return this.getTagsRecursive(element, tags);
-	}
-
-
-
 }

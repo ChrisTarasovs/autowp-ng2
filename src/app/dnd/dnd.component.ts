@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-
+import {cmpService} from '../toolbar/services/components.service'
 import {dndService} from '../toolbar/services/dnd.service';
-import {  text, textarea,ullist,singleImage, images, accordion,tabs,video, googlemaps,testimonials, modalBox} from './widgets/widgets.component';
+//import {  text, textarea,ullist,singleImage, images, accordion,tabs,video, googlemaps,testimonials, modalBox} from './widgets/widgets.component';
 
 
 
@@ -35,257 +35,20 @@ import {  text, textarea,ullist,singleImage, images, accordion,tabs,video, googl
   //directives : [TextComponent]
 })
 export class DndComponent  {
+    constructor( private _cmpService: cmpService, private _dndService: dndService){}
+    widgets: any = []
 
-
+    ngOnInit(){
+      this.widgets = this._cmpService.widgets
+    }
 
    // dragOperation: Boolean = false;
-    widgets: Array<any> = [
-          {
-            settings: [
-                {
-                  isLoaded:false,
-                  name: 'Text ',
-                  componentName: 'text',
-                  innerhtml: {}
-                }
-
-            ],
-            widgetProperties: {
-                  dimension: [ 0,0,0,0 ], 
-                  location: [0,0,0,0]
-            },
-            widgetComponent:  {
-                    component: text,
-                    inputs: {
-                        name: 'example'
-                    }
-            },
-            {
-            settings: [
-                {
-                  isLoaded:false,
-                  name: 'Textarea',
-                  componentName: 'textarea',
-                  innerhtml: {}
-                }
-
-            ],
-            widgetProperties: {
-                  dimension: [ 0,0,0,0 ], 
-                  location: [0,0,0,0]
-            },
-            widgetComponent:  {
-                    component: textarea,
-                    inputs: {
-                        name: 'example'
-                    }
-            },
-            {
-            settings: [
-                {
-                  isLoaded:false,
-                  name: 'Ullist',
-                  componentName: 'ullist',
-                  innerhtml: {}
-                }
-
-            ],
-            widgetProperties: {
-                  dimension: [ 0,0,0,0 ], 
-                  location: [0,0,0,0]
-            },
-            widgetComponent:  {
-                    component: ullist,
-                    inputs: {
-                        name: 'example'
-                    }
-            },
-            {
-            settings: [
-                {
-                  isLoaded:false,
-                  name: 'singleImage',
-                  componentName: 'singleImage',
-                  innerhtml: {}
-                }
-
-            ],
-            widgetProperties: {
-                  dimension: [ 0,0,0,0 ], 
-                  location: [0,0,0,0]
-            },
-            widgetComponent:  {
-                    component: singleImage,
-                    inputs: {
-                        name: 'example'
-                    }
-            },
-            {
-            settings: [
-                {
-                  isLoaded:false,
-                  name: 'images',
-                  componentName: 'images',
-                  singleimage: false,
-                  gallery: true,
-                  carousel: true;
-                  imageUrl: [
-                                     { 
-                                       alt: 'placeholder', 
-                                       org: 'https://placeholdit.imgix.net/~text?txtsize=33&txt=350×150&w=350&h=150', 
-                                       xsize: 'https://placeholdit.imgix.net/~text?txtsize=33&txt=350×150&w=350&h=150'
-                                     },
-                                     { 
-                                       alt: 'placeholder', 
-                                       org: 'https://placeholdit.imgix.net/~text?txtsize=33&txt=350×150&w=350&h=150', 
-                                       xsize: 'https://placeholdit.imgix.net/~text?txtsize=33&txt=350×150&w=350&h=150'
-                                     },
-                                     { 
-                                       alt: 'placeholder', 
-                                       org: 'https://placeholdit.imgix.net/~text?txtsize=33&txt=350×150&w=350&h=150', 
-                                       xsize: 'https://placeholdit.imgix.net/~text?txtsize=33&txt=350×150&w=350&h=150'
-                                     }
-                  ]
-                }
-
-            ],
-            widgetProperties: {
-                  dimension: [ 0,0,0,0 ], 
-                  location: [0,0,0,0]
-            },
-            widgetComponent:  {
-                    component: images,
-                    inputs: {
-                        name: 'example'
-                    }
-            },
-            {
-            settings: [
-                {
-                  isLoaded:false,
-                  name: 'accordion',
-                  componentName: 'accordion',
-                  innerhtml: {}
-                }
-
-            ],
-            widgetProperties: {
-                  dimension: [ 0,0,0,0 ], 
-                  location: [0,0,0,0]
-            },
-            widgetComponent:  {
-                    component: accordion,
-                    inputs: {
-                        name: 'example'
-                    }
-            },
-            {
-            settings: [
-                {
-                  isLoaded:false,
-                  name: 'tabs',
-                  componentName: 'tabs',
-                  innerhtml: {}
-                }
-
-            ],
-            widgetProperties: {
-                  dimension: [ 0,0,0,0 ], 
-                  location: [0,0,0,0]
-            },
-            widgetComponent:  {
-                    component: tabs,
-                    inputs: {
-                        name: 'example'
-                    }
-            },
-            {
-            settings: [
-                {
-                  isLoaded:false,
-                  name: 'video',
-                  componentName: 'video',
-                  innerhtml: {}
-                }
-
-            ],
-            widgetProperties: {
-                  dimension: [ 0,0,0,0 ], 
-                  location: [0,0,0,0]
-            },
-            widgetComponent:  {
-                    component: video,
-                    inputs: {
-                        name: 'example'
-                    }
-            },
-            {
-            settings: [
-                {
-                  isLoaded:false,
-                  name: 'googlemaps',
-                  componentName: 'googlemaps',
-                  innerhtml: {}
-                }
-
-            ],
-            widgetProperties: {
-                  dimension: [ 0,0,0,0 ], 
-                  location: [0,0,0,0]
-            },
-            widgetComponent:  {
-                    component: tabs,
-                    inputs: {
-                        name: 'example'
-                    }
-            },
-            {
-            settings: [
-                {
-                  isLoaded:false,
-                  name: 'testimonials',
-                  componentName: 'testimonials',
-                  innerhtml: {}
-                }
-
-            ],
-            widgetProperties: {
-                  dimension: [ 0,0,0,0 ], 
-                  location: [0,0,0,0]
-            },
-            widgetComponent:  {
-                    component: tabs,
-                    inputs: {
-                        name: 'example'
-                    }
-            },
-            {
-            settings: [
-                {
-                  isLoaded:false,
-                  name: 'modalBox',
-                  componentName: 'modalBox',
-                  innerhtml: {}
-                }
-
-            ],
-            widgetProperties: {
-                  dimension: [ 0,0,0,0 ], 
-                  location: [0,0,0,0]
-            },
-            widgetComponent:  {
-                    component: tabs,
-                    inputs: {
-                        name: 'example'
-                    }
-            }
-
-    ];
+    //widgets: Array<any> = [];
 
 
 //https://docs.google.com/document/d/1QejU5toLhNgFsDHoPE0_2J8eV1apWqv0oHzY7ESOpYc/edit
 
-constructor(private _dndService: dndService){ }
+
 onDragStart(widget){ 
     //this._dndService.addDraggedItem(widget);
     console.log('started in dnd component', widget)

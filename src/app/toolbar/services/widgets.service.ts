@@ -23,7 +23,8 @@ export class widgetsService {
 	newWidget$ = this.loadWidgetSource.asObservable();
 	constructComponent:any;
 
-	loadWidget(button)  {
+	loadWidget(button, widget)  {
+
 		if(!button.componentName){
 
 				if(typeof(button) === 'string'){
@@ -50,7 +51,10 @@ export class widgetsService {
 					*/
 					else if(button === 'widgetSettingsComponent'){
 						this.constructComponent ={
-							component: widgetSettingsComponent, inputs:{showNum: 0}
+							component: widgetSettingsComponent, inputs:{widgetSettings: [
+								widget
+
+							]}
 						}
 					}	
 				}else{}

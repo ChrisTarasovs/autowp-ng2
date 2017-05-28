@@ -28,7 +28,7 @@ import { AppState } from './app.service';
     './app.component.css'
   ],
   template: `
-   <toolbar  (commandExecuted)="onCommandExecuted()"></toolbar>
+   <toolbar  (commandExecuted)="onCommandExecuted()" style="position: fixed; right: 0px; top: 0px;"></toolbar>
    <layout></layout>
   `
 })

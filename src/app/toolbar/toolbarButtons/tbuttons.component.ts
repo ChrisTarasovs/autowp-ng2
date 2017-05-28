@@ -14,7 +14,7 @@ import { ColorMenuComponent } from './widgets/color-menu/color-menu.component';
 	<button (click)="enableVideo('buttontype')">buttontype</button>  	
 </div>
 
-  	<ul>
+  	<ul >
 	  	<li *ngFor="let button of btnlist">
 	  		<button (click)="buttonClickfunc(button)">{{button.name}}</button>
 	  			

@@ -82,6 +82,10 @@ import {  text, textarea,ullist,singleImage, images, accordion,tabs, video, goog
 // All Component settings
 import { widgetSettingsComponent } from './toolbar/toolbarOptions/widgetSettings/widgetSettings.component';
 import { setMediaComponent } from './toolbar/toolbarOptions/widgetSettings/set-media.component';
+import { FileUploaderComponent } from './toolbar/toolbarOptions/widgetSettings/set-media.component';
+
+import {listItemsComponent}  from './toolbar/toolbarOptions/widgetSettings/list-items.components'
+
 
 //Import Autowp Servicer
 import {menuService} from './toolbar/services/menu.service';
@@ -91,7 +95,7 @@ import {videoService} from './toolbar/services/video.service';
 import {fontsService} from './toolbar/services/fonts.service';
 import {canvasService} from './toolbar/services/canvas.service';
 import {wysiwygService} from './toolbar/services/wysiwyg.service';
-
+import {cmpService} from './toolbar/services/components.service';
 
 
 //Import AutoWp Pipes
@@ -166,6 +170,9 @@ type StoreType = {
     FontSizePipe, FontStylesPipe, StatefulSlicePipe, Safe,
      text, textarea, ullist,singleImage, images, accordion, tabs, video, googlemaps,testimonials, modalBox,slide,
 
+     FileUploaderComponent,
+     listItemsComponent,
+
      // Component settings
      widgetSettingsComponent,
      setMediaComponent,
@@ -186,7 +193,9 @@ type StoreType = {
   providers: [ // expose our Services and Providers into Angular's dependency injection
     ENV_PROVIDERS,
     APP_PROVIDERS,
-    menuService,widgetsService, videoService, videoState, fontsService,dndService, canvasService,wysiwygService
+    menuService,widgetsService, videoService, 
+    videoState, fontsService,dndService, canvasService,wysiwygService,
+    cmpService
   ]
 })
 export class AppModule {

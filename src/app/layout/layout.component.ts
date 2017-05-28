@@ -4,6 +4,8 @@ import {
   ViewContainerRef,ViewChild,ReflectiveInjector,
   ComponentFactoryResolver,SimpleChanges
 } from '@angular/core';
+import {FormsModule} from '@angular/forms'
+
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import { Subscription } from 'rxjs/Subscription';
 
@@ -40,7 +42,10 @@ import { text, textarea,ullist,singleImage, images, accordion,tabs, video, googl
 
   ],  // Reference to the components must be here in order to dynamically create them
   template:  ` 
-{{ canvas | json}}
+
+<pre>
+	{{ canvas | json}}
+</pre>
 
 <div 
 class="canvas"
@@ -138,9 +143,27 @@ dnd-droppable
 					
 						<div class="widget">
 						
- 						<ng-container *ngIf="widget.settings.isLoaded">	
-						          <ng-container *ngComponentOutlet="widget.widgetComponent.component">
-						          </ng-container>
+ 						<ng-container *ngIf="widget.settings.isLoaded">
+ 							
+{{widget | json}}
+							
+
+							<dynamiccontent-component [componentData]="configureWidget(widget)" ></dynamiccontent-component>
+
+ 						<!--	
+
+ 							<div  *ngIf="widget.settings.name  == 'images' ">
+							        <html-images [widgetData]="widget"></html-images>
+							</div>
+ 							 <dynamiccontent-component [componentData]="componentData" ></dynamiccontent-component>
+ 							 <div  *ngIf="widget.settings.name  == 'Text' || widget.settings.name == 'Textarea' ">
+
+
+ 							<div >
+							          <ng-container *ngComponentOutlet="widget.widgetComponent.component"  >
+							          </ng-container>
+							</div>
+						-->	
 						</ng-container>
 
 					</div>		
@@ -154,9 +177,7 @@ dnd-droppable
 
 
  `
-/*
-			
-			*/ 
+
 
   ,
   styleUrls: ['./layout.component.css'],
@@ -166,12 +187,32 @@ dnd-droppable
 
 export class LayoutComponent implements OnInit, ControlValueAccessor {
 
+
+
+configureWidget(widget){
+	return  {
+			component: widget.widgetComponent.component, 
+			inputs: { widget : widget}
+
+		} 
+}
+
+
+testing: any = [{'ddd': 'ddddd'}]
 canvas: Array<any> ;
 componentData = null;
 childComponent:any;
 
 // One consturtor for both uses
-constructor(private renderer: Renderer, private _dndService: dndService, private _zone: NgZone, private _canvasService: canvasService){}
+constructor(private renderer: Renderer, private _dndService: dndService, private _zone: NgZone, private _canvasService: canvasService){
+		
+		this.componentData = { 
+			component: textarea ,inputs: { showNum: 222 }
+		}
+
+
+
+}
 
 ngOnInit() {this.canvas =  this._canvasService.canvas; }
 
