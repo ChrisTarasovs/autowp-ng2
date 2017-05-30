@@ -8,22 +8,30 @@ import {VideoSettingsComponent} from './set-video/video.component'
   outputs: ['clickedBtn', 'clickedClrBtn'],
   /*template: makeTemplate()*/
   template:  ` 
-{{widgetSettings[0].settings.name | json}}
+  <div style="width: 800px;">
+ {{widgetSettings.widget | json}}
 
-<div *ngIf="widgetSettings[0].settings.name  == 'images' ">
-	<set-media  [widgetData]="widgetSettings"></set-media>
+	{{widgetSettings[0].widget.settings.name | json}}
+
+	<div *ngIf="widgetSettings[0].widget.settings.name  == 'images' ">
+		<set-media  [widgetData]="widgetSettings"></set-media>
+	</div>
+	<div *ngIf="widgetSettings[0].widget.settings.name  == 'video' ">
+		<set-video [widgetData]="widgetSettings"></set-video>
+	</div>
 </div>
-<div *ngIf="widgetSettings[0].settings.name  == 'video' ">
-	<set-video ></set-video>
-</div>
-<set-video ></set-video>
 `
   
 })
 export class widgetSettingsComponent {
 	public widgetSettings;
+	public rowIndex;
+	
 	constructor(private injector: Injector) {
 	    this.widgetSettings = this.injector.get('widgetSettings');
+	    //this.rowIndex = this.injector.get('rowIndex');
+
+
 	}
 
 }

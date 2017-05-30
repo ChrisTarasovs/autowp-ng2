@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Subject }    from 'rxjs/Subject';
 import {  text, textarea,ullist,singleImage, images, accordion,tabs,video, googlemaps,testimonials, modalBox} from '../../dnd/widgets/widgets.component';
-
+//import {Video} from '../toolbarOptions/widgetSettings/set-video/video.model';
 
 
 @Injectable()
@@ -107,7 +107,7 @@ export class cmpService {
 		                  isLoaded:false,
 		                  name: 'video',
 		                  componentName: 'video',
-		                  innerhtml: {}
+		                  yturl: '',
 		             }],
 	            widgetProperties: {dimension: [ 0,0,0,0 ], location: [0,0,0,0]},
             	widgetComponent:  { component: video,inputs: {name: 'example' }}

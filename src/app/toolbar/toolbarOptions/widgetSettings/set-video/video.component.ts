@@ -12,22 +12,18 @@ import {VideoItemComponent} from './video-item/video-item.component';
 
 @Component({
   selector: 'set-video',
-  template: `
+  template: 
+// {{widget | json}}
 
-
-
+  `
  <ul class="list-group border">
-
  	<li 
  	 *ngFor="let video of _videoState.videoList  | paginate: { itemsPerPage: 2, currentPage: p }"
  	 class="list-group-item" [class.playing] = "video === _videoState.activeVideo" >
-	 	<video-list-item [video]="video"></video-list-item>
+	 	<video-list-item [video]="video" [widgetData]="widget"></video-list-item>
 	 </li>
-
-
  </ul>
-
-
+ 
  <pagination-controls (pageChange)="p = $event"></pagination-controls>
 
 
@@ -74,6 +70,7 @@ import {VideoItemComponent} from './video-item/video-item.component';
 })
 
 export class VideoSettingsComponent implements OnInit {
+  @Input('widgetData') public widget;
 
   videoList:Video[] = [];
 

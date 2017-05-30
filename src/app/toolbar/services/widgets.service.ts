@@ -24,9 +24,8 @@ export class widgetsService {
 	constructComponent:any;
 
 	loadWidget(button, widget)  {
-
+		console.log( 'this is the widget', widget,'button', button)
 		if(!button.componentName){
-
 				if(typeof(button) === 'string'){
 					if(button === 'DndComponent'){
 						this.constructComponent = { 
@@ -50,6 +49,7 @@ export class widgetsService {
 					}
 					*/
 					else if(button === 'widgetSettingsComponent'){
+						
 						this.constructComponent ={
 							component: widgetSettingsComponent, inputs:{widgetSettings: [
 								widget

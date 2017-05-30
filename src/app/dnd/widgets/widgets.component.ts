@@ -113,13 +113,18 @@ import {widgetsService} from '../../toolbar/services/widgets.service'
   selector: 'html-images',
   template: 
 	`
-	{{widget.settings.slides | json}}
+	
+	
+	{{widget.widget.settings.slides | json}}
+
+
 	<button (click)="this._widgetsService.loadWidget('widgetSettingsComponent', widget)">settings</button>
 	
 	<ul class="carousel">
 	  <slide [slidedata]="slides"> </slide>
 	 
 	</ul>
+	
 	
 	`
   
@@ -130,11 +135,13 @@ export class images  {
 	public widget;
 	//@Input('widgetData') public widget;
 	slides: Array<any>;
+
+
 	constructor(private _widgetsService:widgetsService, private injector: Injector){
 		
 		   
 		this.widget = this.injector.get('widget');
-		this.slides = this.widget.settings.slides
+		this.slides = this.widget.widget.settings.slides
 
 /*
 		this.slides = [{ 
@@ -169,6 +176,8 @@ export class images  {
 	`  
 	SLIDES DATA
 	{{ slides | json }}
+
+	
 		<li *ngFor="let slide of slides">
 			 <img [src]="slide.org" [alt]="slide.title">
 			<h3>{{slide.name}}</h3>
@@ -284,18 +293,17 @@ import {videoState} from '../../toolbar/services/videoState.service'
 @Component({
   selector: 'html-video',
   template: 
+// {{widget | json}}
+
 	`
-	
-	    <div class="embed-container" *ngIf="_videoState.activeVideo?.videoId != null">
+	    <button (click)="this._widgetsService.loadWidget('widgetSettingsComponent', widget)">settings</button>
+	    <div class="embed-container" *ngIf="widget.widget.settings.yturl.videoId != null">
 	        <iframe width="560"
 	                height="315"
 	                frameborder="0"
 	                allowfullscreen
-	                [src]="_videoState.activeVideo?.videoId | youtubeSafeUrl"
-	                style="border: solid 1px black"
-
-
-	                >
+	                [src]="widget.widget.settings.yturl.videoId | youtubeSafeUrl"
+	                style="border: solid 1px black" >
 	        </iframe>
 	      </div>
 
@@ -304,7 +312,14 @@ import {videoState} from '../../toolbar/services/videoState.service'
   //styleUrls: ['./text.component.css']
 })
 export class video  {
-	 constructor( private _videoState: videoState) {}
+	public widget;
+	//
+	//slides: Array<any>;
+
+
+	 constructor( private _videoState: videoState, private _widgetsService:widgetsService, private injector: Injector) {  
+		this.widget = this.injector.get('widget');			
+	}
 }
 
 

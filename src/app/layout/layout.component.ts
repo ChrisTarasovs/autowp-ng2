@@ -42,7 +42,14 @@ import { text, textarea,ullist,singleImage, images, accordion,tabs, video, googl
 
   ],  // Reference to the components must be here in order to dynamically create them
   template:  ` 
+<!--
+<button (click)="test()">test</button>
 
+<pre>
+{{newCanvas | json}}
+</pre>
+
+-->
 <pre>
 	{{ canvas | json}}
 </pre>
@@ -145,7 +152,7 @@ dnd-droppable
 						
  						<ng-container *ngIf="widget.settings.isLoaded">
  							
-{{widget | json}}
+						{{widget | json}}
 							
 
 							<dynamiccontent-component [componentData]="configureWidget(widget)" ></dynamiccontent-component>
@@ -190,9 +197,11 @@ export class LayoutComponent implements OnInit, ControlValueAccessor {
 
 
 configureWidget(widget){
+	
+	const widgetData =  { widget : widget}
 	return  {
 			component: widget.widgetComponent.component, 
-			inputs: { widget : widget}
+			inputs: { widget : widgetData }
 
 		} 
 }
@@ -200,6 +209,7 @@ configureWidget(widget){
 
 testing: any = [{'ddd': 'ddddd'}]
 canvas: Array<any> ;
+newCanvas: Array<any> ;
 componentData = null;
 childComponent:any;
 
@@ -214,13 +224,21 @@ constructor(private renderer: Renderer, private _dndService: dndService, private
 
 }
 
-ngOnInit() {this.canvas =  this._canvasService.canvas; }
+/*
+test(){
+	this._canvasService.newCanvas[0].column[1].widgets[0].settings.name = "ddddddddd"
+}
+*/
+
+ngOnInit() {this.canvas =  this._canvasService.canvas; this.newCanvas =  this._canvasService.newCanvas;}
 
 onDragEnter(event: any, dropOnElement: any, droppedOn: string, ) {
 	//console.log('drag enter', event, dropOnElement, droppedOn)
 }
 
 onDropSuccess(event: any, dropOnElement: any, droppedOn: string, rowIndex, columnIndex, widgetIndex) {
+
+let copy = Object.assign({}, event.dragData.settings[0]);
 
 	if(this.canvas == [] || this.canvas == null  || this.canvas == 0 && droppedOn == 'canvas' && droppedOn != 'row' ){
 			//this.canvas.push(
@@ -229,7 +247,7 @@ onDropSuccess(event: any, dropOnElement: any, droppedOn: string, rowIndex, colum
 			          		[new Column(
 
 			          			[new Widget(
-			          					event.dragData.settings[0]
+			          					copy
 			          				,
 
 			          				event.dragData.widgetComponent
@@ -265,7 +283,7 @@ onDropSuccess(event: any, dropOnElement: any, droppedOn: string, rowIndex, colum
 			          		[new Column(
 
 			          			[new Widget(
-			          					event.dragData.settings[0]
+			          					copy
 			          				,
 
 			          				event.dragData.widgetComponent
@@ -318,7 +336,7 @@ onDropSuccess(event: any, dropOnElement: any, droppedOn: string, rowIndex, colum
 			dropOnElement.column.push (
 					new Column( 
 						[new Widget(
-			          				event.dragData.settings[0]
+			          				copy
 			          				,
 
 			          				event.dragData.widgetComponent
@@ -371,7 +389,7 @@ onDropSuccess(event: any, dropOnElement: any, droppedOn: string, rowIndex, colum
 			          		[new Column(
 
 			          			[new Widget(
-			          				event.dragData.settings[0]
+			          				copy
 			          				,
 
 			          				event.dragData.widgetComponent

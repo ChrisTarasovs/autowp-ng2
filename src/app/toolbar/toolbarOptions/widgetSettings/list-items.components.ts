@@ -1,23 +1,29 @@
-import { Component, OnInit , Input,  Output} from '@angular/core';
+import { Component, OnInit , Input,  Output, ChangeDetectorRef} from '@angular/core';
+import {NgForm, FormBuilder, FormGroup, FormArray,  FormControl, Validators} from '@angular/forms'; 
+import { ItemFormControlComponent}  from './item-control.component'
+import {setMediaComponent} from './set-media.component'
 
 @Component({
-  selector: 'list-items',
+  selector: 'items-array',
   template: `
-
-  	{{image.name  | json}}
-  	{{image.description  | json }}
-  	{{image.alt  | json }}
-  	{{image.placeholder  | json}}
-  	{{image.org  | json }}
-	{{image.xsize  | json}}
-
-	   <button (click)="updateCanvas()">Update image name </button>
+    <fieldset>
+      <item-control
+        *ngFor="let item of itemsFormArray.controls; let i=index"
+        [index]="i" [item]="item" (removed)="itemsFormArray.removeAt($event)">
+      </item-control>
+    </fieldset>
+    <button type="button" class="btn btn-link" (click)="addItem()">Add another item</button>
   `
 })
-export class listItemsComponent implements OnInit {
-	@Input('image') public image;
-	  updateCanvas(){
-               this.image.name = 'Chris Brown'
+export class ItemsFormArrayComponent implements OnInit {
+       @Input()  public itemsFormArray: FormArray;
 
-            }
+        addItem() {
+              this.itemsFormArray.push(ItemFormControlComponent.buildItem(''))
+        }
+
+        ngOnInit(){
+
+        }
+            
 }

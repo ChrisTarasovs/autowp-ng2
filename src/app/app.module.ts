@@ -1,5 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule , FormBuilder, FormGroup } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+
+
 import { HttpModule } from '@angular/http';
 import {
   NgModule,
@@ -15,7 +18,7 @@ import {
   PreloadAllModules
 } from '@angular/router';
 
-import { CommonModule } from '@angular/common';
+
 
 /*
  * Platform and Environment providers/directives/pipes
@@ -82,9 +85,10 @@ import {  text, textarea,ullist,singleImage, images, accordion,tabs, video, goog
 // All Component settings
 import { widgetSettingsComponent } from './toolbar/toolbarOptions/widgetSettings/widgetSettings.component';
 import { setMediaComponent } from './toolbar/toolbarOptions/widgetSettings/set-media.component';
-import { FileUploaderComponent } from './toolbar/toolbarOptions/widgetSettings/set-media.component';
+//import { FileUploaderComponent } from './toolbar/toolbarOptions/widgetSettings/set-media.component';
 
-import {listItemsComponent}  from './toolbar/toolbarOptions/widgetSettings/list-items.components'
+import {ItemsFormArrayComponent}  from './toolbar/toolbarOptions/widgetSettings/list-items.components'
+import {ItemFormControlComponent}  from './toolbar/toolbarOptions/widgetSettings/item-control.component'
 
 
 //Import Autowp Servicer
@@ -112,6 +116,9 @@ import {NgxPaginationModule} from 'ngx-pagination';
 
 //Import Autowp Interfaces
 import { Font } from './toolbar/toolbarOptions/wysiwyg-panel/typography/typograpy-interfaces';
+
+
+
 
 // Application wide providers
 const APP_PROVIDERS = [
@@ -170,8 +177,9 @@ type StoreType = {
     FontSizePipe, FontStylesPipe, StatefulSlicePipe, Safe,
      text, textarea, ullist,singleImage, images, accordion, tabs, video, googlemaps,testimonials, modalBox,slide,
 
-     FileUploaderComponent,
-     listItemsComponent,
+    // FileUploaderComponent,
+   ItemsFormArrayComponent, 
+   ItemFormControlComponent,
 
      // Component settings
      widgetSettingsComponent,

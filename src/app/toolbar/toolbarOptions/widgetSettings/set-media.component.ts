@@ -1,145 +1,104 @@
 import { Component, OnInit , Input,  Output} from '@angular/core';
+import {
+    NgForm, FormBuilder, FormGroup, 
+    AbstractControl, FormArray,  FormControl, 
+    Validators, FormsModule, ReactiveFormsModule } from '@angular/forms'; 
+
+import  {ItemsFormArrayComponent} from './list-items.components'
+import { ItemFormControlComponent}  from './item-control.component'
+import {canvasService} from '../../services/canvas.service'
+
+const resolvedPromise = Promise.resolve(null);
 
 @Component({
   selector: 'set-media',
   template: `
 
-    Singleimage: <pre>{{widget[0].settings.singleimage | json}}</pre>
-    Gallery : <pre>{{widget[0].settings.gallery | json}}</pre>
-    Carousel : <pre>{{widget[0].settings.carousel | json}}</pre>
+<form [formGroup]="myForm" (ngSubmit)="submit()">
+  <h4>Form</h4>
+ <input type="text" class="form-control" placeholder="Reference no" formControlName="singleimage">
+ <input type="text" class="form-control" placeholder="Reference no" formControlName="gallery">
+ <input type="text" class="form-control" placeholder="Reference no" formControlName="carousel">
+  <hr>
+  <items-array
+    formArrayName="slides"
+    [itemsFormArray]="myForm.get('slides')">
+  </items-array>
+  <hr>
+  <div class="form-group">
+    <input type="submit" class="form-control" value="Submit" [disabled]="myForm?.invalid">
+  </div>
+</form>
 
-    <Br /> Images list
-    <pre>{{widget[0].settings.slides | json}}</pre>
 
 
- <ul class="list-group border">
-
-     <li  *ngFor="let image of widget[0].settings.slides " >
-         <list-items [image]="image"></list-items>
-     </li>
-
-
- </ul>
-
-
-    
-   
-    <file-uploader [activeColor]="'orangered'" [baseColor]="'lightgray'"></file-uploader>
+<div><pre><code>{{ myForm?.value | json }}</code></pre></div>
   
   `
 })
 export class setMediaComponent implements OnInit {
-          
+          public myForm: FormGroup;
+          constructor(public _fb: FormBuilder, public _canvasService : canvasService) { }
+
 
 	@Input('widgetData') public widget;
-	  constructor() { }
+
+	 
 
 	  ngOnInit() {
+
+
+                 this.myForm = this._fb.group({
+                             singleimage :   this.widget[0].widget.settings.singleimage ,
+                             gallery:  this.widget[0].widget.settings.singleimage,
+                             carousel:  this.widget[0].widget.settings.singleimage ,
+                  
+                            slides: this.buildItems()
+
+                });
+
+               this.myForm.valueChanges.subscribe(data => {
+                         console.log('Form changes', data , this.widget[0])
+                         console.log('canvas', this._canvasService.canvas)
+                         
+                       
+                         Object.assign(
+
+                           this.widget[0].widget.settings 
+                           , data); 
+                           
+                })
+                console.log('my form', this.myForm)
+
 	  }
-}
+
+
+            buildItems() {
+                const tempArray =  new FormArray([])
+
+               // return new FormArray([])
+
+                 this.widget[0].widget.settings.slides.forEach(function(slide) {
+                       //this.buildItem(slide)
+
+                         const buildslide =  ItemFormControlComponent.buildItem(slide)
+                       /*
+                       const buildslide =  new FormGroup({
+                                                                  name: new FormControl(slide.name),
+                                                                  quantity: new FormControl(100)
+                                                    })
+                      */
+                      tempArray.push(buildslide);
+                })
+
+               return tempArray;
+              }
+
+
+      
 
 
 
-@Component({
-    selector: 'file-uploader',
-    template: `
-
-    <label class="uploader" ondragover="return false;"
-    [class.loaded]="loaded" 
-    [style.outlineColor]="dragging ? activeColor : baseColor"
-    (dragenter)="handleDragEnter()"
-    (dragleave)="handleDragLeave()"
-    (drop)="handleDrop($event)">
-    
-    <i class="icon icon-upload" 
-        [style.color]="dragging 
-            ? ((imageSrc.length > 0) ? overlayColor : activeColor)
-            : ((imageSrc.length > 0) ? overlayColor : baseColor)"></i>
-    
-    <img 
-        [src]="imageSrc" 
-        (load)="handleImageLoad()" 
-        [class.loaded]="imageLoaded"/>
-    
-    <input type="file" name="file" accept="image/*"
-        (change)="handleInputChange($event)">
-    </label>
-
-    `//,
-    //styleUrls: ['app/file-uploader.component.css'],
-   // inputs:['activeColor','baseColor','overlayColor']
-})
-export class FileUploaderComponent {
-
-
-    @Input('activeColor') public activeColor: string = 'green';
-    @Input('baseColor') public baseColor: string = '#ccc';
-    @Input('overlayColor') public overlayColor: string = 'rgba(255,255,255,0.5)';
-    
-    dragging: boolean = false;
-    loaded: boolean = false;
-    imageLoaded: boolean = false;
-    imageSrc: string = '';
-    iconColor: any;
-   
-    handleDragEnter() {
-        this.dragging = true;
-    }
-    
-    handleDragLeave() {
-        this.dragging = false;
-    }
-    
-    handleDrop(e) {
-        e.preventDefault();
-        this.dragging = false;
-        this.handleInputChange(e);
-    }
-    
-    handleImageLoad() {
-        this.imageLoaded = true;
-        this.iconColor = this.overlayColor;
-    }
-
-    handleInputChange(e) {
-        var file = e.dataTransfer ? e.dataTransfer.files[0] : e.target.files[0];
-
-        var pattern = /image-*/;
-        var reader = new FileReader();
-
-        if (!file.type.match(pattern)) {
-            alert('invalid format');
-            return;
-        }
-
-        this.loaded = false;
-
-        reader.onload = this._handleReaderLoaded.bind(this);
-        reader.readAsDataURL(file);
-    }
-    
-    _handleReaderLoaded(e) {
-        var reader = e.target;
-        this.imageSrc = reader.result;
-        this.loaded = true;
-    }
-    
-    _setActive() {
-        this.borderColor = this.activeColor;
-        if (this.imageSrc.length === 0) {
-            this.iconColor = this.activeColor;
-        }
-    }
-    
-    _setInactive() {
-        this.borderColor = this.baseColor;
-        if (this.imageSrc.length === 0) {
-            this.iconColor = this.baseColor;
-        }
-    }
 
 }
 
-
-//https://embed.plnkr.co/V91mKCNkBQZB5QO2MUP4/
-//http://embed.plnkr.co/mMVsbT/
