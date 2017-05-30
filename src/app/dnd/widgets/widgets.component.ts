@@ -6,10 +6,8 @@ import {FormsModule} from '@angular/forms'
 @Component({
   selector: 'text',
   template: 
-
 	`
-	this is text
-	<p contenteditable='true'>
+	<p contenteditable="true" [innerHTML]="widget.widget.settings.innerhtml">
 	Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
 	Praesent ultricies pretium arcu eu rutrum. 
 	Sed non metus gravida, rutrum ligula nec, suscipit turpis. 
@@ -20,36 +18,30 @@ import {FormsModule} from '@angular/forms'
 	 malesuada nulla non, rhoncus eros. Suspendisse a dui facilisis, 
 	 sodales ante ut, laoreet diam. Nulla vel lorem pharetra, 
 	 feugiat nulla eget, laoreet nulla.
-
 	</p>`
   
   //styleUrls: ['./text.component.css']
 })
-export class text  {}
+export class text  {
+	public widget;
+	constructor(private _widgetsService:widgetsService, private injector: Injector){
+		this.widget = this.injector.get('widget');
+	}
+}
 
 
 // textarea
 @Component({
   selector: 'html-textarea',
   template: 
+  //{{widget | json}}
+  //{{widget.innerhtml | json}}
+  //{{showNum | json}}
 	`
-	dddddd
-	{{widget | json}}
-	ddddddd
-	<!--
-	{{widget.innerhtml | json}}
-
-this is textare
-
-zzzzz
-{{showNum | json}}
-pppp
-
-	<button (click)="run()">button</button>
-	<textarea contenteditable="true" [innerHTML]="theHtmlString">
-		
+	<button (click)="this._widgetsService.loadWidget('widgetSettingsComponent', widget)">settings</button>
+	<textarea contenteditable="true" [innerHTML]="widget.widget.settings.innerhtml">
 	</textarea>
-	-->
+
 	`
   
   //styleUrls: ['./text.component.css']
@@ -57,28 +49,9 @@ pppp
 export class textarea  {
 	public showNum;
 	public widget;
-
-
-	run(){
-		//this.widget.settings.innerhtml = { 'ddd': 'aaaaa'}
-	}
-	
-	//@Input('widgetData') public widget;
-
-	constructor(private injector: Injector) {
-	    //this.showNum = this.injector.get('showNum');
+	constructor(private _widgetsService:widgetsService, private injector: Injector) {
 	     this.widget = this.injector.get('widget');
 	}
-
-	/*
-	
-	theHtmlString:any  = 'dddddddd'
-
-	constructor(private injector: Injector) {
-	    this.showNum = this.injector.get('showNum');
-	}
-	*/
-
 }
 
 
@@ -112,20 +85,13 @@ import {widgetsService} from '../../toolbar/services/widgets.service'
 @Component({
   selector: 'html-images',
   template: 
+  //{{widget.widget.settings.slides | json}}
 	`
 	
-	
-	{{widget.widget.settings.slides | json}}
-
-
 	<button (click)="this._widgetsService.loadWidget('widgetSettingsComponent', widget)">settings</button>
-	
 	<ul class="carousel">
-	  <slide [slidedata]="slides"> </slide>
-	 
+	  <slide [slidedata]="slides"> </slide> 
 	</ul>
-	
-	
 	`
   
   //styleUrls: ['./text.component.css']
@@ -137,35 +103,9 @@ export class images  {
 	slides: Array<any>;
 
 
-	constructor(private _widgetsService:widgetsService, private injector: Injector){
-		
-		   
+	constructor(private _widgetsService:widgetsService, private injector: Injector){   
 		this.widget = this.injector.get('widget');
 		this.slides = this.widget.widget.settings.slides
-
-/*
-		this.slides = [{ 
-	                                       name: 'Awesome',
-	                                       content: '<p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>',
-	                                       alt: 'placeholder', 
-	                                       org: 'https://placeholdit.imgix.net/~text?txtsize=33&txt=350×150&w=350&h=150', 
-	                                       xsize: 'https://placeholdit.imgix.net/~text?txtsize=33&txt=350×150&w=350&h=150'
-	                                     },
-	                                     { 
-	                                       name: 'Fun day',
-	                                       content: '<p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>',
-	                                       alt: 'placeholder', 
-	                                       org: 'https://placeholdit.imgix.net/~text?txtsize=33&txt=350×150&w=350&h=150', 
-	                                       xsize: 'https://placeholdit.imgix.net/~text?txtsize=33&txt=350×150&w=350&h=150'
-	                                     },
-	                                     { 
-	                                       name: 'Fun day two',
-	                                       content: '<p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>',
-	                                       alt: 'placeholder', 
-	                                       org: 'https://placeholdit.imgix.net/~text?txtsize=33&txt=350×150&w=350&h=150', 
-	                                       xsize: 'https://placeholdit.imgix.net/~text?txtsize=33&txt=350×150&w=350&h=150'
-	                  		}]
-*/
 			
 	}
 }
@@ -254,6 +194,7 @@ export class accordion  {}
   selector: 'tabs',
   template: 
 	`
+	 <button (click)="this._widgetsService.loadWidget('widgetSettingsComponent', widget)">settings</button>
 	<!-- setting to enable or disable first panel to be open
 
 		<button type="button" class="btn btn-primary btn-sm" (click)="status.isFirstDisabled = ! status.isFirstDisabled">
@@ -282,10 +223,13 @@ export class accordion  {}
 	  </tabset>
 	   -->
 	`
-  
-  //styleUrls: ['./text.component.css']
 })
-export class tabs  {}
+export class tabs  {
+	public widget;
+	 constructor(private _widgetsService:widgetsService, private injector: Injector) {  
+		this.widget = this.injector.get('widget');			
+	}
+}
 
 import {videoState} from '../../toolbar/services/videoState.service'
 
@@ -313,11 +257,7 @@ import {videoState} from '../../toolbar/services/videoState.service'
 })
 export class video  {
 	public widget;
-	//
-	//slides: Array<any>;
-
-
-	 constructor( private _videoState: videoState, private _widgetsService:widgetsService, private injector: Injector) {  
+	constructor( private _videoState: videoState, private _widgetsService:widgetsService, private injector: Injector) {  
 		this.widget = this.injector.get('widget');			
 	}
 }
@@ -367,43 +307,53 @@ export class googlemaps  {}
   selector: 'testimonials',
   template: 
 	`
-	<!--
-	<testimonials>
-	  <testimonial>
-	    <img src="https://placeholdit.imgix.net/~text?txtsize=33&txt=350×150&w=350&h=150">
+	
+	<button (click)="this._widgetsService.loadWidget('widgetSettingsComponent', widget)">settings</button>
+	<div *ngFor="let item of widget.widget.settings.items">
+		<testimonial [item]="item"></testimonial>
+	</div>
+	
+	`
+})
+export class testimonials  {
+	public widget;
+	//@Input('widgetData') public widget;
+	items: Array<any>;
+
+
+	constructor(private _widgetsService:widgetsService, private injector: Injector){   
+		this.widget = this.injector.get('widget');
+		//this.items = this.widget.widget.settings.items
+			
+	}
+
+}
+
+
+@Component({
+  selector: 'testimonial',
+  template: 
+	`
+	    <img [src]="item.userdetails.name">
 	    <div class="carousel-caption">
-	      <h3>First slide label</h3>
-	      <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+	      <h3>{{item.userdetails.name}} {{item.userdetails.surname}}</h3>
+	      <p>{{item.testimonial}}</p>
 	    </div>
-	  </testimonial>
-	  <testimonial>
-	    <img src="https://placeholdit.imgix.net/~text?txtsize=33&txt=350×150&w=350&h=150">
-	    <div class="carousel-caption">
-	      <h3>Second slide label</h3>
-	      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-	    </div>
-	  </testimonial>
-	  <testimonial>
-	    <img src="https://placeholdit.imgix.net/~text?txtsize=33&txt=350×150&w=350&h=150">
-	    <div class="carousel-caption">
-	      <h3>Third slide label</h3>
-	      <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
-	    </div>
-	  </testimonial>
-	</testimonials>
--->
 	`
   
   //styleUrls: ['./text.component.css']
 })
-export class testimonials  {}
+export class testimonial  {
+	@Input('item') public item;
+}
 
-// Tabs
+
+// ModalBox
 @Component({
   selector: 'modalBox',
   template: 
 	`
-modalBox
+		modalBox
 
 	`
   

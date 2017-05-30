@@ -46,15 +46,11 @@ export class setMediaComponent implements OnInit {
 	 
 
 	  ngOnInit() {
-
-
                  this.myForm = this._fb.group({
                              singleimage :   this.widget[0].widget.settings.singleimage ,
                              gallery:  this.widget[0].widget.settings.singleimage,
-                             carousel:  this.widget[0].widget.settings.singleimage ,
-                  
+                             carousel:  this.widget[0].widget.settings.singleimage,
                             slides: this.buildItems()
-
                 });
 
                this.myForm.valueChanges.subscribe(data => {
@@ -62,10 +58,7 @@ export class setMediaComponent implements OnInit {
                          console.log('canvas', this._canvasService.canvas)
                          
                        
-                         Object.assign(
-
-                           this.widget[0].widget.settings 
-                           , data); 
+                         Object.assign(this.widget[0].widget.settings  , data); 
                            
                 })
                 console.log('my form', this.myForm)
@@ -75,19 +68,8 @@ export class setMediaComponent implements OnInit {
 
             buildItems() {
                 const tempArray =  new FormArray([])
-
-               // return new FormArray([])
-
                  this.widget[0].widget.settings.slides.forEach(function(slide) {
-                       //this.buildItem(slide)
-
-                         const buildslide =  ItemFormControlComponent.buildItem(slide)
-                       /*
-                       const buildslide =  new FormGroup({
-                                                                  name: new FormControl(slide.name),
-                                                                  quantity: new FormControl(100)
-                                                    })
-                      */
+                      const buildslide =  ItemFormControlComponent.buildItem(slide)
                       tempArray.push(buildslide);
                 })
 

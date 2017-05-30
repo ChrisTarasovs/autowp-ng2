@@ -80,15 +80,25 @@ import {videoSearchBoxComponent} from  './toolbar/toolbarButtons/videoSearch/vid
 import {SectionsComponent} from './sections/sections.component';
 
 // All Component widgets
-import {  text, textarea,ullist,singleImage, images, accordion,tabs, video, googlemaps,testimonials, modalBox,slide} from './dnd/widgets/widgets.component';
+import {  text, textarea,ullist,singleImage, images, accordion,tabs, video, googlemaps,testimonials, testimonial, modalBox,slide} from './dnd/widgets/widgets.component';
 
 // All Component settings
 import { widgetSettingsComponent } from './toolbar/toolbarOptions/widgetSettings/widgetSettings.component';
 import { setMediaComponent } from './toolbar/toolbarOptions/widgetSettings/set-media.component';
+
 //import { FileUploaderComponent } from './toolbar/toolbarOptions/widgetSettings/set-media.component';
 
 import {ItemsFormArrayComponent}  from './toolbar/toolbarOptions/widgetSettings/list-items.components'
 import {ItemFormControlComponent}  from './toolbar/toolbarOptions/widgetSettings/item-control.component'
+
+import { setTestimonialsComponent } from './toolbar/toolbarOptions/widgetSettings/set-testimonials/set-testimonials.components';
+import {testimonialFormArrayComponent}  from './toolbar/toolbarOptions/widgetSettings/set-testimonials/list-items.components'
+import {testimonialFormControlComponent} from './toolbar/toolbarOptions/widgetSettings/set-testimonials/item-control.component'
+
+import { setTabsComponent } from './toolbar/toolbarOptions/widgetSettings/set-tabs/set-tabs.components';
+import {tabsFormArrayComponent}  from './toolbar/toolbarOptions/widgetSettings/set-tabs/list-items.components'
+import {tabsFormControlComponent} from './toolbar/toolbarOptions/widgetSettings/set-tabs/item-control.component'
+
 
 
 //Import Autowp Servicer
@@ -175,16 +185,25 @@ type StoreType = {
     XLargeDirective,
     YoutubeSafeUrlPipe,
     FontSizePipe, FontStylesPipe, StatefulSlicePipe, Safe,
-     text, textarea, ullist,singleImage, images, accordion, tabs, video, googlemaps,testimonials, modalBox,slide,
+     text, textarea, ullist,singleImage, images, accordion, tabs, video, googlemaps,testimonials, testimonial, modalBox,slide,
 
     // FileUploaderComponent,
    ItemsFormArrayComponent, 
    ItemFormControlComponent,
 
+   setTestimonialsComponent,
+   testimonialFormArrayComponent,
+   testimonialFormControlComponent,
+
+    setTabsComponent,
+    tabsFormArrayComponent,
+    tabsFormControlComponent,
+
      // Component settings
      widgetSettingsComponent,
      setMediaComponent,
-     VideoSettingsComponent 
+     VideoSettingsComponent
+     
   ],
   imports: [ // import Angular's modules
     BrowserModule,

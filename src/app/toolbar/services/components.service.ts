@@ -15,8 +15,8 @@ export class cmpService {
 		                  componentName: 'text',
 		                  innerhtml: {}
 		              }],
-	              widgetProperties: { dimension: [ 0,0,0,0 ],  location: [0,0,0,0] },
-	              widgetComponent:  {component: text, inputs: { name: 'example'} }
+		              widgetProperties: { dimension: [ 0,0,0,0 ],  location: [0,0,0,0] },
+		              widgetComponent:  {component: text, inputs: { name: 'example'} }
 	            },
             	{settings: 
             	   	[{
@@ -92,16 +92,25 @@ export class cmpService {
 	            	widgetProperties: {dimension: [ 0,0,0,0 ],  location: [0,0,0,0]},
 	            	widgetComponent:  { component: accordion,inputs: {name: 'example'} }
 	            },
-           		{settings: 
-           			[{
+	            {settings: 
+            		[{
 		                  isLoaded:false,
 		                  name: 'tabs',
 		                  componentName: 'tabs',
-		                  innerhtml: {}
+		                  tabposition: [
+		                    { value: 'top', display: 'top'},
+		                    { value: 'right', display: 'right'},
+		                    { value: 'bottom', display: 'bottom'},
+		                    { value: 'left', display: 'left'}
+		                  ],
+		                  items: [{
+		                  		tabname: '',
+		                  		tabcontent: ''
+		                  }]
 		            }],
-		            widgetProperties: {dimension: [ 0,0,0,0 ], location: [0,0,0,0]},
-		            widgetComponent:  {component: tabs,inputs: {name: 'example'}}
-	            },
+		            widgetProperties: { dimension: [ 0,0,0,0 ], location: [0,0,0,0]},
+		            widgetComponent:  {component: tabs, inputs: {name: 'example' }}
+	        	},
 	            {settings: 
 	            	[{
 		                  isLoaded:false,
@@ -109,8 +118,8 @@ export class cmpService {
 		                  componentName: 'video',
 		                  yturl: '',
 		             }],
-	            widgetProperties: {dimension: [ 0,0,0,0 ], location: [0,0,0,0]},
-            	widgetComponent:  { component: video,inputs: {name: 'example' }}
+		            widgetProperties: {dimension: [ 0,0,0,0 ], location: [0,0,0,0]},
+	            	widgetComponent:  { component: video,inputs: {name: 'example' }}
 	            },
 	            {
 	            settings: [{
@@ -119,28 +128,64 @@ export class cmpService {
 		                  componentName: 'googlemaps',
 		                  innerhtml: {}
 		                }],
-            	widgetProperties: {dimension: [ 0,0,0,0 ], location: [0,0,0,0]},
-            	widgetComponent:  {component: tabs,inputs: { name: 'example'}}
+	            	widgetProperties: {dimension: [ 0,0,0,0 ], location: [0,0,0,0]},
+	            	widgetComponent:  {component: tabs,inputs: { name: 'example'}}
 	            },
-	            {settings: 
-	            	[{
+	            {settings: [{
 		                  isLoaded:false,
 		                  name: 'testimonials',
 		                  componentName: 'testimonials',
-		                  innerhtml: {}
+		                  grid: true,
+		                  carousel: true,
+		                  items: [{ 
+		                  		userdetails:[{
+			                  			 name: '',
+			                  		   	 surname: '',
+			                  		   	 email: '',
+			                  		   	 image: ''
+		                  			}],
+		                  		   testimonial: ''
+		                                     },
+		                                     {
+		                                      userdetails:[{
+			                  			 name: '',
+			                  		   	 surname: '',
+			                  		   	 email: '',
+			                  		   	 image: ''
+		                  			}],
+		                  		   testimonial: ''
+		                                     },
+		                                     { 
+		                                      userdetails:[{
+			                  			 name: '',
+			                  		   	 surname: '',
+			                  		   	 email: '',
+			                  		   	 image: ''
+		                  			}],
+		                  		   testimonial: ''
+		                  		}]
 		            }],
-           		widgetProperties: { dimension: [ 0,0,0,0 ],  location: [0,0,0,0]},
-   	         	widgetComponent:  {component: tabs,inputs: {name: 'example'}}
+           			widgetProperties: { dimension: [ 0,0,0,0 ],  location: [0,0,0,0]},
+   	         		widgetComponent:  {component: testimonials ,inputs: {name: 'example'}}
             	},
             	{settings: 
             		[{
 		                  isLoaded:false,
 		                  name: 'modalBox',
 		                  componentName: 'modalBox',
-		                  innerhtml: {}
+		                  modalposition: [
+		                  		        { value: 'top', display: 'top'},
+				                    { value: 'right', display: 'right'},
+				                    { value: 'bottom', display: 'bottom'},
+				                    { value: 'left', display: 'left'}
+		                  ],
+		                  items: [{
+		                  		modalname: '',
+		                  		modalcontent: ''
+		                  }]
 		            }],
-	            widgetProperties: { dimension: [ 0,0,0,0 ], location: [0,0,0,0]},
-	            widgetComponent:  {component: tabs,inputs: {name: 'example' }}
+		            widgetProperties: { dimension: [ 0,0,0,0 ], location: [0,0,0,0]},
+		            widgetComponent:  {component: tabs,inputs: {name: 'example' }}
 	        	}
 	        ]
 
