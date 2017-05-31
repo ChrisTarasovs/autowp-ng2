@@ -32,13 +32,13 @@ export const EDITOR_VALUE_ACCESSOR = {
 
 
 // All the drag component list items
-import { text, textarea,ullist,singleImage, images, accordion,tabs, video, googlemaps,testimonials, testimonial,modalBox } from '../dnd/widgets/widgets.component';
+import { text, textarea,ullist,singleImage, images, accordion, accordionGroup, accordionHeading, tabs, video, googlemaps,testimonials, testimonial,modalBox } from '../dnd/widgets/widgets.component';
 
 
 
 @Component({
   selector: 'layout',
-  entryComponents: [ text, textarea,ullist,singleImage, images, accordion,tabs, video, googlemaps,testimonials, testimonial, modalBox 
+  entryComponents: [ text, textarea,ullist,singleImage, images, accordion, accordionGroup, accordionHeading, tabs, video, googlemaps,testimonials, testimonial, modalBox 
 
   ],  // Reference to the components must be here in order to dynamically create them
   template:  ` 

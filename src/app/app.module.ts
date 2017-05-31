@@ -80,7 +80,7 @@ import {videoSearchBoxComponent} from  './toolbar/toolbarButtons/videoSearch/vid
 import {SectionsComponent} from './sections/sections.component';
 
 // All Component widgets
-import {  text, textarea,ullist,singleImage, images, accordion,tabs, video, googlemaps,testimonials, testimonial, modalBox,slide} from './dnd/widgets/widgets.component';
+import {  text, textarea,ullist,singleImage, images, accordion, accordionGroup, accordionHeading,tabs, video, googlemaps,testimonials, testimonial, modalBox,slide} from './dnd/widgets/widgets.component';
 
 // All Component settings
 import { widgetSettingsComponent } from './toolbar/toolbarOptions/widgetSettings/widgetSettings.component';
@@ -185,7 +185,7 @@ type StoreType = {
     XLargeDirective,
     YoutubeSafeUrlPipe,
     FontSizePipe, FontStylesPipe, StatefulSlicePipe, Safe,
-     text, textarea, ullist,singleImage, images, accordion, tabs, video, googlemaps,testimonials, testimonial, modalBox,slide,
+     text, textarea, ullist,singleImage, images, accordion,accordionGroup, accordionHeading, tabs, video, googlemaps,testimonials, testimonial, modalBox,slide,
 
     // FileUploaderComponent,
    ItemsFormArrayComponent, 

@@ -156,7 +156,7 @@ export class slide  {
 		  </label>
 		</div>
  	
-	<accordion [closeOthers]="oneAtATime">
+	<div [closeOthers]="oneAtATime">
 		  <accordion-group heading="Static Header, initially expanded"
 			       heading="Static Header, initially expanded"
 		                   [isOpen]="status.isFirstOpen"
@@ -165,20 +165,52 @@ export class slide  {
 		  	>
 		    	This content is straight in the template.
 		  </accordion-group>
+		 
+	</div>
+	 -->
+
+	`
+  
+  //styleUrls: ['./text.component.css']
+})
+export class accordion  {
+	public widget;
+	public closeOthers;
+	public isFirstOpen;
+	constructor(private _widgetsService:widgetsService, private injector: Injector){   
+		this.widget = this.injector.get('widget');
+		this.closeOthers = this.widget.widget.setting.oneAtATime
+		this.isFirstOpen = this.widget.widget.setting.isFirstOpen
+	}
+}
+
+// accordion-group
+@Component({
+  selector: 'accordion-group',
+  template: 
+	`
+	<!-- 
+	
+		  <accordion-group heading="Static Header, initially expanded"
+			       heading="Static Header, initially expanded"
+		                   [isOpen]="status.isFirstOpen"
+		                   [isDisabled]="status.isFirstDisabled"
+
+		  	>
+		    	This content is straight in the template.
+		  </accordion-group>
+
 		  <accordion-group #group>
+
 		    <div accordion-heading>
 		      I can have markup, too!
 		      <i class="pull-right float-xs-right glyphicon"
 		         [ngClass]="{'glyphicon-chevron-down': group?.isOpen, 'glyphicon-chevron-right': !group?.isOpen}"></i>
 		    </div>
+
 		    This is just some content to illustrate fancy headings.
 		  </accordion-group>
-		  <accordion-group heading="Content 1">
-		    <p>Content 1</p>
-		  </accordion-group>
-		  <accordion-group heading="Content 2">
-		    <p>Content 2</p>
-		  </accordion-group>
+		
 	</accordion>
 	 -->
 
@@ -186,7 +218,22 @@ export class slide  {
   
   //styleUrls: ['./text.component.css']
 })
-export class accordion  {}
+export class accordionGroup  {}
+
+
+// accordion-headin
+@Component({
+  selector: 'accordion-heading',
+  template: 
+  `
+	Heading content
+
+	`
+  
+  //styleUrls: ['./text.component.css']
+})
+export class accordionHeading  {}
+
 
 
 // Tabs
@@ -269,33 +316,7 @@ export class video  {
   selector: 'googlemaps',
   template: 
 	`
-	<!-- setting to enable or disable first panel to be open
-
-		<button type="button" class="btn btn-primary btn-sm" (click)="status.isFirstDisabled = ! status.isFirstDisabled">
-		    Enable / Disable first panel
-		  </button>
-
-		Open only one at a time
-		  <div class="checkbox">
-		  <label>
-		    <input type="checkbox" [(ngModel)]="oneAtATime">
-		    Open only one at a time
-		  </label>
-		</div>
- 	
-	  <tabset #staticTabs>
-	    <tab heading="Static title">Static content</tab>
-	    <tab heading="Static Title 1">Static content 1</tab>
-	    <tab heading="Static Title 2">Static content 2</tab>
-	    <tab heading="Static Title 3" removable="true">Static content 3</tab>
-	    <tab (select)="alertMe()">
-	      <template tabHeading>
-	        <i class="glyphicon glyphicon-bell"></i> Alert!
-	      </template>
-	      I've got an HTML heading, and a select callback. Pretty cool!
-	    </tab>
-	  </tabset>
- -->
+	maps
 	`
   
   //styleUrls: ['./text.component.css']

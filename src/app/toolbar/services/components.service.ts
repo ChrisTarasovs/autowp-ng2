@@ -38,16 +38,6 @@ export class cmpService {
             		widgetProperties: {dimension: [ 0,0,0,0 ],  location: [0,0,0,0] },
             		widgetComponent:  {component: ullist, inputs: {name: 'example'}}
 		},
-            	{settings: 
-            		[{
-		                  isLoaded:false,
-		                  name: 'singleImage',
-		                  componentName: 'singleImage',
-		                  innerhtml: {}
-		             }],
-            		widgetProperties: {dimension: [ 0,0,0,0 ], location: [0,0,0,0] },
-            		widgetComponent:  {component: singleImage, inputs: { name: 'example'}}
-		},
      		{settings: 
      			[{
 		                  isLoaded:false,
@@ -87,7 +77,12 @@ export class cmpService {
 		                  isLoaded:false,
 		                  name: 'accordion',
 		                  componentName: 'accordion',
-		                  innerhtml: {}
+		                    isFirstOpen: false,
+		                    oneAtATime: false,
+		                  items: [{ 
+	                  			tabname:'',
+	                  		   	tabcontent: ''
+	                              }]
 		            }],
 	            	widgetProperties: {dimension: [ 0,0,0,0 ],  location: [0,0,0,0]},
 	            	widgetComponent:  { component: accordion,inputs: {name: 'example'} }
@@ -97,12 +92,8 @@ export class cmpService {
 		                  isLoaded:false,
 		                  name: 'tabs',
 		                  componentName: 'tabs',
-		                  tabposition: [
-		                    { value: 'top', display: 'top'},
-		                    { value: 'right', display: 'right'},
-		                    { value: 'bottom', display: 'bottom'},
-		                    { value: 'left', display: 'left'}
-		                  ],
+		                  tabposition: '',
+		                  isFirstOpen: false,
 		                  items: [{
 		                  		tabname: '',
 		                  		tabcontent: ''
@@ -145,25 +136,7 @@ export class cmpService {
 			                  		   	 image: ''
 		                  			}],
 		                  		   testimonial: ''
-		                                     },
-		                                     {
-		                                      userdetails:[{
-			                  			 name: '',
-			                  		   	 surname: '',
-			                  		   	 email: '',
-			                  		   	 image: ''
-		                  			}],
-		                  		   testimonial: ''
-		                                     },
-		                                     { 
-		                                      userdetails:[{
-			                  			 name: '',
-			                  		   	 surname: '',
-			                  		   	 email: '',
-			                  		   	 image: ''
-		                  			}],
-		                  		   testimonial: ''
-		                  		}]
+		                                     }]
 		            }],
            			widgetProperties: { dimension: [ 0,0,0,0 ],  location: [0,0,0,0]},
    	         		widgetComponent:  {component: testimonials ,inputs: {name: 'example'}}
