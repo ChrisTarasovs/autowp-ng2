@@ -13,9 +13,9 @@ export class cmpService {
 		                  isLoaded:false,
 		                  name: 'Text',
 		                  componentName: 'text',
-		                  innerhtml: {}
+		                  innerhtml: 'dasdasds'
 		              }],
-		              widgetProperties: { dimension: [ 0,0,0,0 ],  location: [0,0,0,0] },
+		              widgetProperties: { dimension: [ 0,100,0,0 ],  location: [0,0,0,0] },
 		              widgetComponent:  {component: text, inputs: { name: 'example'} }
 	            },
             	{settings: 
@@ -28,16 +28,20 @@ export class cmpService {
 		            widgetProperties: {dimension: [ 0,0,0,0 ], location: [0,0,0,0]},
 		            widgetComponent:  {component: textarea, inputs: {name: 'example'} }
 		},
+		/*
 	            {settings: 
 	            	[{
 		                  isLoaded:false,
 		                  name: 'Ullist',
 		                  componentName: 'ullist',
-		                  innerhtml: {}
+		                  items: [{ 
+	                  			content:'',
+	                              }]
 		            }],
             		widgetProperties: {dimension: [ 0,0,0,0 ],  location: [0,0,0,0] },
             		widgetComponent:  {component: ullist, inputs: {name: 'example'}}
 		},
+		*/
      		{settings: 
      			[{
 		                  isLoaded:false,

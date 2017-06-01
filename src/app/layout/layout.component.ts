@@ -41,19 +41,11 @@ import { text, textarea,ullist,singleImage, images, accordion, accordionGroup, a
   entryComponents: [ text, textarea,ullist,singleImage, images, accordion, accordionGroup, accordionHeading, tabs, video, googlemaps,testimonials, testimonial, modalBox 
 
   ],  // Reference to the components must be here in order to dynamically create them
-  template:  ` 
-<!--
-<button (click)="test()">test</button>
-
-<pre>
-{{newCanvas | json}}
-</pre>
-
--->
-<pre>
-	{{ canvas | json}}
-</pre>
-
+  template:  
+//<pre>
+	//{{ canvas | json}}
+//</pre>
+  ` 
 <div 
 class="canvas"
 dnd-droppable
@@ -136,44 +128,24 @@ dnd-droppable
 </div>
 
 			
-					<div  
-					*ngFor="let widget of column.widgets; let widgetIndex = index" 
+				<div  
+				*ngFor="let widget of column.widgets; let widgetIndex = index" 
 
-					dnd-droppable
-					[dropZones]="['widget-dropZone']"
-					(onDragEnter)="onDragEnter($event)"
-					(onDropSuccess)="onDropSuccess($event,  widget, 'widget', rowIndex, columnIndex, widgetIndex )" 
+				dnd-droppable
+				[dropZones]="['widget-dropZone']"
+				(onDragEnter)="onDragEnter($event)"
+				(onDropSuccess)="onDropSuccess($event,  widget, 'widget', rowIndex, columnIndex, widgetIndex )" 
 
-					class="AWwidgetWrapper" 
-					
-					>
+				class="AWwidgetWrapper" 
+				
+				>
 					
 						<div class="widget">
-						
- 						<ng-container *ngIf="widget.settings.isLoaded">
- 							
-						{{widget | json}}
-							
+	 						<ng-container *ngIf="widget.settings.isLoaded">
+								<dynamiccontent-component [componentData]="configureWidget(widget)" ></dynamiccontent-component>
+							</ng-container>
 
-							<dynamiccontent-component [componentData]="configureWidget(widget)" ></dynamiccontent-component>
-
- 						<!--	
-
- 							<div  *ngIf="widget.settings.name  == 'images' ">
-							        <html-images [widgetData]="widget"></html-images>
-							</div>
- 							 <dynamiccontent-component [componentData]="componentData" ></dynamiccontent-component>
- 							 <div  *ngIf="widget.settings.name  == 'Text' || widget.settings.name == 'Textarea' ">
-
-
- 							<div >
-							          <ng-container *ngComponentOutlet="widget.widgetComponent.component"  >
-							          </ng-container>
-							</div>
-						-->	
-						</ng-container>
-
-					</div>		
+						</div>		
 				</div>
 			</div>
 		  </div>
@@ -196,6 +168,7 @@ export class LayoutComponent implements OnInit, ControlValueAccessor {
 
 
 
+
 configureWidget(widget){
 	
 	const widgetData =  { widget : widget}
@@ -207,7 +180,6 @@ configureWidget(widget){
 }
 
 
-testing: any = [{'ddd': 'ddddd'}]
 canvas: Array<any> ;
 newCanvas: Array<any> ;
 componentData = null;
@@ -238,7 +210,9 @@ onDragEnter(event: any, dropOnElement: any, droppedOn: string, ) {
 
 onDropSuccess(event: any, dropOnElement: any, droppedOn: string, rowIndex, columnIndex, widgetIndex) {
 
-let copy = Object.assign({}, event.dragData.settings[0]);
+console.log('event', event, 'dropOnElement', dropOnElement, 'droppedOn' , droppedOn,  'dat', event.mouseEvent.clientY ,event.mouseEvent.clientX)
+
+const  copy = Object.assign({}, event);
 
 	if(this.canvas == [] || this.canvas == null  || this.canvas == 0 && droppedOn == 'canvas' && droppedOn != 'row' ){
 			//this.canvas.push(
@@ -247,7 +221,7 @@ let copy = Object.assign({}, event.dragData.settings[0]);
 			          		[new Column(
 
 			          			[new Widget(
-			          					copy
+			          					copy.dragData.settings[0]
 			          				,
 
 			          				event.dragData.widgetComponent
@@ -262,16 +236,16 @@ let copy = Object.assign({}, event.dragData.settings[0]);
 			          			)],
 			          			// Column location
 			          			[new Properties(
-		          					[new Dimension( 200 ,0, 0 + 200,0 )], [new Location(0,0,0,220 )]
+		          					[new Dimension( 200 ,0, 0 + 200,0 )], [new Location(0,0,0, event.mouseEvent.clientX )]
 			          			)]
 			          		)],
 			          		// Row Location
 			          		[new Properties(
-		          				[new Dimension( 0,0,0,0 )], [new Location(100,0,0,0)]
+		          				[new Dimension( 0 ,0,0,0 )], [new Location( event.mouseEvent.clientY ,0,0,0)]
 			          		)]
 			          	)
 			);
-			console.log('dropOnElement',this.canvas[0].column[0].widgets[0].settings.isLoaded)
+			//console.log('dropOnElement',this.canvas[0].column[0].widgets[0].settings.isLoaded)
 			this.canvas[0].column[0].widgets[0].settings.isLoaded = !this.canvas[0].column[0].widgets[0].settings.isLoaded
 			//console.log(this.canvas[0].column[0].widgets[0].data.isLoaded)
 	}
@@ -283,7 +257,7 @@ let copy = Object.assign({}, event.dragData.settings[0]);
 			          		[new Column(
 
 			          			[new Widget(
-			          					copy
+			          					copy.dragData.settings[0]
 			          				,
 
 			          				event.dragData.widgetComponent
@@ -308,7 +282,7 @@ let copy = Object.assign({}, event.dragData.settings[0]);
 			);
 			// Need to get the element index right
 			//this.canvas[1].column[0].widgets[0].data.isLoaded = !this.canvas[1].column[0].widgets[0].data.isLoaded
-			console.log(this.canvas[1].column[0].widgets[0].settings.isLoaded )
+			//console.log(this.canvas[1].column[0].widgets[0].settings.isLoaded )
 
 
 			if(this.canvas[1].column[0].widgets[0].settings.isLoaded == false
@@ -321,9 +295,54 @@ let copy = Object.assign({}, event.dragData.settings[0]);
 
 	}
 	if(droppedOn != 'canvas'  && droppedOn == 'rowWrapper' && droppedOn != 'row'  ){
+
+var newClientY = copy.mouseEvent.pageY - copy.mouseEvent.target.offsetTop
+console.log('location tiop should be', newClientY)
+		let temArray = [];
+		let newObj  =	temArray.push(
+			          new Row(
+			          		[new Column(
+
+			          			[new Widget(
+			          					copy.dragData.settings[0]
+			          				,
+
+			          				event.dragData.widgetComponent
+			          				,
+			          				//Widget location
+			          				[new Properties(
+			          					[new Dimension( 200,0,0,0 )], [new Location( 0,0,0,0 )]
+
+			          				  )]
+			          				
+			          				//[new Location(0,0,0,0)]
+			          			)],
+			          			// Column location
+			          			[new Properties(
+		          					[new Dimension( 200 ,0, 0 + 200,0 )], [new Location(0,0,0, event.mouseEvent.clientX )]
+			          			)]
+			          		)],
+			          		// Row Location
+			          		[new Properties(
+		          				[new Dimension( 0 ,0,0,0 )], [new Location( newClientY,0,0,0)]
+			          		)]
+			          	)
+			);
+		console.log ('temArray', temArray)
+		//let droppedElIndex  = this.canvas.findIndex(dropOnElement);
+		
+		console.log (this.canvas)
 			alert('dropped on rowWrapper')
-		let getRowWrapperProperties = dropOnElement.rowProperties[0].location[0].top
-		let getDroppedProperties = event
+		let getDroppedWrapperProperties = dropOnElement.rowProperties[0].location[0].top
+		console.log('index', rowIndex , 'dropped element',getDroppedWrapperProperties, copy.dragData.widgetProperties.dimension[1])
+
+
+		if(getDroppedWrapperProperties > copy.dragData.widgetProperties.dimension[1]){
+			// Inject and set row to 0
+			this.canvas.splice(rowIndex, 0, temArray[0]);
+			this.canvas[1].rowProperties.location[0].top = this.canvas[1].rowProperties.location[0].top  -  newClientY - copy.dragData.rowProperties.dimension[0].height
+
+		}
 
 		//console.log(event.dragData[0].widgetProperties)
 	}
@@ -336,7 +355,7 @@ let copy = Object.assign({}, event.dragData.settings[0]);
 			dropOnElement.column.push (
 					new Column( 
 						[new Widget(
-			          				copy
+			          				copy.dragData.settings[0]
 			          				,
 
 			          				event.dragData.widgetComponent
@@ -369,7 +388,7 @@ let copy = Object.assign({}, event.dragData.settings[0]);
 				// console.log(this.canvas[0].column[newCreated].widgets[0].data.isLoaded )	
 			}
 
-			console.log('your canvas',this.canvas)
+			//console.log('your canvas',this.canvas)
 
 	}
 	// Dropping an element ontop of column
@@ -389,7 +408,7 @@ let copy = Object.assign({}, event.dragData.settings[0]);
 			          		[new Column(
 
 			          			[new Widget(
-			          				copy
+			          				copy.dragData.settings[0]
 			          				,
 
 			          				event.dragData.widgetComponent

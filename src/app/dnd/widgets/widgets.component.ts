@@ -6,21 +6,7 @@ import {FormsModule} from '@angular/forms'
 @Component({
   selector: 'text',
   template: 
-	`
-	<p contenteditable="true" [innerHTML]="widget.widget.settings.innerhtml">
-	Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
-	Praesent ultricies pretium arcu eu rutrum. 
-	Sed non metus gravida, rutrum ligula nec, suscipit turpis. 
-	Nullam finibus eget risus hendrerit varius. 
-	Ut facilisis, magna vel imperdiet tristique, urna elit malesuada ante, 
-	quis ultricies dolor est non risus. Curabitur nisi orci, viverra non est
-	 nec, mollis fermentum velit. In nec metus accumsan, 
-	 malesuada nulla non, rhoncus eros. Suspendisse a dui facilisis, 
-	 sodales ante ut, laoreet diam. Nulla vel lorem pharetra, 
-	 feugiat nulla eget, laoreet nulla.
-	</p>`
-  
-  //styleUrls: ['./text.component.css']
+	`<p contenteditable="true" [innerHTML]="widget.widget.settings.innerhtml"></p>`
 })
 export class text  {
 	public widget;
@@ -59,11 +45,21 @@ export class textarea  {
 @Component({
   selector: 'ullist',
   template: 
-	`this is a list toggle loaded`
-  
-  //styleUrls: ['./text.component.css']
+	`
+	<button (click)="this._widgetsService.loadWidget('widgetSettingsComponent', widget)">settings</button>
+	<ul>
+		<li *ngFor="let item of widget.widget.settings.items">
+			<p contenteditable="true" [innerHTML]="item.content"></p>
+		</li>
+	</ul>
+	`
 })
-export class ullist  {}
+export class ullist  {
+	public widget;
+	constructor(private _widgetsService:widgetsService, private injector: Injector){
+		this.widget = this.injector.get('widget');
+	}
+}
 
 // Single image
 @Component({

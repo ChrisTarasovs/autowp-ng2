@@ -35,9 +35,10 @@ import {widgetSettingsComponent} from '../widgetSettings/widgetSettings.componen
   ], // Reference to the components must be here in order to dynamically create them
   template: `
     <div #dynamicComponentContainer  ></div>
-    {{dynamicData}}
+    
   `
 })
+//{{dynamicData}}
 export class DynamicPanelComponent {
 
 
@@ -70,7 +71,7 @@ export class DynamicPanelComponent {
      let inputProviders = Object.keys(data.inputs).map((inputName) => {return {provide: inputName, useValue: data.inputs[inputName]};});
    //  let inputProviders = Object.keys(data.inputs).map((inputName) => {return {provide: inputName, useValue: data.inputs[inputName]};});
    
-     console.log('inputProviders load', inputProviders)
+     //console.log('inputProviders load', inputProviders)
    
 
 

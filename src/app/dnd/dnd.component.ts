@@ -20,7 +20,7 @@ import {dndService} from '../toolbar/services/dnd.service';
                 dnd-draggable
                 [dragEnabled]="true"
                 [dragData]="widget"
-                [dropZones]="['widget-dropZone', 'canvas-dropZone', 'rowWrapper', 'row-dropZone',  'column-dropZone', 'widget-dropZone' ]"
+                [dropZones]="['widget-dropZone', 'canvas-dropZone', 'rowWrapper-dropZone', 'row-dropZone',  'column-dropZone', 'widget-dropZone' ]"
                 (onDragStart)="onDragStart(widget)"
 
                 class="list-group-item">
