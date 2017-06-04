@@ -7,12 +7,12 @@ import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Valida
 `
 <div class="form-group row" [formGroup]="item">
 	<div >
-	      <label [attr.for]="'tabname'+index">Tabname</label>
-	      <input type="text" class="form-control" [attr.id]="'tabname'+index" formControlName="tabname">
+	      <label [attr.for]="'title'+index">Tabname</label>
+	      <input type="text" class="form-control" [attr.id]="'title'+index" formControlName="title">
 	</div>
 	<div >
-	      <label [attr.for]="'tabcontent'+index">Tabcontent</label>
-	      <input type="text" class="form-control" [attr.id]="'tabcontent'+index" formControlName="tabcontent">
+	      <label [attr.for]="'content'+index">Tabcontent</label>
+	      <input type="text" class="form-control" [attr.id]="'content'+index" formControlName="content">
 	</div>
 
 	<div class="col-sm-1 py-1">
@@ -38,8 +38,8 @@ export class tabsFormControlComponent {
 
   static buildItem(item: any ) {
       return new FormGroup({
-      	tabname: new FormControl(item.tabname),
-	tabcontent: new FormControl(item.tabcontent)
+      	title: new FormControl(item.tabname),
+	content: new FormControl(item.tabcontent)
       })
     }
 

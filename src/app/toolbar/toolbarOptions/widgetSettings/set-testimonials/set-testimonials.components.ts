@@ -19,6 +19,9 @@ const resolvedPromise = Promise.resolve(null);
           </div>
 
           <form [formGroup]="myForm" (ngSubmit)="submit()">
+            <select  class="form-control"  formControlName="imagePosition"  >
+                  <option *ngFor="let pos of tabpositing" [value]="pos.name">{{pos.name}}</option>
+            </select>
             <input type="text" class="form-control" placeholder="grid" formControlName="grid">
             <input type="text" class="form-control" placeholder="carousel" formControlName="carousel">
             <testimonial-array
@@ -37,6 +40,12 @@ const resolvedPromise = Promise.resolve(null);
 })
 export class setTestimonialsComponent implements OnInit {
           public myForm: FormGroup;
+          public tabpositing: any  = [
+                          {name: 'top', value: false},
+                            {name: 'right',value: false},
+                           {name: 'bottom',value: false},
+                            {name: 'left',value: false}
+                        ]
           constructor(public _fb: FormBuilder, public _canvasService : canvasService) { }
 
 
@@ -47,6 +56,7 @@ export class setTestimonialsComponent implements OnInit {
 	  ngOnInit() {
              
                  this.myForm = this._fb.group({
+                            imagePosition: '',
                             grid: new FormControl(this.widget[0].widget.settings.grid), 
                             carousel:  new FormControl(this.widget[0].widget.settings.carousel), 
                             items: this.buildItems(this.widget[0].widget.settings.items)

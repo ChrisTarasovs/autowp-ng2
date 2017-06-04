@@ -1,18 +1,72 @@
 
 import { Component, OnInit , EventEmitter, Input,  Output, Injector} from '@angular/core';
 import {FormsModule} from '@angular/forms'
+import  {ContentEditableDirective} from '../../../app/contenteditable-model'
 
 //text
 @Component({
   selector: 'text',
+  //[innerHTML]="widget.widget.settings.innerhtml"
+  //  [(contenteditableModel)]="widget.widget.settings.innerhtml"
+  // [contenteditableModel]="widget.widget.settings.innerhtml" 
+//	  (contenteditableModelChange)="widget.widget.settings.innerhtml = $event; updateTotal()"
+//https://plnkr.co/edit/Hcg9YwtBdVKPpEBH5Xg9?p=preview
+//https://plnkr.co/edit/Hcg9YwtBdVKPpEBH5Xg9?p=preview
+//https://stackoverflow.com/questions/39023701/angular-2-contenteditable
+// /http://angular.io/docs/ts/latest/tutorial/toh-pt3.html
+//https://stackoverflow.com/questions/35378087/how-to-use-ngmodel-on-divs-contenteditable-in-angular2/35383589#35383589
   template: 
-	`<p contenteditable="true" [innerHTML]="widget.widget.settings.innerhtml"></p>`
+	`
+
+	<p contenteditable="true" 
+
+[(contenteditableModel)]="text"
+	
+	 
+	></p>
+
+	  {{text}}
+
+	<button (click)="updated()">update </button>
+	<button (click)="otherupdated()">Other update </button>
+	`
 })
 export class text  {
 	public widget;
+	public data;
+	public text:any = 'ddddd';
+	onBlurMethod(){
+		alert('clo')
+	}
+	updateTotal(){
+		console.log('change happening')
+	}
+	updated(){
+		this.data = {
+			innerhtml : 'aaaaaaaaa'
+		}
+		console.log('innerhtml', this.widget.widget.settings )
+		// console.log('innerhtml', this.widget[0].widget.settings.innerhtml )
+		// console.log(typeof this.widget[0].widget.settings.innerhtml )
+		// console.log(this.data)
+		// console.log(typeof this.data)
+
+		Object.assign(this.widget.widget.settings  , this.data); 
+		
+	}
+	otherupdated(){
+		this.data = {
+			innerhtml : 'dadadadaad'
+		}
+		Object.assign(this.widget.widget.settings  , this.data); 
+		
+	}
 	constructor(private _widgetsService:widgetsService, private injector: Injector){
 		this.widget = this.injector.get('widget');
+		//this.text  = this.widget.widget.settings.innerhtml;
 	}
+
+
 }
 
 
@@ -130,17 +184,24 @@ export class slide  {
 
 
 
-
-
-
-// FAQ
+// ACCORDION
 @Component({
   selector: 'accordion',
   template: 
 	`
+	<button (click)="this._widgetsService.loadWidget('widgetSettingsComponent', widget)">settings</button>
+
+
+
+
+
+
+
+
 	<!-- setting to enable or disable first panel to be open
 
-		<button type="button" class="btn btn-primary btn-sm" (click)="status.isFirstDisabled = ! status.isFirstDisabled">
+		<button type="button" class="btn btn-primary btn-sm" 
+		(click)="status.isFirstDisabled = ! status.isFirstDisabled">
 		    Enable / Disable first panel
 		  </button>
 
@@ -236,8 +297,36 @@ export class accordionHeading  {}
 @Component({
   selector: 'tabs',
   template: 
+ //  <div *ngFor="let item of widget.widget.settings.items">
+	// 	 <item-content [content]="item.content"></item-content>
+	// </div>
 	`
 	 <button (click)="this._widgetsService.loadWidget('widgetSettingsComponent', widget)">settings</button>
+	 
+
+	<div 
+	*ngIf="widget.widget.settings.tabposition == 'left' || widget.widget.settings.tabposition == 'top' " 
+	[ngClass]="{'tabs-left': widget.widget.settings.tabposition == 'left', 'tabs-top': widget.widget.settings.tabposition == 'top'}"
+	>
+
+		<div *ngFor="let item of widget.widget.settings.items">
+			{{item.title}}
+		</div>
+
+
+	</div>
+
+	<!--
+	<div 
+	*ngIf="widget.widget.settings.tabposition == 'left' || widget.widget.settings.tabposition == 'top' " 
+
+
+	>
+		
+	</div>
+	-->
+
+
 	<!-- setting to enable or disable first panel to be open
 
 		<button type="button" class="btn btn-primary btn-sm" (click)="status.isFirstDisabled = ! status.isFirstDisabled">
@@ -257,12 +346,14 @@ export class accordionHeading  {}
 	    <tab heading="Static Title 1">Static content 1</tab>
 	    <tab heading="Static Title 2">Static content 2</tab>
 	    <tab heading="Static Title 3" removable="true">Static content 3</tab>
+
 	    <tab (select)="alertMe()">
 	      <template tabHeading>
 	        <i class="glyphicon glyphicon-bell"></i> Alert!
 	      </template>
 	      I've got an HTML heading, and a select callback. Pretty cool!
 	    </tab>
+	 
 	  </tabset>
 	   -->
 	`
@@ -273,6 +364,21 @@ export class tabs  {
 		this.widget = this.injector.get('widget');			
 	}
 }
+
+
+// // item-content
+// @Component({
+//   selector: 'item-content',
+//   template: 
+// 	`
+// 	{{content | json}}
+// 	`
+// })
+// export class itemContent {
+// 	@Input('content') public content;
+
+// }
+
 
 import {videoState} from '../../toolbar/services/videoState.service'
 
@@ -327,7 +433,7 @@ export class googlemaps  {}
 	
 	<button (click)="this._widgetsService.loadWidget('widgetSettingsComponent', widget)">settings</button>
 	<div *ngFor="let item of widget.widget.settings.items">
-		<testimonial [item]="item"></testimonial>
+		<testimonial [item]="item" [layout]="widget.widget.settings.imagePosition"></testimonial>
 	</div>
 	
 	`
@@ -340,8 +446,6 @@ export class testimonials  {
 
 	constructor(private _widgetsService:widgetsService, private injector: Injector){   
 		this.widget = this.injector.get('widget');
-		//this.items = this.widget.widget.settings.items
-			
 	}
 
 }
@@ -351,17 +455,30 @@ export class testimonials  {
   selector: 'testimonial',
   template: 
 	`
+	<div *ngIf="layout == 'top'  || layout == 'left' " 
+	[ngClass]="{'image-left': layout == 'left', 'image-top': layout == 'top'}">
 	    <img [src]="item.userdetails.name">
-	    <div class="carousel-caption">
-	      <h3>{{item.userdetails.name}} {{item.userdetails.surname}}</h3>
-	      <p>{{item.testimonial}}</p>
-	    </div>
+	</div>
+
+	<div class="testimonial-caption">
+	      <h3>
+		      <span contenteditable="true" [innerHTML]="item.userdetails.name"></span>
+		      <span contenteditable="true" [innerHTML]="item.userdetails.surname"></span>
+	      </h3>
+	      <p contenteditable="true">{{item.testimonial}}</p>
+	</div>
+
+	<div *ngIf="layout == 'right'  || layout == 'bottom' " 
+	[ngClass]="{'image-right': layout == 'right', 'image-top': layout == 'bottom'}">
+	    <img [src]="item.userdetails.name">
+	</div>
+
+
 	`
-  
-  //styleUrls: ['./text.component.css']
 })
 export class testimonial  {
 	@Input('item') public item;
+	@Input('layout') public layout;
 }
 
 

@@ -29,7 +29,7 @@ import { AppState } from './app.service';
   ],
   template: `
    <toolbar  (commandExecuted)="onCommandExecuted()" style="position: fixed; right: 0px; top: 0px;"></toolbar>
-   <layout></layout>
+   <layout ></layout>
   `
 })
 export class AppComponent implements OnInit {

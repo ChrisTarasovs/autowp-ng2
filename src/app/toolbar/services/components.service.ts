@@ -81,11 +81,11 @@ export class cmpService {
 		                  isLoaded:false,
 		                  name: 'accordion',
 		                  componentName: 'accordion',
-		                    isFirstOpen: false,
-		                    oneAtATime: false,
+		                  isFirstOpen: false,
+		                  oneAtATime: false,
 		                  items: [{ 
-	                  			tabname:'',
-	                  		   	tabcontent: ''
+	                  			title:'',
+	                  		   	content: ''
 	                              }]
 		            }],
 	            	widgetProperties: {dimension: [ 0,0,0,0 ],  location: [0,0,0,0]},
@@ -96,11 +96,11 @@ export class cmpService {
 		                  isLoaded:false,
 		                  name: 'tabs',
 		                  componentName: 'tabs',
-		                  tabposition: '',
+		                  tabposition: 'left',
 		                  isFirstOpen: false,
 		                  items: [{
-		                  		tabname: '',
-		                  		tabcontent: ''
+		                  		title:'',
+	                  		   	content: ''
 		                  }]
 		            }],
 		            widgetProperties: { dimension: [ 0,0,0,0 ], location: [0,0,0,0]},
@@ -132,6 +132,7 @@ export class cmpService {
 		                  componentName: 'testimonials',
 		                  grid: true,
 		                  carousel: true,
+		                  imagePosition: 'left',
 		                  items: [{ 
 		                  		userdetails:[{
 			                  			 name: '',

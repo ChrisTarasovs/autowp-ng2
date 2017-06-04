@@ -128,7 +128,7 @@ import {NgxPaginationModule} from 'ngx-pagination';
 import { Font } from './toolbar/toolbarOptions/wysiwyg-panel/typography/typograpy-interfaces';
 
 
-
+import {ContentEditableDirective} from './contenteditable-model'
 
 // Application wide providers
 const APP_PROVIDERS = [
@@ -202,8 +202,10 @@ type StoreType = {
      // Component settings
      widgetSettingsComponent,
      setMediaComponent,
-     VideoSettingsComponent
-     
+     VideoSettingsComponent,
+
+     //Directives
+     ContentEditableDirective
   ],
   imports: [ // import Angular's modules
     BrowserModule,

@@ -14,7 +14,7 @@ const resolvedPromise = Promise.resolve(null);
   selector: 'set-testimonials',
   template: `
          <div  style="  height: 150px; overflow: scroll;">
-           <pre><code>{{ myForm?.value | json }}</code></pre>
+                 <pre><code>{{ myForm?.value | json }}</code></pre>
          </div>
          <div style="  height: 150px; overflow: scroll;">
                  <pre> {{ widget | json }}</pre>
