@@ -110,6 +110,7 @@ import {fontsService} from './toolbar/services/fonts.service';
 import {canvasService} from './toolbar/services/canvas.service';
 import {wysiwygService} from './toolbar/services/wysiwyg.service';
 import {cmpService} from './toolbar/services/components.service';
+import  {toolbarStateService} from './toolbar/services/toolbarStatus.service';
 
 
 //Import AutoWp Pipes
@@ -118,6 +119,8 @@ import { FontSizePipe, FontStylesPipe, StatefulSlicePipe } from './pipes/typogra
 import {videoState} from './toolbar/services/videoState.service';
 import { YoutubeSafeUrlPipe } from './pipes/youtube-safe-url.pipe';
 import { Safe} from './pipes/safehtml.pipe'
+import {NewlinePipe} from './pipes/newline.pipe'
+
 // Import AutoWp modules
 import { ColorPickerModule} from 'angular2-color-picker';
 import { EditorModule } from './editor/editor.module';
@@ -130,6 +133,9 @@ import { Font } from './toolbar/toolbarOptions/wysiwyg-panel/typography/typograp
 
 import {ContentEditableDirective} from './contenteditable-model'
 
+import {ResizingCroppingImagesComponent} from './image-cropper/image-cropper.component'
+
+
 // Application wide providers
 const APP_PROVIDERS = [
   ...APP_RESOLVER_PROVIDERS,
@@ -141,6 +147,12 @@ type StoreType = {
   restoreInputValues: () => void,
   disposeOldHosts: () => void
 };
+
+export const pipe_providers = [
+  {provide: NewlinePipe, useClass: NewlinePipe}
+];
+
+
 
 /**
  * `AppModule` is the main entry point into Angular2's bootstraping process
@@ -184,7 +196,7 @@ type StoreType = {
     NoContentComponent,
     XLargeDirective,
     YoutubeSafeUrlPipe,
-    FontSizePipe, FontStylesPipe, StatefulSlicePipe, Safe,
+    FontSizePipe, FontStylesPipe, StatefulSlicePipe, Safe,NewlinePipe,
      text, textarea, ullist,singleImage, images, accordion,accordionGroup, accordionHeading, tabs, video, googlemaps,testimonials, testimonial, modalBox,slide,
 
     // FileUploaderComponent,
@@ -205,7 +217,10 @@ type StoreType = {
      VideoSettingsComponent,
 
      //Directives
-     ContentEditableDirective
+     ContentEditableDirective,
+
+
+     ResizingCroppingImagesComponent
   ],
   imports: [ // import Angular's modules
     BrowserModule,
@@ -223,8 +238,8 @@ type StoreType = {
     ENV_PROVIDERS,
     APP_PROVIDERS,
     menuService,widgetsService, videoService, 
-    videoState, fontsService,dndService, canvasService,wysiwygService,
-    cmpService
+    videoState, fontsService,dndService, canvasService,wysiwygService, toolbarStateService,
+    cmpService,pipe_providers
   ]
 })
 export class AppModule {

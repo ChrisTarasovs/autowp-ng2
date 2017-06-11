@@ -23,6 +23,9 @@ import {DynamicPanelComponent} from '../toolbar/toolbarOptions/dynamic-panels/dy
 
 import { Safe } from '../pipes/safehtml.pipe'
 
+import {ResizingCroppingImagesComponent} from '../image-cropper/image-cropper.component'
+
+
 export const EDITOR_VALUE_ACCESSOR = {
   provide: NG_VALUE_ACCESSOR,
   useExisting: forwardRef(() => LayoutComponent),
@@ -34,7 +37,7 @@ export const EDITOR_VALUE_ACCESSOR = {
 // All the drag component list items
 import { text, textarea,ullist,singleImage, images, accordion, accordionGroup, accordionHeading, tabs, video, googlemaps,testimonials, testimonial,modalBox } from '../dnd/widgets/widgets.component';
 
-
+import  {ContentEditableDirective} from '../contenteditable-model'
 
 @Component({
   selector: 'layout',
@@ -43,7 +46,100 @@ import { text, textarea,ullist,singleImage, images, accordion, accordionGroup, a
   ],  // Reference to the components must be here in order to dynamically create them
   template:  
 
-  ` 
+  
+//  <h1>Resizing & cropping images with Angular 2</h1>
+//      <ly-cropping-img #Img format="png"></ly-cropping-img>
+   
+//      <input (change)="Img.imgChange($event)" type="file">
+
+     
+//      <button (click)="Img.zoom('+')">+</button>
+//      <button (click)="Img.zoom('-')">-</button>
+//      <button (click)="Img.center()">center</button>
+//      <div>Format input: {{Img._img.type}}</div>
+//      <br />
+//      <div>Format output: {{Img.format}}</div>
+//     <br />
+//     <div>Result: </div>
+//      <br />
+//      <img [src]="Img.imgCrop">
+//      <br />
+//      <input [(ngModel)]="Img.sizeW" placeholder="Img size Width">
+//      <input [(ngModel)]="Img.sizeH" placeholder="Img size Height">
+//      <input [(ngModel)]="Img.img" placeholder="Img">
+
+
+
+
+
+//     <div class="wysiwyg-editor__content" #editor contenteditable *ngIf="!editMode"
+	
+	    
+// 	  ></div>
+	  
+// <p [contenteditableModel]="colorme">Highlight me!</p>
+// <button (click)="goFuckGreen() ">pass green </button>
+
+
+  `
+
+  <div class="main-gallery">
+  <div class="gallery-cell">
+    <div class="testimonial">
+
+
+    	<!-- 
+    	Here we pull the image from OBJ 
+    	We have option to delete image, by removing form obj
+    	If object empty, show input and cropper
+    	we have cropper func to enable cropping.
+    	-->
+    	<img [src]="Img.imgCrop" 
+	    	  [style.width.px]="this.imgData.sizeW"    
+                          [style.height.px]="this.imgData.sizeH"
+		  class="testimonial-avatar" >
+
+
+    	<div class="img-container">
+	    		
+    			<cropping-img 
+			     #Img 
+			     format="png" 
+			     style="background-color: blue; display: block;"
+			     [imgData]="imgData"
+			      ></cropping-img>
+	</div>	      
+
+
+
+      <q class="testimonial-quote">
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis mauris ex, gravida ut leo eu, rhoncus porta orci. Fusce vitae rutrum nulla."
+      </q>
+
+      <span class="testimonial-author">Joe Smith, CEO of Cubix</span>
+
+    </div>
+  </div>
+
+</div>
+
+
+
+ <button (click)="Img.zoom('+')">+</button>
+ <button (click)="Img.zoom('-')">-</button>
+ <button (click)="Img.center()">center</button>
+
+ <br />
+ <input [(ngModel)]="Img.sizeW" placeholder="Img size Width">
+ <input [(ngModel)]="Img.sizeH" placeholder="Img size Height">
+ <input [(ngModel)]="Img.img" placeholder="Img">
+
+
+
+
+
+
+
 <div  style="  height: 150px; overflow: scroll;">
 	 <pre>
 		{{ canvas | json}}
@@ -150,8 +246,8 @@ dnd-droppable
 				class="AWwidgetWrapper" 
 				
 				>
-				height
-					{{ widget.widgetProperties[0].dimension[0] | json }}
+				<!--height
+					{{ widget.widgetProperties[0].dimension[0] | json }}-->
 						<div class="widget" [ngStyle]="{'height': widget.widgetProperties[0].dimension[0] + 'px'}">
 	 						<ng-container *ngIf="widget.settings.isLoaded">
 								<dynamiccontent-component [componentData]="configureWidget(widget)" ></dynamiccontent-component>
@@ -178,8 +274,14 @@ dnd-droppable
 
 export class LayoutComponent implements OnInit, ControlValueAccessor {
 
+public  imgData;
 
 
+public colorme = 'yellow';
+goFuckGreen(){
+	alert('called')
+	this.colorme = 'black';
+}
 
 configureWidget(widget){
 	const  copyWidget= Object.assign({}, widget);
@@ -202,6 +304,10 @@ constructor(private renderer: Renderer, private _dndService: dndService, private
 		this.componentData = { 
 			component: textarea ,inputs: { showNum: 222 }
 		}
+
+		this.imgData  = {
+					sizeW: 230;
+				  	sizeH: 230;}
 }
 
 
@@ -221,7 +327,7 @@ newRow(event, copy, rowDimension, rowPosition) {
 }
 
 newColumn(event,copy, columnDimension, columnPosition) {
-	let widgetDimension = { width: 200, height: 100, widthtotal: 0, heighttotal: 0};
+	let widgetDimension = { width: 400, height: 100, widthtotal: 0, heighttotal: 0};
 	let widgetPosition = {top: 0, right: 0, bottom: 0, left: 0};
 	return new Column([this.newWidget(event, copy, widgetDimension, widgetPosition)], [this.newProperties(columnDimension, columnPosition)]);
 }

@@ -13,7 +13,7 @@ export class cmpService {
 		                  isLoaded:false,
 		                  name: 'Text',
 		                  componentName: 'text',
-		                  innerhtml: 'dasdasds'
+		                  innerhtml: '<p>dasdas</p>'
 		              }],
 		              widgetProperties: { dimension: [ 0,100,0,0 ],  location: [0,0,0,0] },
 		              widgetComponent:  {component: text, inputs: { name: 'example'} }

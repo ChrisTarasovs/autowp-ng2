@@ -47,10 +47,7 @@ import { videoState } from '../../../../services/videoState.service';
 export class VideoItemComponent implements OnInit {
 	@Input('widgetData') public widget;
 
-	constructor(private _videoState: videoState) {
-
-
-		 console.log('xxxx',this.widget)}
+	constructor(private _videoState: videoState) {}
 
 	@Input() video: Video;
 	 

@@ -5,24 +5,25 @@ import {widgetsService} from '../services/widgets.service'
 import {menuService} from '../services/menu.service'
 import {wysiwygService} from '../services/wysiwyg.service'
 import {canvasService} from '../services/canvas.service'
+import { toolbarStateService} from '../services/toolbarStatus.service'
 
 @Component({
   selector: 'toolbar-buttons',
   outputs: ['clickedBtn', 'loadWidget'],
   template:  `
-      <div *ngIf="viewBuilder">
+      <div *ngIf="this._toolbarStateService.viewBuilder">
         <tbuttons [btnlist]="builder" (buttonClick)="this._widgetsService.loadWidget($event.componentNameString)" ></tbuttons>
       </div>
-      <div *ngIf="viewWysiwyg">
+      <div *ngIf="this._toolbarStateService.viewWysiwyg">
          <tbuttons [btnlist]="wysiwyg" (buttonClick)="this._wysiwygService.execCommand($event)"  ></tbuttons>
       </div>
-      <div *ngIf="viewImgAlignment">
+      <div *ngIf="this._toolbarStateService.viewImgAlignment;">
           <tbuttons [btnlist]="imgAlignment"></tbuttons>
       </div>
-      <div *ngIf="viewBtnSettings">
+      <div *ngIf="this._toolbarStateService.viewBtnSettings">
         <tbuttons [btnlist]="btnSettings" (buttonClick)="buttonsettings()"></tbuttons>
       </div>
-      <div *ngIf="viewMiscellaneous">
+      <div *ngIf="this._toolbarStateService.viewMiscellaneous">
         <tbuttons [btnlist]="miscellaneous" (buttonClick)="this._widgetsService.loadWidget($event.componentNameString)"></tbuttons>
       </div>
 
@@ -47,7 +48,9 @@ export class toolbarButtonsComponent {
              private _canvas: canvasService, 
              private _widgetsService: widgetsService, 
              private _menuService: menuService,  
-             private _wysiwygService: wysiwygService) {}
+             private _wysiwygService: wysiwygService,
+             private _toolbarStateService: toolbarStateService
+             ) {}
        
           clickedBtn: EventEmitter<any> = new EventEmitter();
           clickedSetBtn: EventEmitter<any> = new EventEmitter();
@@ -79,32 +82,15 @@ export class toolbarButtonsComponent {
 
         buttonsettings(){alert('something')}
 
-          //Top level Menu buttons
-         //buttonstypes:boolean = false;
-       //  videoSearchBox:boolean = false;
-
-
 
           // Set menu list
-          wysiwyg: any = []
-          imgAlignment: any = []
-          builder: any = []
-          btnSettings: any = []
-          miscellaneous: any =[]
-
-          viewWysiwyg: boolean = false;
-          viewImgAlignment: boolean = false;
-          viewBuilder: boolean = false;
-          viewBtnSettings: boolean = false;
-          viewMiscellaneous: boolean = false;
+          wysiwyg: any =  this._menuService.toolbarBtns[0].wysiwyg; 
+          imgAlignment: any = this._menuService.toolbarBtns[0].imgAligmnet; 
+          builder: any = this._menuService.toolbarBtns[0].Builder;
+          btnSettings: any = this._menuService.toolbarBtns[0].ButtonSettings;
+          miscellaneous: any = this._menuService.toolbarBtns[0].miscellaneous;
 
           ngOnInit(){
-            this.viewBuilder = true;
-            this.wysiwyg =  this._menuService.toolbarBtns[0].wysiwyg; 
-            this.imgAlignment = this._menuService.toolbarBtns[0].imgAligmnet; 
-            this.builder = this._menuService.toolbarBtns[0].Builder;
-            this.btnSettings = this._menuService.toolbarBtns[0].ButtonSettings;
-            this.miscellaneous = this._menuService.toolbarBtns[0].miscellaneous;
           }
   
 

@@ -47,7 +47,10 @@ export class DynamicPanelComponent {
 
 
 
-  constructor(private _ComponentFactoryResolver: ComponentFactoryResolver) {  }
+  constructor(private _ComponentFactoryResolver: ComponentFactoryResolver) { 
+
+
+   }
 
  newColor:string;
  colordata: any;
@@ -59,6 +62,7 @@ export class DynamicPanelComponent {
  
   // component: Class for the component you want to create
   // inputs: An object with key/value pairs mapped to input name/input value
+
 
 
   @Input() set componentData(data: {component: any, inputs: any}) {
@@ -96,11 +100,11 @@ export class DynamicPanelComponent {
     if (this.currentComponent) {
        this.currentComponent.destroy();
     }
-   
+  
     this.currentComponent = component;
+    
   }
 
-  
 
 
 }

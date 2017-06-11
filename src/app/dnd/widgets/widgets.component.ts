@@ -2,70 +2,55 @@
 import { Component, OnInit , EventEmitter, Input,  Output, Injector} from '@angular/core';
 import {FormsModule} from '@angular/forms'
 import  {ContentEditableDirective} from '../../../app/contenteditable-model'
+import { toolbarStateService} from '../../toolbar/services/toolbarStatus.service'
+import {ResizingCroppingImagesComponent} from '../../image-cropper/image-cropper.component'
+
 
 //text
 @Component({
   selector: 'text',
-  //[innerHTML]="widget.widget.settings.innerhtml"
-  //  [(contenteditableModel)]="widget.widget.settings.innerhtml"
-  // [contenteditableModel]="widget.widget.settings.innerhtml" 
-//	  (contenteditableModelChange)="widget.widget.settings.innerhtml = $event; updateTotal()"
-//https://plnkr.co/edit/Hcg9YwtBdVKPpEBH5Xg9?p=preview
-//https://plnkr.co/edit/Hcg9YwtBdVKPpEBH5Xg9?p=preview
-//https://stackoverflow.com/questions/39023701/angular-2-contenteditable
-// /http://angular.io/docs/ts/latest/tutorial/toh-pt3.html
-//https://stackoverflow.com/questions/35378087/how-to-use-ngmodel-on-divs-contenteditable-in-angular2/35383589#35383589
   template: 
-	`
+`
+<div  class="line-breaker"
+	contenteditable='true'
 
-	<p contenteditable="true" 
+(contenteditableModelChange)="updatedinnerHtml($event)"
+[contenteditableModel]="paragraphText"
 
-[(contenteditableModel)]="text"
-	
-	 
-	></p>
 
-	  {{text}}
 
-	<button (click)="updated()">update </button>
-	<button (click)="otherupdated()">Other update </button>
+	></div>
+
 	`
 })
 export class text  {
+	
 	public widget;
 	public data;
-	public text:any = 'ddddd';
-	onBlurMethod(){
-		alert('clo')
-	}
-	updateTotal(){
-		console.log('change happening')
-	}
-	updated(){
-		this.data = {
-			innerhtml : 'aaaaaaaaa'
-		}
-		console.log('innerhtml', this.widget.widget.settings )
-		// console.log('innerhtml', this.widget[0].widget.settings.innerhtml )
-		// console.log(typeof this.widget[0].widget.settings.innerhtml )
-		// console.log(this.data)
-		// console.log(typeof this.data)
+	public paragraphText;
 
+	constructor(
+		private _widgetsService:widgetsService, 
+		private injector: Injector,   
+		private _toolbarStateService: toolbarStateService){
+
+		this.widget = this.injector.get('widget');
+		this.paragraphText  = this.widget.widget.settings.innerhtml;
+	}
+
+
+	updatedinnerHtml(ev){
+		this.widget.widget.settings.innerhtml = ev;
+	}
+	
+	updated(){
 		Object.assign(this.widget.widget.settings  , this.data); 
-		
 	}
 	otherupdated(){
-		this.data = {
-			innerhtml : 'dadadadaad'
-		}
 		Object.assign(this.widget.widget.settings  , this.data); 
-		
 	}
-	constructor(private _widgetsService:widgetsService, private injector: Injector){
-		this.widget = this.injector.get('widget');
-		//this.text  = this.widget.widget.settings.innerhtml;
-	}
-
+	
+	
 
 }
 
@@ -454,7 +439,69 @@ export class testimonials  {
 @Component({
   selector: 'testimonial',
   template: 
+//   <div class="main-gallery">
+//   <div class="gallery-cell">
+//     <div class="testimonial">
+
+
+//     	<!-- 
+//     	Here we pull the image from OBJ 
+//     	We have option to delete image, by removing form obj
+//     	If object empty, show input and cropper
+//     	we have cropper func to enable cropping.
+//     	-->
+//     	<img [src]="Img.imgCrop" 
+// 	    	  [style.width.px]="this.imgData.sizeW"    
+//                           [style.height.px]="this.imgData.sizeH"
+// 		  class="testimonial-avatar" >
+
+
+//     	<div class="img-container">
+	    		
+//     			<cropping-img 
+// 			     #Img 
+// 			     format="png" 
+// 			     style="background-color: blue; display: block;"
+// 			     [imgData]="imgData"
+// 			      ></cropping-img>
+// 	</div>	      
+
+
+
+//       <q class="testimonial-quote">
+//       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis mauris ex, gravida ut leo eu, rhoncus porta orci. Fusce vitae rutrum nulla."
+//       </q>
+
+//       <span class="testimonial-author">Joe Smith, CEO of Cubix</span>
+
+//     </div>
+//   </div>
+
+// </div>
+
+
+
+//  <button (click)="Img.zoom('+')">+</button>
+//  <button (click)="Img.zoom('-')">-</button>
+//  <button (click)="Img.center()">center</button>
+
+//  <br />
+//  <input [(ngModel)]="Img.sizeW" placeholder="Img size Width">
+//  <input [(ngModel)]="Img.sizeH" placeholder="Img size Height">
+//  <input [(ngModel)]="Img.img" placeholder="Img">
+
+
+
 	`
+
+
+
+
+
+
+
+
+
 	<div *ngIf="layout == 'top'  || layout == 'left' " 
 	[ngClass]="{'image-left': layout == 'left', 'image-top': layout == 'top'}">
 	    <img [src]="item.userdetails.name">
@@ -479,6 +526,14 @@ export class testimonials  {
 export class testimonial  {
 	@Input('item') public item;
 	@Input('layout') public layout;
+	// public  imgData
+
+	// constructor(){
+
+	// 				this.imgData  = {
+	// 				sizeW: 230;
+	// 			  	sizeH: 230;}
+	// }
 }
 
 

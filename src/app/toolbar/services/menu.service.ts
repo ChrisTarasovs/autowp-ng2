@@ -201,9 +201,7 @@ export class menuService {
 		{id: 1,   title:'Italic',    icon: 'fa-italic',
 		   
 		   command: 'italic',  tag: 'i',active: false, 
-
-
-		    componentMenuSelector: false,
+		   componentMenuSelector: false,
 		},
 		{id: 2,  
 		    title:'Headlines', 
