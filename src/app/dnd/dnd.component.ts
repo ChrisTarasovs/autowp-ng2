@@ -3,7 +3,7 @@ import {cmpService} from '../toolbar/services/components.service'
 import {dndService} from '../toolbar/services/dnd.service';
 //import {  text, textarea,ullist,singleImage, images, accordion,tabs,video, googlemaps,testimonials, modalBox} from './widgets/widgets.component';
 
-
+import {canvasService} from '../toolbar/services/canvas.service';
 
 @Component({
   selector: 'builder',
@@ -14,32 +14,42 @@ import {dndService} from '../toolbar/services/dnd.service';
   
 
            <div 
-           *ngFor="let widget of widgets"  
+           *ngFor="let Newwidget of widgets"  
           
        
                 dnd-draggable
                 [dragEnabled]="true"
-                [dragData]="widget"
+                [dragData]="Newwidget"
                 [dropZones]="['widget-dropZone', 'canvas-dropZone', 'rowWrapper-dropZone', 'row-dropZone',  'column-dropZone', 'widget-dropZone' ]"
-                (onDragStart)="onDragStart(widget)"
+                (onDragStart)="onDragStart(Newwidget)"
 
                 class="list-group-item">
-                        {{widget.settings[0].name}}
+                        {{Newwidget.settings[0].name}}
               </div>
   </div>
-
-
+  <pre style="width: 400px;">
+      {{orginalList | json}}
+  </pre>
+  <pre style="width: 400px;">
+      {{widgets | json}}
+  </pre>
   `,
   //template: ` zzz`,
   styleUrls: ['./dnd.component.css']
   //directives : [TextComponent]
 })
 export class DndComponent  {
-    constructor( private _cmpService: cmpService, private _dndService: dndService){}
+  public orginalList;
+    constructor( private _cmpService: cmpService, 
+      private _dndService: dndService,
+      private _canvasService :canvasService
+      ){}
     widgets: any = []
 
     ngOnInit(){
-      this.widgets = this._cmpService.widgets
+      this.orginalList = this._cmpService.widgets;
+      const  copyWidgetlist = Object.assign(this._cmpService.widgets, {});
+      this.widgets = copyWidgetlist
     }
 
    // dragOperation: Boolean = false;
@@ -50,6 +60,7 @@ export class DndComponent  {
 
 
 onDragStart(widget){ 
+  console.log('=======ON DRAGE START CANVAS========',this._canvasService.canvas)
     //this._dndService.addDraggedItem(widget);
     console.log('started in dnd component', widget)
   }

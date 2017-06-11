@@ -256,7 +256,7 @@ goFuckGreen(){
 }
 
 configureWidget(widget){
-	const  copyWidget= Object.assign({}, widget);
+	const  copyWidget= Object.assign( widget, {});
 	const widgetData =  { widget : copyWidget}
 	return  {
 			component: copyWidget.widgetComponent.component, 
@@ -279,10 +279,16 @@ constructor(
  	private _canvasService: canvasService){
 		// temp set data for image cropper
 		this.imgData  = {sizeW: 230;sizeH: 230;}
+
+		this.canvas =  this._canvasService.canvas; 
+	
 }
 
 
-ngOnInit() {this.canvas =  this._canvasService.canvas; this.newCanvas =  this._canvasService.newCanvas;}
+ngOnInit() {
+	
+	//this.newCanvas =  this._canvasService.newCanvas;
+}
 
 
 

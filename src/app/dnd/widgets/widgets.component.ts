@@ -16,15 +16,17 @@ import {canvasService} from '../../toolbar/services/canvas.service'
 // (contenteditableModelChange)="updatedinnerHtml($event)"
 // [contenteditableModel]="paragraphText"
 
+	// (contenteditableModelChange)="updatedinnerHtml($event)"
+	//  [contenteditableModel]="paragraphText"
 
-
+	//  [contenteditableModel]="paragraphText"
+// [innerHtml]="paragraphText"
 // 	></div>
 `
 <div  class="line-breaker"
 	contenteditable='true'
 	(contenteditableModelChange)="updatedinnerHtml($event)"
 	 [contenteditableModel]="paragraphText"
-
 
 
 	></div>
@@ -34,6 +36,7 @@ import {canvasService} from '../../toolbar/services/canvas.service'
 export class text  {
 	
 	public widget;
+	public widgetCopy;
 	public data;
 	public paragraphText;
 
@@ -44,23 +47,25 @@ export class text  {
 		private _canvasService: canvasService
 		){
 
-		this.widget = this.injector.get('widget');
-		this.paragraphText  = this.widget.widget.settings.innerhtml;
+		this.widgetCopy = Object.assign(this.injector.get('widget'), {});
+
+		this.paragraphText  = this.widgetCopy.widget.settings.innerhtml;
 	}
 
 
 	updatedinnerHtml(ev){
-		console.log('=================')
+		console.log('=======UPDDATE WIDGET==========' , this._canvasService.canvas)
 
-		console.log(this._canvasService.canvas)
-		this.widget.widget.settings.innerhtml = ev;
+		console.log(this._canvasService.canvas[0].column[0].widgets[0].settings.innerhtml)
+		this._canvasService.canvas[0].column[0].widgets[0].settings.innerhtml = ev;
+		//this.widget.widget.settings.innerhtml = ev;
 	}
 	
 	updated(){
-		Object.assign(this.widget.widget.settings  , this.data); 
+		// Object.assign(this.widget.widget.settings  , this.data); 
 	}
 	otherupdated(){
-		Object.assign(this.widget.widget.settings  , this.data); 
+		// Object.assign(this.widget.widget.settings  , this.data); 
 	}
 	
 	
