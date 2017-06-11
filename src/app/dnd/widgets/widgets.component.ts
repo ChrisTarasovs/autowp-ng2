@@ -4,18 +4,26 @@ import {FormsModule} from '@angular/forms'
 import  {ContentEditableDirective} from '../../../app/contenteditable-model'
 import { toolbarStateService} from '../../toolbar/services/toolbarStatus.service'
 import {ResizingCroppingImagesComponent} from '../../image-cropper/image-cropper.component'
-
+import {canvasService} from '../../toolbar/services/canvas.service'
 
 //text
 @Component({
   selector: 'text',
   template: 
+//   <div  class="line-breaker"
+// 	contenteditable='true'
+
+// (contenteditableModelChange)="updatedinnerHtml($event)"
+// [contenteditableModel]="paragraphText"
+
+
+
+// 	></div>
 `
 <div  class="line-breaker"
 	contenteditable='true'
-
-(contenteditableModelChange)="updatedinnerHtml($event)"
-[contenteditableModel]="paragraphText"
+	(contenteditableModelChange)="updatedinnerHtml($event)"
+	 [contenteditableModel]="paragraphText"
 
 
 
@@ -32,7 +40,9 @@ export class text  {
 	constructor(
 		private _widgetsService:widgetsService, 
 		private injector: Injector,   
-		private _toolbarStateService: toolbarStateService){
+		private _toolbarStateService: toolbarStateService,
+		private _canvasService: canvasService
+		){
 
 		this.widget = this.injector.get('widget');
 		this.paragraphText  = this.widget.widget.settings.innerhtml;
@@ -40,6 +50,9 @@ export class text  {
 
 
 	updatedinnerHtml(ev){
+		console.log('=================')
+
+		console.log(this._canvasService.canvas)
 		this.widget.widget.settings.innerhtml = ev;
 	}
 	

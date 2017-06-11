@@ -40,14 +40,6 @@ export class widgetsService {
 							component: ExamplesComponent ,inputs: { showNum: 0 }
 						}
 					}
-					/*
-					else if(button === 'VideoComponent'){
-						this.constructComponent = { 
-							component: VideoComponent ,inputs: { showNum: 0 }
-						}
-						
-					}
-					*/
 					else if(button === 'widgetSettingsComponent'){
 						
 						this.constructComponent ={

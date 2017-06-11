@@ -39,7 +39,7 @@ export class menuService {
 				    componentName: HeadingComponent
 				}, 
 				{id: 3,  
-				    name:'Link', 
+				    name:'convert to link', 
 				    command: 'createlink',
 				    icon: 'fa-link',
 				    tag: 'a',
@@ -47,32 +47,32 @@ export class menuService {
 				    componentMenuSelector: 'links-menu',
 				    componentName : LinksComponent
 				},
-				{id: 4,  
-				    name:'Color',
-				    icon: 'fa-slack',
-				    componentMenuSelector: 'color-menu',
-				    command: 'color',
-				    active: false, 
-				    componentName: ColorSelectorComponent,
-				    colorArray: [ '#000000', '#0000ff' ],
-				    arrayColors: {color: '#000000', color2: '#999999'}
-				},
-				{id: 5,  
-				    name: 'Typography', 
-				    icon: 'fa-font',
-				    active: false, 
-				    componentMenuSelector: 'typography-menu',
-				    componentName : TypographyComponent
-				},
-				{id: 11,
-				    name:'Button Type', 
+				{id: 4,
+				    name:'convert to Button', 
 				    icon: 'fa-battery-empty',
 				    active: false, 
 				    command: 'createButtons',
 				    componentMenuSelector: 'buttontype',
 				    componentName: ButtonTypeWidgetComponent
 				},
-				{id: 12, 
+				{id: 5,  
+				    name:'Color',
+				    icon: 'fa-slack',
+				    componentMenuSelector: 'color-menu',
+				    command: 'color',
+				    active: false, 
+				    componentName: ColorSelectorComponent,
+				    colorArray: [ '#000000', '#0000dd' ],
+				    arrayColors: {color: '#000000', color2: '#999999'}
+				},
+				{id: 6,  
+				    name: 'Typography', 
+				    icon: 'fa-font',
+				    active: false, 
+				    componentMenuSelector: 'typography-menu',
+				    componentName : TypographyComponent
+				},
+				{id: 7, 
 				    name:'HTML', 
 				    icon: 'fa-battery-empty'
 
@@ -193,63 +193,63 @@ export class menuService {
 		}
 	]
 
-   	buttonlist = [
-		{id: 0,   title: 'Bold',  icon: 'fa-bold',
-		    command: 'bold',   tag: 'b', active: false, 
-		    componentMenuSelector: false,
-		},
-		{id: 1,   title:'Italic',    icon: 'fa-italic',
+ //   	buttonlist = [
+	// 	{id: 0,   title: 'Bold',  icon: 'fa-bold',
+	// 	    command: 'bold',   tag: 'b', active: false, 
+	// 	    componentMenuSelector: false,
+	// 	},
+	// 	{id: 1,   title:'Italic',    icon: 'fa-italic',
 		   
-		   command: 'italic',  tag: 'i',active: false, 
-		   componentMenuSelector: false,
-		},
-		{id: 2,  
-		    title:'Headlines', 
-		    icon: 'fa-header',
-		    command: 'headlineView',
-		    active: false, 
-		    componentMenuSelector: false,
+	// 	   command: 'italic',  tag: 'i',active: false, 
+	// 	   componentMenuSelector: false,
+	// 	},
+	// 	{id: 2,  
+	// 	    title:'Headlines', 
+	// 	    icon: 'fa-header',
+	// 	    command: 'headlineView',
+	// 	    active: false, 
+	// 	    componentMenuSelector: false,
 		    
 
-		    componentName: HeadingComponent
-		}, 
-		{id: 3,  
-		    title:'Link', 
-		    command: 'createlink',
-		    icon: 'fa-link',
-		    tag: 'a',
-		    active: false, 
-		    componentMenuSelector: 'links-menu',
-		    componentName : LinksComponent
-		},
-		{id: 4,  
-		    title:'Color',
-		    icon: 'fa-slack',
-		    componentMenuSelector: 'color-menu',
-		    command: 'color',
-		    active: false, 
-		    componentName: ColorSelectorComponent,
-		    colorArray: [ '#000000', '#0000ff' ],
-		    arrayColors: {color: '#000000', color2: '#999999'}
-		},
-		{id: 5,  
-		    title: 'Typography', 
-		    icon: 'fa-font',
-		    active: false, 
-		    componentMenuSelector: 'typography-menu',
-		    componentName : TypographyComponent
-		},
+	// 	    componentName: HeadingComponent
+	// 	}, 
+	// 	{id: 3,  
+	// 	    title:'Link', 
+	// 	    command: 'createlink',
+	// 	    icon: 'fa-link',
+	// 	    tag: 'a',
+	// 	    active: false, 
+	// 	    componentMenuSelector: 'links-menu',
+	// 	    componentName : LinksComponent
+	// 	},
+	// 	{id: 4,  
+	// 	    title:'Color',
+	// 	    icon: 'fa-slack',
+	// 	    componentMenuSelector: 'color-menu',
+	// 	    command: 'color',
+	// 	    active: false, 
+	// 	    componentName: ColorSelectorComponent,
+	// 	    colorArray: [ '#000000', '#0000ff' ],
+	// 	    arrayColors: {color: '#000000', color2: '#999999'}
+	// 	},
+	// 	{id: 5,  
+	// 	    title: 'Typography', 
+	// 	    icon: 'fa-font',
+	// 	    active: false, 
+	// 	    componentMenuSelector: 'typography-menu',
+	// 	    componentName : TypographyComponent
+	// 	},
 	
-		{id: 11,
-		    title:'Button Type', 
-		    icon: 'fa-battery-empty',
-		    active: false, 
-		    command: 'createButtons',
-		    componentMenuSelector: 'buttontype',
-		    componentName: ButtonTypeWidgetComponent
-		}
+	// 	{id: 11,
+	// 	    title:'Button Type', 
+	// 	    icon: 'fa-battery-empty',
+	// 	    active: false, 
+	// 	    command: 'createButtons',
+	// 	    componentMenuSelector: 'buttontype',
+	// 	    componentName: ButtonTypeWidgetComponent
+	// 	}
 		   
-	];
+	// ];
 
 	headinglist = [{
 		title: '1',

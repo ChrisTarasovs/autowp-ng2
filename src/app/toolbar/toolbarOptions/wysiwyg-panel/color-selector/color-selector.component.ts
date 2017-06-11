@@ -14,21 +14,33 @@ import { Component,
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import {ColorPickerModule, ColorPickerDirective} from 'angular2-color-picker';
 import {ColorPickerService} from 'angular2-color-picker';
-
-import {colorService} from '../../../services/shared.service';
-
+import {colorService} from '../../../services/color.service';
+import {dndService} from '../../../services/dnd.service';
 
 @Component({
   selector: 'app-color-selector',
   template: 
- //'./color-selector.component.html',
-
  `
     <ul>
-        <li *ngFor="let color of colors ">           
-            <div class="color-drop" [style.color]="color" [style.background]="color"
-            ></div>
-            {{color}}
+        <li *ngFor="let colordrop of colors ">           
+            <div class="color-drop" 
+                    [style.color]="colordrop.colorhex" 
+                    [style.background]="colordrop.colorhex" 
+                    alt="colordrop"
+                    dnd-draggable
+                    [dragEnabled]="true"
+                    [dragData]="colordrop"
+                    [dropZones]="['widget-dropZone', 
+                                            'canvas-dropZone', 
+                                            'rowWrapper-dropZone', 
+                                            'row-dropZone',  
+                                            'column-dropZone', 
+                                            'widget-dropZone' ]"
+                    (onDragStart)="onDragStart(colordrop)"
+
+
+                    ></div>
+                      {{colordrop.colorhex}}
         </li>
     </ul>
 
@@ -63,14 +75,15 @@ constructor(
   private _colorService: colorService, 
   private cpService: ColorPickerService, 
   private injector: Injector , 
-  private elRef: ElementRef) {
+  private elRef: ElementRef,
+  private _dndService: dndService
+   ) {
 
          this._colorService.colorHex$.subscribe(
             data => {
-                console.log('got the form: ' + data);
+                console.log('got the form: ', data);
                 // Add color  to colors from shared service
-                this.colorHex = data;
-                this.colors.push(this.colorHex);
+                this.colors.push(data);
             });
 
 
@@ -80,7 +93,7 @@ constructor(
         
   }
   
-  colorChanged(event){
+   colorChanged(event){
       this._colorService.colorChaged(event)
    }
     
@@ -90,6 +103,10 @@ constructor(
        this.elRef.nativeElement.dispatchEvent(
         new CustomEvent('widgetData', { bubbles: true, detail: val }));
    }
+
+   onDragStart(colordrop){ 
+      console.log('started in color selector component', colordrop)
+    }
 
 
  }   

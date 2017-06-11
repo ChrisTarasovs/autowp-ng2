@@ -7,13 +7,13 @@ import {toolbarStateService} from './toolbar/services/toolbarStatus.service'
 
 @Directive({
     selector: '[contenteditableModel]'
-    //,
-    // host: {
-    //   '(blur)': 'onEdit()',
-    //    // '(focus)': 'onFocus()'
-    //     //,
-    //    // '(keyup)': 'onEdit()'
-    // }
+    ,
+    host: {
+      '(blur)': 'onEdit()',
+       // '(focus)': 'onFocus()'
+        //,
+       // '(keyup)': 'onEdit()'
+    }
 })
 
 export class ContentEditableDirective implements OnChanges {
@@ -28,19 +28,19 @@ export class ContentEditableDirective implements OnChanges {
         private _toolbarStateService: toolbarStateService
     ) {}
 
-    @HostListener('focus', ['$event'])
-    onFocus(e) {
-      console.log('focus on')
-        this.onEdit();
-          // run when user clicked in the editable field / is focus.
-     }
+    // @HostListener('focus', ['$event'])
+    // onFocus(e) {
+    //   console.log('focus on')
+    //     this.onEdit();
+    //       // run when user clicked in the editable field / is focus.
+    //  }
 
-    @HostListener('blur', ['$event'])
-    onBlur(e) {
-       console.log('onBlur on')
-      this.onEdit();
-      // run when user clicked outside the field.
-    }
+    // @HostListener('blur', ['$event'])
+    // onBlur(e) {
+    //    console.log('onBlur on')
+    //   this.onEdit();
+    //   // run when user clicked outside the field.
+    // }
 
     ngOnChanges(changes) {
         console.log('ContentEditableDirective.ngOnChanges', changes);

@@ -12,7 +12,21 @@ export class colorService {
 
 	
 	 //Need an api that calls user pre set colors
-	 colors =   ['#000fff', '#fff000', '#dedede'];
+	 colors =   [{
+	 		type: 'color',
+	 		colorhex: '#000fff'
+ 		      },
+ 		      {
+	 		type: 'color',
+	 		colorhex: '#fff000' 
+ 		      },
+ 		      {
+	 		type: 'color',
+	 		colorhex: '#dedede'
+ 		      },
+ 		          
+	 	];
+	 
 	 arrayColors = {color: '#fff000'}
 
 	  // Observable string streams

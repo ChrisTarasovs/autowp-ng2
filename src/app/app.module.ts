@@ -111,7 +111,7 @@ import {canvasService} from './toolbar/services/canvas.service';
 import {wysiwygService} from './toolbar/services/wysiwyg.service';
 import {cmpService} from './toolbar/services/components.service';
 import  {toolbarStateService} from './toolbar/services/toolbarStatus.service';
-
+import {webService } from './toolbar/services/web.services'
 
 //Import AutoWp Pipes
 import { MenuTypePipe } from './pipes/menu-type.pipe';
@@ -238,7 +238,7 @@ export const pipe_providers = [
     ENV_PROVIDERS,
     APP_PROVIDERS,
     menuService,widgetsService, videoService, 
-    videoState, fontsService,dndService, canvasService,wysiwygService, toolbarStateService,
+    videoState, fontsService,dndService, canvasService,wysiwygService, toolbarStateService,webService,
     cmpService,pipe_providers
   ]
 })

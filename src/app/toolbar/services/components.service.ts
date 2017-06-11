@@ -8,40 +8,27 @@ import {  text, textarea,ullist,singleImage, images, accordion,tabs,video, googl
 export class cmpService {
 
     widgets = [
-		 {settings: 
-		  	[{
+		 {type: 'widget',
+		 settings: [{
 		                  isLoaded:false,
 		                  name: 'Text',
 		                  componentName: 'text',
 		                  innerhtml: '<p>dasdas</p>'
 		              }],
-		              widgetProperties: { dimension: [ 0,100,0,0 ],  location: [0,0,0,0] },
-		              widgetComponent:  {component: text, inputs: { name: 'example'} }
+	              widgetProperties: { dimension: [ 0,100,0,0 ],  location: [0,0,0,0] },
+	              widgetComponent:  {component: text, inputs: { name: 'example'} }
 	            },
-            	{settings: 
+            	{type: 'widget',
+        		settings: 
             	   	[{
 		                  isLoaded:false,
 		                  name: 'Textarea',
 		                  componentName: 'textarea',
 		                  innerhtml: 'This is an awesome text area'
 		            }],
-		            widgetProperties: {dimension: [ 0,0,0,0 ], location: [0,0,0,0]},
-		            widgetComponent:  {component: textarea, inputs: {name: 'example'} }
+	            widgetProperties: {dimension: [ 0,0,0,0 ], location: [0,0,0,0]},
+	            widgetComponent:  {component: textarea, inputs: {name: 'example'} }
 		},
-		/*
-	            {settings: 
-	            	[{
-		                  isLoaded:false,
-		                  name: 'Ullist',
-		                  componentName: 'ullist',
-		                  items: [{ 
-	                  			content:'',
-	                              }]
-		            }],
-            		widgetProperties: {dimension: [ 0,0,0,0 ],  location: [0,0,0,0] },
-            		widgetComponent:  {component: ullist, inputs: {name: 'example'}}
-		},
-		*/
      		{settings: 
      			[{
 		                  isLoaded:false,
@@ -73,8 +60,8 @@ export class cmpService {
 		                  		}]
 
             		}],
-            		widgetProperties: { dimension: [ 0,0,0,0 ],  location: [0,0,0,0] },
-		            widgetComponent:  {component: images,inputs: {name: 'example'}}
+        		widgetProperties: { dimension: [ 0,0,0,0 ],  location: [0,0,0,0] },
+	            widgetComponent:  {component: images,inputs: {name: 'example'}}
 	            },
         		{settings: 
         			[{
@@ -88,8 +75,8 @@ export class cmpService {
 	                  		   	content: ''
 	                              }]
 		            }],
-	            	widgetProperties: {dimension: [ 0,0,0,0 ],  location: [0,0,0,0]},
-	            	widgetComponent:  { component: accordion,inputs: {name: 'example'} }
+            	widgetProperties: {dimension: [ 0,0,0,0 ],  location: [0,0,0,0]},
+            	widgetComponent:  { component: accordion,inputs: {name: 'example'} }
 	            },
 	            {settings: 
             		[{
@@ -103,8 +90,8 @@ export class cmpService {
 	                  		   	content: ''
 		                  }]
 		            }],
-		            widgetProperties: { dimension: [ 0,0,0,0 ], location: [0,0,0,0]},
-		            widgetComponent:  {component: tabs, inputs: {name: 'example' }}
+	            widgetProperties: { dimension: [ 0,0,0,0 ], location: [0,0,0,0]},
+	            widgetComponent:  {component: tabs, inputs: {name: 'example' }}
 	        	},
 	            {settings: 
 	            	[{
@@ -113,8 +100,8 @@ export class cmpService {
 		                  componentName: 'video',
 		                  yturl: '',
 		             }],
-		            widgetProperties: {dimension: [ 0,0,0,0 ], location: [0,0,0,0]},
-	            	widgetComponent:  { component: video,inputs: {name: 'example' }}
+	            widgetProperties: {dimension: [ 0,0,0,0 ], location: [0,0,0,0]},
+            	widgetComponent:  { component: video,inputs: {name: 'example' }}
 	            },
 	            {
 	            settings: [{
@@ -123,8 +110,8 @@ export class cmpService {
 		                  componentName: 'googlemaps',
 		                  innerhtml: {}
 		                }],
-	            	widgetProperties: {dimension: [ 0,0,0,0 ], location: [0,0,0,0]},
-	            	widgetComponent:  {component: tabs,inputs: { name: 'example'}}
+            	widgetProperties: {dimension: [ 0,0,0,0 ], location: [0,0,0,0]},
+            	widgetComponent:  {component: tabs,inputs: { name: 'example'}}
 	            },
 	            {settings: [{
 		                  isLoaded:false,
@@ -143,8 +130,8 @@ export class cmpService {
 		                  		   testimonial: ''
 		                                     }]
 		            }],
-           			widgetProperties: { dimension: [ 0,0,0,0 ],  location: [0,0,0,0]},
-   	         		widgetComponent:  {component: testimonials ,inputs: {name: 'example'}}
+           		widgetProperties: { dimension: [ 0,0,0,0 ],  location: [0,0,0,0]},
+   	         	widgetComponent:  {component: testimonials ,inputs: {name: 'example'}}
             	},
             	{settings: 
             		[{
@@ -162,8 +149,8 @@ export class cmpService {
 		                  		modalcontent: ''
 		                  }]
 		            }],
-		            widgetProperties: { dimension: [ 0,0,0,0 ], location: [0,0,0,0]},
-		            widgetComponent:  {component: tabs,inputs: {name: 'example' }}
+	            widgetProperties: { dimension: [ 0,0,0,0 ], location: [0,0,0,0]},
+	            widgetComponent:  {component: tabs,inputs: {name: 'example' }}
 	        	}
 	        ]
 

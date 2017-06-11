@@ -23,6 +23,8 @@ import {DynamicPanelComponent} from '../toolbar/toolbarOptions/dynamic-panels/dy
 
 import { Safe } from '../pipes/safehtml.pipe'
 
+import * as _ from "lodash";
+
 import {ResizingCroppingImagesComponent} from '../image-cropper/image-cropper.component'
 
 
@@ -46,96 +48,67 @@ import  {ContentEditableDirective} from '../contenteditable-model'
   ],  // Reference to the components must be here in order to dynamically create them
   template:  
 
-  
-//  <h1>Resizing & cropping images with Angular 2</h1>
-//      <ly-cropping-img #Img format="png"></ly-cropping-img>
-   
-//      <input (change)="Img.imgChange($event)" type="file">
-
-     
-//      <button (click)="Img.zoom('+')">+</button>
-//      <button (click)="Img.zoom('-')">-</button>
-//      <button (click)="Img.center()">center</button>
-//      <div>Format input: {{Img._img.type}}</div>
-//      <br />
-//      <div>Format output: {{Img.format}}</div>
-//     <br />
-//     <div>Result: </div>
-//      <br />
-//      <img [src]="Img.imgCrop">
-//      <br />
-//      <input [(ngModel)]="Img.sizeW" placeholder="Img size Width">
-//      <input [(ngModel)]="Img.sizeH" placeholder="Img size Height">
-//      <input [(ngModel)]="Img.img" placeholder="Img">
 
 
-
-
-
-//     <div class="wysiwyg-editor__content" #editor contenteditable *ngIf="!editMode"
-	
-	    
-// 	  ></div>
-	  
+//     
 // <p [contenteditableModel]="colorme">Highlight me!</p>
 // <button (click)="goFuckGreen() ">pass green </button>
+// <div class="wysiwyg-editor__content" #editor contenteditable *ngIf="!editMode"></div>
+	  
+
+//   <div class="main-gallery">
+//   <div class="gallery-cell">
+//     <div class="testimonial">
+
+
+//     	<!-- 
+//     	Here we pull the image from OBJ 
+//     	We have option to delete image, by removing form obj
+//     	If object empty, show input and cropper
+//     	we have cropper func to enable cropping.
+//     	-->
+//     	<img [src]="Img.imgCrop" 
+// 	    	  [style.width.px]="this.imgData.sizeW"    
+//                           [style.height.px]="this.imgData.sizeH"
+// 		  class="testimonial-avatar" >
+
+
+//     	<div class="img-container">
+	    		
+//     			<cropping-img 
+// 			     #Img 
+// 			     format="png" 
+// 			     style="background-color: blue; display: block;"
+// 			     [imgData]="imgData"
+// 			      ></cropping-img>
+// 	</div>	      
+
+
+
+//       <q class="testimonial-quote">
+//       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis mauris ex, gravida ut leo eu, rhoncus porta orci. Fusce vitae rutrum nulla."
+//       </q>
+
+//       <span class="testimonial-author">Joe Smith, CEO of Cubix</span>
+
+//     </div>
+//   </div>
+
+// </div>
+
+
+
+//  <button (click)="Img.zoom('+')">+</button>
+//  <button (click)="Img.zoom('-')">-</button>
+//  <button (click)="Img.center()">center</button>
+
+//  <br />
+//  <input [(ngModel)]="Img.sizeW" placeholder="Img size Width">
+//  <input [(ngModel)]="Img.sizeH" placeholder="Img size Height">
+//  <input [(ngModel)]="Img.img" placeholder="Img">
 
 
   `
-
-  <div class="main-gallery">
-  <div class="gallery-cell">
-    <div class="testimonial">
-
-
-    	<!-- 
-    	Here we pull the image from OBJ 
-    	We have option to delete image, by removing form obj
-    	If object empty, show input and cropper
-    	we have cropper func to enable cropping.
-    	-->
-    	<img [src]="Img.imgCrop" 
-	    	  [style.width.px]="this.imgData.sizeW"    
-                          [style.height.px]="this.imgData.sizeH"
-		  class="testimonial-avatar" >
-
-
-    	<div class="img-container">
-	    		
-    			<cropping-img 
-			     #Img 
-			     format="png" 
-			     style="background-color: blue; display: block;"
-			     [imgData]="imgData"
-			      ></cropping-img>
-	</div>	      
-
-
-
-      <q class="testimonial-quote">
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis mauris ex, gravida ut leo eu, rhoncus porta orci. Fusce vitae rutrum nulla."
-      </q>
-
-      <span class="testimonial-author">Joe Smith, CEO of Cubix</span>
-
-    </div>
-  </div>
-
-</div>
-
-
-
- <button (click)="Img.zoom('+')">+</button>
- <button (click)="Img.zoom('-')">-</button>
- <button (click)="Img.center()">center</button>
-
- <br />
- <input [(ngModel)]="Img.sizeW" placeholder="Img size Width">
- <input [(ngModel)]="Img.sizeH" placeholder="Img size Height">
- <input [(ngModel)]="Img.img" placeholder="Img">
-
-
-
 
 
 
@@ -275,9 +248,8 @@ dnd-droppable
 export class LayoutComponent implements OnInit, ControlValueAccessor {
 
 public  imgData;
-
-
 public colorme = 'yellow';
+
 goFuckGreen(){
 	alert('called')
 	this.colorme = 'black';
@@ -300,39 +272,34 @@ componentData = null;
 childComponent:any;
 
 // One consturtor for both uses
-constructor(private renderer: Renderer, private _dndService: dndService, private _zone: NgZone, private _canvasService: canvasService){
-		this.componentData = { 
-			component: textarea ,inputs: { showNum: 222 }
-		}
-
-		this.imgData  = {
-					sizeW: 230;
-				  	sizeH: 230;}
+constructor(
+	private renderer: Renderer,
+ 	private _dndService: dndService, 
+ 	// private _zone: NgZone, 
+ 	private _canvasService: canvasService){
+		// temp set data for image cropper
+		this.imgData  = {sizeW: 230;sizeH: 230;}
 }
 
 
 ngOnInit() {this.canvas =  this._canvasService.canvas; this.newCanvas =  this._canvasService.newCanvas;}
 
-onDragEnter(event: any, dropOnElement: any, droppedOn: string, ) {
-	console.log('event.mouseEvent', event.mouseEvent)	
-	console.log('Empty canvas event.mouseEvent.target.offsetTop', event.mouseEvent.target.offsetTop)
-}
 
 
 // Generate new grid
-newRow(event, copy, rowDimension, rowPosition) {
+newRow(copy, rowDimension, rowPosition) {
 	let columnDimension = { width: 0, height: 0, widthtotal: 0, heighttotal: 0};
 	let columnPosition = {top: 0, right: 0, bottom: 0, left: copy.mouseEvent.offsetX};
-	return new Row([this.newColumn(event, copy, columnDimension, columnPosition)], [this.newProperties(rowDimension, rowPosition)]);
+	return new Row([this.newColumn( copy, columnDimension, columnPosition)], [this.newProperties(rowDimension, rowPosition)]);
 }
 
-newColumn(event,copy, columnDimension, columnPosition) {
+newColumn(copy, columnDimension, columnPosition) {
 	let widgetDimension = { width: 400, height: 100, widthtotal: 0, heighttotal: 0};
 	let widgetPosition = {top: 0, right: 0, bottom: 0, left: 0};
-	return new Column([this.newWidget(event, copy, widgetDimension, widgetPosition)], [this.newProperties(columnDimension, columnPosition)]);
+	return new Column([this.newWidget( copy, widgetDimension, widgetPosition)], [this.newProperties(columnDimension, columnPosition)]);
 }
 
-newWidget(event, copy, widgetDimension, widgetPosition) {
+newWidget(copy, widgetDimension, widgetPosition) {
 	if(copy.dragData){
 		return new Widget(copy.dragData.settings[0], copy.dragData.widgetComponent, [this.newProperties(widgetDimension, widgetPosition)]); }
 	else{ 
@@ -344,50 +311,82 @@ newProperties(dimension, position) {
 	return new Properties([new Dimension(dimension.width, dimension.height, dimension.widthtotal, dimension.heighttotal)], [new Location( position.top, position.right, position.bottom, position.left)]);
 }
 
-
-
-
-onDropSuccess(event: any, dropOnElement: any, droppedOn: string, rowIndex, columnIndex, widgetIndex) {
-
-	console.log('event', event, 'dropOnElement', dropOnElement, 'droppedOn' , droppedOn,  'dat', event.mouseEvent.clientY ,event.mouseEvent.clientX)
-
-	const  copy = Object.assign({}, event);
-	
-	// NEW CANVAS
-	if(this.canvas == [] || this.canvas == null  || this.canvas == 0 && droppedOn == 'canvas' && droppedOn != 'row' ){
-		
-		let rowPosition ={top: copy.mouseEvent.offsetY, right: 0 , bottom: 0, left:0 }
-		let rowDimension = {width: 0, height: 100, widthtotal: 0, heighttotal: 0}
-
-		dropOnElement.push(this.newRow(event, copy, rowDimension, rowPosition))
-		this.canvas[0].column[0].widgets[0].settings.isLoaded = !this.canvas[0].column[0].widgets[0].settings.isLoaded
-		
-	}
-	// NEW ROW TO CANVAS
-	else if( this.canvas !== null   && droppedOn == 'canvas' ){
-
-
-		let rowPositionsSum = dropOnElement.map(function(row){
-			return row.rowProperties[0].location[0].top + row.rowProperties[0].dimension[0].height
-		}).reduce((a, b) => a + b, 0)
-
-		let rowPosition ={top: (copy.mouseEvent.clientY - copy.mouseEvent.target.offsetTop) - rowPositionsSum, right: 0, bottom: 0, left: 0;   }
-		let rowDimension = {width: 0, height: 100, widthtotal: 0, heighttotal: 0}
-
-		dropOnElement.push(this.newRow(event, copy, rowDimension, rowPosition))
-			if(this.canvas[1].column[0].widgets[0].settings.isLoaded == false
-			 ){
-			 	//console.log(this.canvas[0].column[newCreated].widgets[0].data.isLoaded )
-				this.canvas[1].column[0].widgets[0].settings.isLoaded  = !this.canvas[1].column[0].widgets[0].settings.isLoaded
-				// console.log(this.canvas[0].column[newCreated].widgets[0].data.isLoaded )	
-			}
-
+	onDragEnter(event: any, dropOnElement: any, droppedOn: string, ) {
+		console.log('event.mouseEvent', event.mouseEvent)	
+		console.log('Empty canvas event.mouseEvent.target.offsetTop', event.mouseEvent.target.offsetTop)
 	}
 
-	// DROPPED ON ROW
-	if(droppedOn != 'canvas'  && droppedOn == 'rowWrapper' && droppedOn != 'row'  ){
+	onDropSuccess(event: any, dropOnElement: any, droppedOn: string, rowIndex, columnIndex, widgetIndex) {
+		switch (event.dragData.type){
+		    case 'color':
+		        alert('color dropped')
+		        break;
+		    case 'widget':
+		        this.addComponent(event, dropOnElement, droppedOn, rowIndex, columnIndex, widgetIndex)
+		        break;
+		}
+	}
+	addComponent(event: any, dropOnElement: any, droppedOn: string, rowIndex, columnIndex, widgetIndex){
+		console.log('event', event, 'dropOnElement', dropOnElement, 'droppedOn' , droppedOn,  'dat', event.mouseEvent.clientY ,event.mouseEvent.clientX)
+		// Create a copy of the dropped El
+		const  copy = Object.assign(event, {});
+		// First check the type object dropped on
+		switch (droppedOn){
+		    case 'canvas':
+		       alert('dropped on canas b*')
+		        this.addToCanvas(copy, dropOnElement, droppedOn, rowIndex, columnIndex, widgetIndex);
+		        break;
+		    case 'rowWrapper':
+		        alert('dropped on rowWrapper b*')
+		        this.addToRowWrapper(copy, dropOnElement, droppedOn, rowIndex, columnIndex, widgetIndex);
+		        break;  
+		    case 'row':
+		        alert('dropped on row b*')
+		        this.addToRow(copy, dropOnElement, droppedOn, rowIndex, columnIndex, widgetIndex);
+		        break;
+		     case 'columnWrapper':
+		        alert('dropped on columnWrapper b*')
+		        this.addToColumnWrapper(copy, dropOnElement, droppedOn, rowIndex, columnIndex, widgetIndex);
+		        break; 	
+		    case 'column':
+		        alert('dropped on column b*')
+		        this.addToColumn(copy, dropOnElement, droppedOn, rowIndex, columnIndex, widgetIndex);
+		        break;  
+		    case 'widget':
+		        alert('dropped on widget b*')
+		        break;   
 
-		if( parseInt(copy.mouseEvent.target.style.paddingTop) > copy.dragData.widgetProperties.dimension[1]){
+		}
+	}
+	addToCanvas(copy: any, dropOnElement: any, droppedOn: string, rowIndex, columnIndex, widgetIndex){
+		if( _.isEmpty(this.canvas)){
+			let rowPosition ={top: copy.mouseEvent.offsetY, right: 0 , bottom: 0, left:0 }
+			let rowDimension = {width: 0, height: 100, widthtotal: 0, heighttotal: 0}
+
+			dropOnElement.push(this.newRow(copy, rowDimension, rowPosition))
+			this.canvas[0].column[0].widgets[0].settings.isLoaded = !this.canvas[0].column[0].widgets[0].settings.isLoaded
+		}
+		// new row to canvas
+		else{
+			let rowPositionsSum = dropOnElement.map(function(row){
+				return row.rowProperties[0].location[0].top + row.rowProperties[0].dimension[0].height
+			}).reduce((a, b) => a + b, 0)
+
+			let rowPosition ={top: (copy.mouseEvent.clientY - copy.mouseEvent.target.offsetTop) - rowPositionsSum, right: 0, bottom: 0, left: 0;   }
+			let rowDimension = {width: 0, height: 100, widthtotal: 0, heighttotal: 0}
+
+			dropOnElement.push(this.newRow(copy, rowDimension, rowPosition))
+				if(this.canvas[1].column[0].widgets[0].settings.isLoaded == false
+				 ){
+				 	//console.log(this.canvas[0].column[newCreated].widgets[0].data.isLoaded )
+					this.canvas[1].column[0].widgets[0].settings.isLoaded  = !this.canvas[1].column[0].widgets[0].settings.isLoaded
+					// console.log(this.canvas[0].column[newCreated].widgets[0].data.isLoaded )	
+				}
+		}
+	}
+	addToRowWrapper(copy: any, dropOnElement: any, droppedOn: string, rowIndex, columnIndex, widgetIndex){
+		let rowTopPadding = parseInt(copy.mouseEvent.target.style.paddingTop);
+		if( rowTopPadding > copy.dragData.widgetProperties.dimension[1]){
 			// then splice
 			//console.log('-----enter-------')
 			let rowPosition ={top: copy.mouseEvent.offsetY, right: 0 , bottom: 0, left:0 }
@@ -395,9 +394,9 @@ onDropSuccess(event: any, dropOnElement: any, droppedOn: string, rowIndex, colum
 			// let columnPosition ={top: 0, right: 0 , bottom: 0, left:copy.mouseEvent.offsetX }
 
 			// this.canvas.splice(rowIndex, 0, this.newWidget(event, copy, rowPosition, columnPosition ));
-			this.canvas.splice(rowIndex, 0, this.newRow(event, copy, rowDimension, rowPosition));
+			this.canvas.splice(rowIndex, 0, this.newRow(copy, rowDimension, rowPosition));
 
-			let newHeight = parseInt(copy.mouseEvent.target.style.paddingTop) - (copy.dragData.widgetProperties.dimension[1] + copy.mouseEvent.offsetY)
+			let newHeight = rowTopPadding - (copy.dragData.widgetProperties.dimension[1] + copy.mouseEvent.offsetY)
 			
 			// if clientyY is bigger 
 			if(newHeight > 0 ){
@@ -421,18 +420,12 @@ onDropSuccess(event: any, dropOnElement: any, droppedOn: string, rowIndex, colum
 			//console.log('dropOnElement.rowProperties', dropOnElement.rowProperties[0].location[0].top)
 			dropOnElement.rowProperties[0].location[0].top = 0;
 			//console.log(dropOnElement.rowProperties[0].location[0].top, this.canvas)
-			this.canvas.splice(rowIndex, 0, this.newRow(event, copy, rowDimension, rowPosition));
+			this.canvas.splice(rowIndex, 0, this.newRow(copy, rowDimension, rowPosition));
 
 		}
 	}
-
-	// ADD IN THE ROW
-	// dropOnElement.column = if dropped element has column , that it is a row
-	if(droppedOn != 'canvas'  && droppedOn == 'row' ){
-		console.log('event is', event)
+	addToRow(copy: any, dropOnElement: any, droppedOn: string, rowIndex, columnIndex, widgetIndex){
 		let columnCount = dropOnElement.column.length;
-		console.log('column dat',dropOnElement.column[0].columnProperties[0].location[0].left)
-
 		let columnPositionsSum = dropOnElement.column.map(function(column){
 			return column.columnProperties[0].location[0].left + column.widgets[0].widgetProperties[0].dimension[0].width
 		}).reduce((a, b) => a + b, 0)
@@ -444,7 +437,7 @@ onDropSuccess(event: any, dropOnElement: any, droppedOn: string, rowIndex, colum
 			let columnDimension = {width: 0, height: 0, widthtotal: 0, heighttotal: 0}
 
 			dropOnElement.column.push(
-				this.newColumn(event, copy, columnDimension, columnPosition)
+				this.newColumn(copy, columnDimension, columnPosition)
 			);
 		}
 		
@@ -455,15 +448,13 @@ onDropSuccess(event: any, dropOnElement: any, droppedOn: string, rowIndex, colum
 		 ){
 		 	this.canvas[rowIndex].column[columnCount].widgets[0].settings.isLoaded    = !this.canvas[rowIndex].column[columnCount].widgets[0].settings.isLoaded 
 		}
-
-
 	}
-	if(droppedOn != 'canvas'  && droppedOn == 'columnWrapper' && droppedOn != 'column'  ){
+	addToColumnWrapper(copy: any, dropOnElement: any, droppedOn: string, rowIndex, columnIndex, widgetIndex){
 		alert('dropped on columnWrapper')
 
 		let columnPosition ={top: 0, right: 0 , bottom: 0, left:  copy.mouseEvent.offsetX }
 		let columnDimension = {width: 0, height: 0, widthtotal: 0, heighttotal: 0}
-		this.canvas[rowIndex].column.splice(columnIndex, 0, this.newColumn(event, copy, columnDimension, columnPosition));
+		this.canvas[rowIndex].column.splice(columnIndex, 0, this.newColumn(copy, columnDimension, columnPosition));
 
 		// Splice 
 		if( parseInt(copy.mouseEvent.target.style.paddingLeft) > copy.dragData.widgetProperties.dimension[1]){
@@ -474,47 +465,30 @@ onDropSuccess(event: any, dropOnElement: any, droppedOn: string, rowIndex, colum
 			dropOnElement.columnProperties[0].location[0].left = 0;
 		}
 	}
-	//NESTED Children
-	// Dropping an element ontop of column
-	if(droppedOn != 'canvas'   && droppedOn == 'column'){
+	addToColumn(copy: any, dropOnElement: any, droppedOn: string, rowIndex, columnIndex, widgetIndex){
 		console.log('dropOnElement',dropOnElement)
+		if(dropOnElement.rows == undefined) {
+			dropOnElement.rows = new Array()
+		}
+		let oldwidget = dropOnElement.widgets.splice(0,1)
+
 		
-		
-			if(dropOnElement.rows == undefined) {
-				dropOnElement.rows = new Array()
-			}
-			let oldwidget = dropOnElement.widgets.splice(0,1)
+		let rowPosition ={top: 0, right: 0 , bottom: 0, left:0 }
+		let rowDimension = {width: 0, height: 100, widthtotal: 0, heighttotal: 0}
 
+		dropOnElement.rows.push(this.newRow(copy, rowDimension, rowPosition))
+		// than I readd the old one. row -> column -> widget
+
+		// let preRowPosition ={top: 0, right: 0 , bottom: 0, left:0 }
+		// let preRowDimension = {width: 0, height: 100, widthtotal: 0, heighttotal: 0}
+
+		// dropOnElement.rows.push(this.newRow(event, oldwidget, preRowDimension, preRowPosition))
 			
-			let rowPosition ={top: 0, right: 0 , bottom: 0, left:0 }
-			let rowDimension = {width: 0, height: 100, widthtotal: 0, heighttotal: 0}
-
-			dropOnElement.rows.push(this.newRow(event, copy, rowDimension, rowPosition))
-			// than I readd the old one. row -> column -> widget
-
-			// let preRowPosition ={top: 0, right: 0 , bottom: 0, left:0 }
-			// let preRowDimension = {width: 0, height: 100, widthtotal: 0, heighttotal: 0}
-
-			// dropOnElement.rows.push(this.newRow(event, oldwidget, preRowDimension, preRowPosition))
-			
-
-
-			
-		
 	}
 
-
-
-
-}
-checknested(column){
-
-	let testColumn = column;
-	if(testColumn.rows !== undefined && testColumn.rows.length > 0){	
-		return true;
-	}
-
-
+	checknested(column){
+		let testColumn = column;
+		if(testColumn.rows !== undefined && testColumn.rows.length > 0){	return true;}
 	}
 	
 }
