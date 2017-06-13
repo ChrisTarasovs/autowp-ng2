@@ -135,7 +135,7 @@ dnd-droppable
 		(onDropSuccess)="onDropSuccess($event, row,  'rowWrapper', rowIndex )" 
 
 		class="AWrowWrapper" 
-		[ngStyle]="{'padding-top': row.rowProperties[0].location[0].top  + 'px'}" 
+		
 
 		>
 
@@ -157,7 +157,7 @@ dnd-droppable
 
 				class="AWcolumnWrapper"
 				
-				[ngStyle]="{'padding-left': column.columnProperties[0].location[0].left + 'px'}"
+				
 
 			>
 
@@ -219,8 +219,7 @@ dnd-droppable
 				class="AWwidgetWrapper" 
 				
 				>
-				<!--height
-					{{ widget.widgetProperties[0].dimension[0] | json }}-->
+				
 						<div class="widget" [ngStyle]="{'height': widget.widgetProperties[0].dimension[0] + 'px'}">
 	 						<ng-container *ngIf="widget.settings.isLoaded">
 								<dynamiccontent-component [componentData]="configureWidget(widget)" ></dynamiccontent-component>
@@ -235,10 +234,12 @@ dnd-droppable
 </div>
 </div>
 
+
 <br style="clear:both" />
 <hr />
 <button (click)="UpdateContent()">Click here </button>
 <button (click)="addComponentWidgets()">Add to widget canvas</button>
+<button (click)="addCanvasObj()">addCanvasObj</button>
 {{widgetComponents | json}}
 {{ this._cmpService.widgets[0].widgetComponent | json}}
 <hr />
@@ -267,6 +268,181 @@ public widgetComponents = []
 goFuckGreen(){
 	alert('called')
 	this.colorme = 'black';
+}
+addCanvasObj(){
+	this._canvasService.canvas.push(
+ {
+    "column": [
+      {
+        widgets: [
+          {
+            settings: {
+              isLoaded: true,
+              name: "Text",
+              componentName: "text",
+              innerhtml: "oooooo"
+            },
+            widgetComponent: {
+
+              component: this._cmpService.widgets[0].widgetComponent.component,
+              inputs: {
+                name: "example"
+              }
+            },
+            widgetProperties: [
+              {
+                dimension: [
+                  {
+                    width: 400,
+                    height: 100,
+                    widthtotal: 0,
+                    heighttotal: 0
+                  }
+                ],
+                location: [
+                  {
+                    top: 0,
+                    right: 0,
+                    bottom: 0,
+                    left: 0
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        columnProperties: [
+          {
+            dimension: [
+              {
+                width: 0,
+                height: 0,
+                widthtotal: 0,
+                heighttotal: 0
+              }
+            ],
+            location: [
+              {
+                top: 0,
+                right: 0,
+                bottom: 0,
+                left: 361
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    rowProperties: [
+      {
+        dimension: [
+          {
+            width: 0,
+            height: 100,
+            widthtotal: 0,
+            heighttotal: 0
+          }
+        ],
+        location: [
+          {
+            top: 246,
+            right: 0,
+            bottom: 0,
+            left: 0
+          }
+        ]
+      }
+    ]
+  }
+ ,
+ {
+    "column": [
+      {
+        widgets: [
+          {
+            settings: {
+              isLoaded: true,
+              name: "Text",
+              componentName: "text",
+              innerhtml: "zzzzzzz"
+            },
+            widgetComponent: {
+
+              component: this._cmpService.widgets[0].widgetComponent.component,
+              inputs: {
+                name: "example"
+              }
+            },
+            widgetProperties: [
+              {
+                dimension: [
+                  {
+                    width: 400,
+                    height: 100,
+                    widthtotal: 0,
+                    heighttotal: 0
+                  }
+                ],
+                location: [
+                  {
+                    top: 0,
+                    right: 0,
+                    bottom: 0,
+                    left: 0
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        columnProperties: [
+          {
+            dimension: [
+              {
+                width: 0,
+                height: 0,
+                widthtotal: 0,
+                heighttotal: 0
+              }
+            ],
+            location: [
+              {
+                top: 0,
+                right: 0,
+                bottom: 0,
+                left: 361
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    rowProperties: [
+      {
+        dimension: [
+          {
+            width: 0,
+            height: 100,
+            widthtotal: 0,
+            heighttotal: 0
+          }
+        ],
+        location: [
+          {
+            top: 246,
+            right: 0,
+            bottom: 0,
+            left: 0
+          }
+        ]
+      }
+    ]
+  }
+ 
+
+)
+
+
 }
 addComponentWidgets(){
 	this.widgetComponents.push(
@@ -352,15 +528,118 @@ newRow(copy, rowDimension, rowPosition) {
 newColumn(copy, columnDimension, columnPosition) {
 	let widgetDimension = { width: 400, height: 100, widthtotal: 0, heighttotal: 0};
 	let widgetPosition = {top: 0, right: 0, bottom: 0, left: 0};
-	return new Column([this.newWidget( copy, widgetDimension, widgetPosition)], [this.newProperties(columnDimension, columnPosition)]);
+
+	 
+	return new Column(
+
+		[this.newWidget( copy, widgetDimension, widgetPosition)], 
+		[this.newProperties(columnDimension, columnPosition]);
 }
 
+//let newW = newC
+
+
 newWidget(copy, widgetDimension, widgetPosition) {
+alert('chau');
+
+dropOnElement.push(
+ {
+    "column": [
+      {
+        widgets: [
+          {
+            settings: {
+              isLoaded: true,
+              name: "Text",
+              componentName: "text",
+              innerhtml: "oooooo"
+            },
+            widgetComponent: {
+            	component: copy.dragData.widgetComponent.component, 
+              //component: this._cmpService.widgets[0].widgetComponent.component,
+              inputs: {
+                name: "example"
+              }
+            },
+            widgetProperties: [
+              {
+                dimension: [
+                  {
+                    width: 400,
+                    height: 100,
+                    widthtotal: 0,
+                    heighttotal: 0
+                  }
+                ],
+                location: [
+                  {
+                    top: 0,
+                    right: 0,
+                    bottom: 0,
+                    left: 0
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        columnProperties: [
+          {
+            dimension: [
+              {
+                width: 0,
+                height: 0,
+                widthtotal: 0,
+                heighttotal: 0
+              }
+            ],
+            location: [
+              {
+                top: 0,
+                right: 0,
+                bottom: 0,
+                left: 361
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    rowProperties: [
+      {
+        dimension: [
+          {
+            width: 0,
+            height: 100,
+            widthtotal: 0,
+            heighttotal: 0
+          }
+        ],
+        location: [
+          {
+            top: 246,
+            right: 0,
+            bottom: 0,
+            left: 0
+          }
+        ]
+      }
+    ]
+  }
+
+
+)
+
+
+
+
+	/*
 	if(copy.dragData){
 		return new Widget(copy.dragData.settings[0], copy.dragData.widgetComponent, [this.newProperties(widgetDimension, widgetPosition)]); }
 	else{ 
 		return new Widget(copy.settings[0], copy.widgetComponent, [this.newProperties(widgetDimension, widgetPosition)])
 	}
+	*/
 }
 
 newProperties(dimension, position) {
@@ -417,6 +696,187 @@ newProperties(dimension, position) {
 		}
 	}
 	addToCanvas(copy: any, dropOnElement: any, droppedOn: string, rowIndex, columnIndex, widgetIndex){
+console.log('copy.dragData.widgetComponent', copy.dragData.widgetComponent.component)
+
+
+/*
+dropOnElement.push(
+ {
+    "column": [
+      {
+        widgets: [
+          {
+            settings: {
+              isLoaded: true,
+              name: "Text",
+              componentName: "text",
+              innerhtml: "oooooo"
+            },
+            widgetComponent: {
+            	component: copy.dragData.widgetComponent.component, 
+              //component: this._cmpService.widgets[0].widgetComponent.component,
+              inputs: {
+                name: "example"
+              }
+            },
+            widgetProperties: [
+              {
+                dimension: [
+                  {
+                    width: 400,
+                    height: 100,
+                    widthtotal: 0,
+                    heighttotal: 0
+                  }
+                ],
+                location: [
+                  {
+                    top: 0,
+                    right: 0,
+                    bottom: 0,
+                    left: 0
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        columnProperties: [
+          {
+            dimension: [
+              {
+                width: 0,
+                height: 0,
+                widthtotal: 0,
+                heighttotal: 0
+              }
+            ],
+            location: [
+              {
+                top: 0,
+                right: 0,
+                bottom: 0,
+                left: 361
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    rowProperties: [
+      {
+        dimension: [
+          {
+            width: 0,
+            height: 100,
+            widthtotal: 0,
+            heighttotal: 0
+          }
+        ],
+        location: [
+          {
+            top: 246,
+            right: 0,
+            bottom: 0,
+            left: 0
+          }
+        ]
+      }
+    ]
+  }
+ ,
+ {
+    "column": [
+      {
+        widgets: [
+          {
+            settings: {
+              isLoaded: true,
+              name: "Text",
+              componentName: "text",
+              innerhtml: "zzzzzzz"
+            },
+            widgetComponent: {
+
+              component: copy.dragData.widgetComponent.component,
+              inputs: {
+                name: "example"
+              }
+            },
+            widgetProperties: [
+              {
+                dimension: [
+                  {
+                    width: 400,
+                    height: 100,
+                    widthtotal: 0,
+                    heighttotal: 0
+                  }
+                ],
+                location: [
+                  {
+                    top: 0,
+                    right: 0,
+                    bottom: 0,
+                    left: 0
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        columnProperties: [
+          {
+            dimension: [
+              {
+                width: 0,
+                height: 0,
+                widthtotal: 0,
+                heighttotal: 0
+              }
+            ],
+            location: [
+              {
+                top: 0,
+                right: 0,
+                bottom: 0,
+                left: 361
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    rowProperties: [
+      {
+        dimension: [
+          {
+            width: 0,
+            height: 100,
+            widthtotal: 0,
+            heighttotal: 0
+          }
+        ],
+        location: [
+          {
+            top: 246,
+            right: 0,
+            bottom: 0,
+            left: 0
+          }
+        ]
+      }
+    ]
+  }
+ 
+
+)
+*/
+let rowPosition ={top: copy.mouseEvent.offsetY, right: 0 , bottom: 0, left:0 }
+let rowDimension = {width: 0, height: 100, widthtotal: 0, heighttotal: 0}
+dropOnElement.push(this.newRow(copy, rowDimension, rowPosition))
+
+		/*
 		if( _.isEmpty(this.canvas)){
 			let rowPosition ={top: copy.mouseEvent.offsetY, right: 0 , bottom: 0, left:0 }
 			let rowDimension = {width: 0, height: 100, widthtotal: 0, heighttotal: 0}
@@ -441,6 +901,7 @@ newProperties(dimension, position) {
 					// console.log(this.canvas[0].column[newCreated].widgets[0].data.isLoaded )	
 				}
 		}
+		*/
 	}
 	addToRowWrapper(copy: any, dropOnElement: any, droppedOn: string, rowIndex, columnIndex, widgetIndex){
 		let rowTopPadding = parseInt(copy.mouseEvent.target.style.paddingTop);

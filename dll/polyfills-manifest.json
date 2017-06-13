@@ -1240,6 +1240,10 @@
     "./node_modules/core-js/shim.js": {
       "id": 398,
       "meta": {}
+    },
+    "./node_modules/process/browser.js": {
+      "id": 399,
+      "meta": {}
     }
   }
 }
