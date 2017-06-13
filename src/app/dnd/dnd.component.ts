@@ -11,7 +11,7 @@ import {canvasService} from '../toolbar/services/canvas.service';
   template: `
 
   <div class="panel-body" >
-  <div class="arrow-up"></div>
+  <!--<div class="arrow-up"></div>-->
 
            <div 
            *ngFor="let Newwidget of widgets"  
@@ -24,7 +24,9 @@ import {canvasService} from '../toolbar/services/canvas.service';
                 (onDragStart)="onDragStart(Newwidget)"
 
                 class="list-items">
-                        {{Newwidget.settings[0].name}}
+                <i class="fa fa-4x" [ngClass]="Newwidget.settings[0].icon"></i>
+                <p>{{Newwidget.settings[0].name}}</p>
+                        
               </div>
   </div>
   <pre style="width: 400px;">

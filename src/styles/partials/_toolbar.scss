@@ -2,6 +2,9 @@ $toolbar-radius:5px;
 $toolbar-icon-color:#fff;
 $toolbar-background-color:#000;
 
+$toolbar-component-background-color:#000;
+$toolbar-component-border-radius:5px;
+$toolbar-component-items-displayed-inonerow:6;
 //Toolbar on its own
 toolbar-buttons{
     background-color:$toolbar-background-color;
@@ -23,27 +26,38 @@ toolbar-buttons{
         i{font-size:16px;}
     }
 }
-
+// @mixin MediaQuery($method, $media) {
+//     @media only screen and (#{$method}: #{$media}) {
+//         @content;
+//     }
+// }
 //Component generator bubble
 builder{
     .panel-body{
-        background-color:#fff;
-        margin-top:20px;
+        background: rgba($toolbar-component-background-color, 0.8);
+        margin:20px 10px 0px 10px;
+        border-radius:$toolbar-component-border-radius;
+        padding-bottom:10px;
         .list-items{
             display:inline-block;
-            width:33%;
-            height:60px;
+            width:calc((100% / #{$toolbar-component-items-displayed-inonerow}) - 4.5px);
+            //@include MediaQuery(max-width, 600px){width:calc((100% / (#{$toolbar-component-items-displayed-inonerow})*2) - 4px);}
+            margin:0px 5px 5px 0px;
+            padding-top: 8px;
             text-align:center;
+            border-radius:$toolbar-component-border-radius;
+            background-color:#fff;
+            &:nth-child(#{$toolbar-component-items-displayed-inonerow}n){margin-right:0px}
         }
     }
 }
 .arrow-up {
     width: 0;
-    margin-top: -30px;
-    margin-bottom: 30px;
+    margin-top: -29px;
+    margin-bottom: 29px;
     margin-left: -15px;
     height: 0;
     border-left: 14px solid transparent;
     border-right: 14px solid transparent;
-    border-bottom: 14px solid #fff;
+    border-bottom: 14px solid $toolbar-component-background-color;
 }

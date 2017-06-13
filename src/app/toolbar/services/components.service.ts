@@ -12,6 +12,7 @@ export class cmpService {
 		 settings: [{
 		                  isLoaded:false,
 		                  name: 'Text',
+						  icon:'fa-pencil-square-o',
 		                  componentName: 'text',
 		                  innerhtml: '<p>dasdas</p>'
 		              }],
@@ -23,6 +24,7 @@ export class cmpService {
             	   	[{
 		                  isLoaded:false,
 		                  name: 'Textarea',
+						  icon:'fa-pencil-square-o',
 		                  componentName: 'textarea',
 		                  innerhtml: 'This is an awesome text area'
 		            }],
@@ -33,6 +35,7 @@ export class cmpService {
      			[{
 		                  isLoaded:false,
 		                  name: 'images',
+						  icon:'fa-pencil-square-o',
 		                  componentName: 'images',
 		                  singleimage: false,
 		                  gallery: true,
@@ -67,6 +70,7 @@ export class cmpService {
         			[{
 		                  isLoaded:false,
 		                  name: 'accordion',
+						  icon:'fa-pencil-square-o',
 		                  componentName: 'accordion',
 		                  isFirstOpen: false,
 		                  oneAtATime: false,
@@ -82,6 +86,7 @@ export class cmpService {
             		[{
 		                  isLoaded:false,
 		                  name: 'tabs',
+						  icon:'fa-pencil-square-o',
 		                  componentName: 'tabs',
 		                  tabposition: 'left',
 		                  isFirstOpen: false,
@@ -97,6 +102,7 @@ export class cmpService {
 	            	[{
 		                  isLoaded:false,
 		                  name: 'video',
+						  icon:'fa-pencil-square-o',
 		                  componentName: 'video',
 		                  yturl: '',
 		             }],
@@ -107,6 +113,7 @@ export class cmpService {
 	            settings: [{
 		                  isLoaded:false,
 		                  name: 'googlemaps',
+						  icon:'fa-pencil-square-o',
 		                  componentName: 'googlemaps',
 		                  innerhtml: {}
 		                }],
@@ -116,6 +123,7 @@ export class cmpService {
 	            {settings: [{
 		                  isLoaded:false,
 		                  name: 'testimonials',
+						  icon:'fa-pencil-square-o',
 		                  componentName: 'testimonials',
 		                  grid: true,
 		                  carousel: true,
@@ -137,6 +145,7 @@ export class cmpService {
             		[{
 		                  isLoaded:false,
 		                  name: 'modalBox',
+						  icon:'fa-pencil-square-o',
 		                  componentName: 'modalBox',
 		                  modalposition: [
 		                  		        { value: 'top', display: 'top'},
