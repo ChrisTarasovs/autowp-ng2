@@ -7,16 +7,16 @@ import { ColorMenuComponent } from './widgets/color-menu/color-menu.component';
 @Component({
   selector: 'tbuttons',
   template:  `
-  <div *ngIf="btnlist[0].name == 'Components' " >
+ <!-- <div *ngIf="btnlist[0].name == 'Components' " >
 	<button (click)="enableVideo('videoSettingsSearch')">videoSettingsSearch</button>  	
 	<button (click)="enableVideo('linkMenu')">linkMenu</button>  	
 	<button (click)="enableVideo('colorMenu')">colorMenu</button>  	
 	<button (click)="enableVideo('buttontype')">buttontype</button>  	
 </div>
-
+-->
   	<ul >
 	  	<li *ngFor="let button of btnlist">
-	  		<button (click)="buttonClickfunc(button)">{{button.name}}</button>
+			<button (click)="buttonClickfunc(button)"><i class="fa " [ngClass]="button.icon"></i></button>
 	  			
 	  		 <div  *ngIf='button.componentNameString == "widgetSettingsComponent"'>
 	  		  	<div  *ngIf='videoSettingsSearch'>

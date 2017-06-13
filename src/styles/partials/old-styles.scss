@@ -1,0 +1,265 @@
+app{ position: relative;}
+toolbar { z-index: 9;}
+
+.canvas{
+    display: block; height: 100%; width: 100%; border: solid 2px red;
+
+}
+
+
+
+
+
+
+
+//https://codyhouse.co/demo/stretchy-navigation/index.html#0
+
+
+
+
+.AWrowWrapper{
+  display :inline-block;
+  width: 100%;
+  background-color:  rgb(127, 127, 0);
+}
+.AWrow{
+  display :inline-block;
+  width: 100%;
+  padding: 0px;
+  background-color: yellow;
+}
+.AWrow .AWrow{
+   background-color: pink;
+}
+.AWcolumnWrapper{
+    display :inline-block; 
+    vertical-align: top;
+    background-color: rgb(159, 96, 97);
+}
+
+.AWcolumn{
+   width: 600px;
+   background-color: pink;
+  vertical-align: top;
+
+}
+.AWwidgetWrapper{
+  background-color: rgb(41, 107, 17);
+  text-align: center;
+}
+.AWwidget{
+  width: 100%;
+
+  background-color: rgb(70, 183, 30);
+}
+
+
+
+
+
+
+
+
+/* this file will be extracted to main dist folder and is imported in index.html */
+/* This file is for setting global styles  */
+@import 'variables';
+
+nav {
+  margin-top: 16px;
+}
+
+nav a {
+  background-color: $nav-button-color;
+  color: white;
+  padding: 8px 16px;
+  margin: 8px;
+  vertical-align: middle;
+  line-height: 1.25;
+  text-align: center;
+  text-decoration: none;
+  border-radius: 4px;
+}
+
+
+
+.autowp-rows{ width: 100%; background-color: red;}
+.autowp-column{ float: left; width: 20%; background-color: green;}
+
+    /* Color to identify */
+    .item-container-wrapper {background-color:darkcyan; position: relative;}
+    .item-container{background-color: blue}
+    .item-column {background-color:pink; }
+    .item-item {background-color: red;}
+
+    /*temporal CSS*/
+    .item-column{ display: inline-block;vertical-align: top;}
+   /* .panel-heading{ position: absolute; top: -20px;z-index: 10;}*/
+    
+    /*temporal width*/
+    .item-column, .item-item{ width: 200px;}
+    .item-column { height: 200px; }
+    
+
+
+/* File Uploader Styles  */
+
+.uploader input {
+  display: none;
+}
+
+.uploader {
+  -webkit-align-items: center;
+  align-items: center;
+  background-color: #efefef;
+  background-color: rgba(0, 0, 0, 0.02);
+  cursor: pointer;
+  display: -webkit-flex;
+  display: flex;
+  height: 300px;
+  -webkit-justify-content: center;
+  justify-content: center;
+  outline: 3px dashed #ccc;
+  outline-offset: 5px;
+  position: relative;
+  width: 300px;
+}
+
+.uploader img,
+.uploader .icon {
+  pointer-events: none;
+}
+
+.uploader,
+.uploader .icon {
+  -webkit-transition: all 100ms ease-in;
+  -moz-transition: all 100ms ease-in;
+  -ms-transition: all 100ms ease-in;
+  -o-transition: all 100ms ease-in;
+  transition: all 100ms ease-in;
+}
+
+.uploader .icon {
+  color: #eee;
+  color: rgba(0, 0, 0, 0.2);
+  font-size: 5em;
+}
+
+.uploader img {
+  left: 50%;
+  opacity: 0;
+  max-height: 100%;
+  max-width: 100%;
+  position: absolute;
+  top: 50%;
+  -webkit-transition: all 300ms ease-in;
+  -moz-transition: all 300ms ease-in;
+  -ms-transition: all 300ms ease-in;
+  -o-transition: all 300ms ease-in;
+  transition: all 300ms ease-in;
+  -webkit-transform: translate(-50%, -50%);
+  -moz-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  -o-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  z-index: -1;
+}
+
+.uploader img.loaded {
+  opacity: 1;
+}
+
+
+
+
+/*Image cropper*/
+:host{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}
+._img{position:absolute;display:flex}
+._img img{width:inherit;height:inherit;cursor:move}
+._img:after{position:absolute;content:'';top:0;bottom:0;left:0;right:0;pointer-events:none;border:dashed 1px;opacity:.75;color:inherit;z-index:1}/deep/ .fileUpload input[type=\"file\"]{opacity:0;position:absolute;top:0;left:0;bottom:0;right:0;cursor:pointer}.content-img{position:relative;width:100%;min-height:320px;overflow:hidden}
+.NoNe{display:none}
+.resize{position:absolute;
+
+/*width:300px;height:300px;*/
+
+top:0;pointer-events:none;bottom:0;left:0;right:0;margin:auto;box-shadow:0 0 0 1200px rgba(255,255,255,0.25),0 0 0 1px rgba(255,255,255,0),0 0 0 1px rgba(0,0,0,0.22)}.resize:before,
+.resize:after{content:'';background:#000;top:0;bottom:0;margin:auto;position:absolute;left:0;right:0;opacity:.25}
+.resize:before{width:1px;height:25px}
+.resize:after{width:25px;height:1px}
+.r_w,.r_n,.r_e,.r_s,.r_nw,.r_ne,.r_se,.r_sw {position:absolute;background:inherit}
+.r_w:after,.r_n:after,.r_e:after,.r_s:after,.r_nw:after,.r_ne:after,
+.r_se:after,.r_sw:after {position:absolute;background:inherit;content:'';width:11px;height:11px;margin:auto;opacity:.85;z-index:1}
+.r_w{left:0;height:100%;width:1px;cursor:w-resize}
+.r_w:after{right:-3px;top:0;bottom:0}.r_nw{top:-5px;left:-5px;cursor:nw-resize}
+.r_ne{top:-5px;right:5px;cursor:ne-resize}
+.r_se{bottom:5px;right:5px;cursor:se-resize}
+.r_sw{bottom:5px;left:-5px;cursor:sw-resize}            
+
+
+cropping-img{
+  background-color: blue;
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+}
+.img-container{
+  position: relative;
+}
+
+
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Lato";
+  background: url('https://subtlepatterns.com/patterns/sativa.png');
+}
+
+.main-gallery {
+  background: #fff;
+  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.25);
+  border-top: solid 10px #7AA641;
+width:500px;
+}
+
+.gallery-cell {
+  width: 100%;
+}
+
+.testimonial {
+  text-align: center;
+  max-width: 850px;
+  margin: 100px auto 130px auto;
+  padding: 0 20px;
+}
+
+.testimonial-avatar {
+
+/*  width: 100px; */
+  border-radius: 50%;
+}
+
+.testimonial-quote {
+  display: block;
+  font-size: 24px;
+  font-weight: 300;
+  padding: 10px 0;
+}
+
+.testimonial-author {
+  display: block;
+  font-weight: 800;
+  color: #7AA641;
+}
+
+.flickity-page-dots {
+  bottom: 25px;
+}
+
+.flickity-page-dots .dot.is-selected {
+  background: #7AA641;
+}
+

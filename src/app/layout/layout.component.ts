@@ -26,7 +26,7 @@ import { Safe } from '../pipes/safehtml.pipe'
 import * as _ from "lodash";
 
 import {ResizingCroppingImagesComponent} from '../image-cropper/image-cropper.component'
-
+import {cmpService} from '../toolbar/services/components.service'
 
 export const EDITOR_VALUE_ACCESSOR = {
   provide: NG_VALUE_ACCESSOR,
@@ -233,7 +233,21 @@ dnd-droppable
 	</div>
 
 </div>
+</div>
 
+<br style="clear:both" />
+<hr />
+<button (click)="UpdateContent()">Click here </button>
+<button (click)="addComponentWidgets()">Add to widget canvas</button>
+{{widgetComponents | json}}
+{{ this._cmpService.widgets[0].widgetComponent | json}}
+<hr />
+
+
+<div *ngFor="let item of widgetComponents">
+	<dynamiccontent-component [componentData]="configureItem(item)" ></dynamiccontent-component>
+
+</div>
 
 
  `
@@ -249,18 +263,51 @@ export class LayoutComponent implements OnInit, ControlValueAccessor {
 
 public  imgData;
 public colorme = 'yellow';
-
+public widgetComponents = []
 goFuckGreen(){
 	alert('called')
 	this.colorme = 'black';
 }
+addComponentWidgets(){
+	this.widgetComponents.push(
+		{
+			 settings: [{
+				 innerhtml: '<p>aaaaaaaa</p>'
+			 }],
+			widgetComponent: {
+					component: this._cmpService.widgets[0].widgetComponent.component
+			}
+		},
+		{
+			 settings: [{
+				 innerhtml: '<p>999999</p>'
+			 }],
+			widgetComponent: {
+					component: this._cmpService.widgets[0].widgetComponent.component
+			}
+		}
+
+	)
+}
+configureItem(item){
+//	const copyWidget = Object.assign( widget, {});
+//	console.log(copyWidget.widgetComponent.component);
+	//const widgetData =  { xxxxx }
+	return  {
+			component: item.widgetComponent.component, 
+			inputs: { widget : item }
+
+		} 
+}
+
 
 configureWidget(widget){
-	const  copyWidget= Object.assign( widget, {});
-	const widgetData =  { widget : copyWidget}
+//	const copyWidget = Object.assign( widget, {});
+//	console.log(copyWidget.widgetComponent.component);
+	//const widgetData =  { widget }
 	return  {
-			component: copyWidget.widgetComponent.component, 
-			inputs: { widget : widgetData }
+			component: widget.widgetComponent.component, 
+			inputs: { widget : widget }
 
 		} 
 }
@@ -276,7 +323,8 @@ constructor(
 	private renderer: Renderer,
  	private _dndService: dndService, 
  	// private _zone: NgZone, 
- 	private _canvasService: canvasService){
+ 	private _canvasService: canvasService,
+	private _cmpService: cmpService){
 		// temp set data for image cropper
 		this.imgData  = {sizeW: 230;sizeH: 230;}
 
@@ -290,7 +338,9 @@ ngOnInit() {
 	//this.newCanvas =  this._canvasService.newCanvas;
 }
 
-
+UpdateContent(){
+	this._canvasService.canvas[0].column[0].widgets[0].settings.innerhtml = "test"
+}
 
 // Generate new grid
 newRow(copy, rowDimension, rowPosition) {
@@ -336,6 +386,8 @@ newProperties(dimension, position) {
 		console.log('event', event, 'dropOnElement', dropOnElement, 'droppedOn' , droppedOn,  'dat', event.mouseEvent.clientY ,event.mouseEvent.clientX)
 		// Create a copy of the dropped El
 		const  copy = Object.assign(event, {});
+		//const copy = JSON.parse(JSON.stringify(event))
+		
 		// First check the type object dropped on
 		switch (droppedOn){
 		    case 'canvas':

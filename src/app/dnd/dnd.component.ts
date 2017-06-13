@@ -11,7 +11,7 @@ import {canvasService} from '../toolbar/services/canvas.service';
   template: `
 
   <div class="panel-body" >
-  
+  <div class="arrow-up"></div>
 
            <div 
            *ngFor="let Newwidget of widgets"  
@@ -23,7 +23,7 @@ import {canvasService} from '../toolbar/services/canvas.service';
                 [dropZones]="['widget-dropZone', 'canvas-dropZone', 'rowWrapper-dropZone', 'row-dropZone',  'column-dropZone', 'widget-dropZone' ]"
                 (onDragStart)="onDragStart(Newwidget)"
 
-                class="list-group-item">
+                class="list-items">
                         {{Newwidget.settings[0].name}}
               </div>
   </div>

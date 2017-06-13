@@ -30,7 +30,7 @@ import {canvasService} from '../../toolbar/services/canvas.service'
 
 
 	></div>
-
+<button (click)="updatedinnerHtml('ooooo')">click</button>
 	`
 })
 export class text  {
@@ -49,15 +49,15 @@ export class text  {
 
 		this.widgetCopy = Object.assign(this.injector.get('widget'), {});
 
-		this.paragraphText  = this.widgetCopy.widget.settings.innerhtml;
+		this.paragraphText  = this.widgetCopy.settings.innerhtml;
 	}
 
 
 	updatedinnerHtml(ev){
 		console.log('=======UPDDATE WIDGET==========' , this._canvasService.canvas)
-
-		console.log(this._canvasService.canvas[0].column[0].widgets[0].settings.innerhtml)
-		this._canvasService.canvas[0].column[0].widgets[0].settings.innerhtml = ev;
+this.widgetCopy.settings.innerhtml = 'pppppppp'
+	//	console.log(this._canvasService.canvas[0].column[0].widgets[0].settings.innerhtml)
+	//	this._canvasService.canvas[0].column[0].widgets[0].settings.innerhtml = ev;
 		//this.widget.widget.settings.innerhtml = ev;
 	}
 	

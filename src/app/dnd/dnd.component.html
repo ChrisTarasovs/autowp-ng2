@@ -11,7 +11,7 @@
        [sortableData]="widgets">
        
           <!--  <div *ngFor="let widget of widgets; let i = index"  class="list-group-item"  dnd-sortable [sortableIndex]="i"  >-->
-           <div *ngFor="let widget of widgets; let i = index"  class="list-group-item"  dnd-sortable [sortableIndex]="i"  (onDragStart)="dragstarted(event)">
+           <div *ngFor="let widget of widgets; let i = index"  class="list-items"  dnd-sortable [sortableIndex]="i"  (onDragStart)="dragstarted(event)">
 
                         {{widget.name}}
                                   
