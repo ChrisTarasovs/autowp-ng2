@@ -55,10 +55,10 @@ export class text  {
 
 	updatedinnerHtml(ev){
 		console.log('=======UPDDATE WIDGET==========' , this._canvasService.canvas)
-this.widgetCopy.settings.innerhtml = 'pppppppp'
+//this.widgetCopy.settings.innerhtml = 'pppppppp'
 	//	console.log(this._canvasService.canvas[0].column[0].widgets[0].settings.innerhtml)
 	//	this._canvasService.canvas[0].column[0].widgets[0].settings.innerhtml = ev;
-		//this.widget.widget.settings.innerhtml = ev;
+		this.widget.widget.settings.innerhtml = ev;
 	}
 	
 	updated(){

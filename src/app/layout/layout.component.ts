@@ -237,18 +237,6 @@ dnd-droppable
 
 <br style="clear:both" />
 <hr />
-<button (click)="UpdateContent()">Click here </button>
-<button (click)="addComponentWidgets()">Add to widget canvas</button>
-<button (click)="addCanvasObj()">addCanvasObj</button>
-{{widgetComponents | json}}
-{{ this._cmpService.widgets[0].widgetComponent | json}}
-<hr />
-
-
-<div *ngFor="let item of widgetComponents">
-	<dynamiccontent-component [componentData]="configureItem(item)" ></dynamiccontent-component>
-
-</div>
 
 
  `
@@ -269,212 +257,7 @@ goFuckGreen(){
 	alert('called')
 	this.colorme = 'black';
 }
-addCanvasObj(){
-	this._canvasService.canvas.push(
- {
-    "column": [
-      {
-        widgets: [
-          {
-            settings: {
-              isLoaded: true,
-              name: "Text",
-              componentName: "text",
-              innerhtml: "oooooo"
-            },
-            widgetComponent: {
 
-              component: this._cmpService.widgets[0].widgetComponent.component,
-              inputs: {
-                name: "example"
-              }
-            },
-            widgetProperties: [
-              {
-                dimension: [
-                  {
-                    width: 400,
-                    height: 100,
-                    widthtotal: 0,
-                    heighttotal: 0
-                  }
-                ],
-                location: [
-                  {
-                    top: 0,
-                    right: 0,
-                    bottom: 0,
-                    left: 0
-                  }
-                ]
-              }
-            ]
-          }
-        ],
-        columnProperties: [
-          {
-            dimension: [
-              {
-                width: 0,
-                height: 0,
-                widthtotal: 0,
-                heighttotal: 0
-              }
-            ],
-            location: [
-              {
-                top: 0,
-                right: 0,
-                bottom: 0,
-                left: 361
-              }
-            ]
-          }
-        ]
-      }
-    ],
-    rowProperties: [
-      {
-        dimension: [
-          {
-            width: 0,
-            height: 100,
-            widthtotal: 0,
-            heighttotal: 0
-          }
-        ],
-        location: [
-          {
-            top: 246,
-            right: 0,
-            bottom: 0,
-            left: 0
-          }
-        ]
-      }
-    ]
-  }
- ,
- {
-    "column": [
-      {
-        widgets: [
-          {
-            settings: {
-              isLoaded: true,
-              name: "Text",
-              componentName: "text",
-              innerhtml: "zzzzzzz"
-            },
-            widgetComponent: {
-
-              component: this._cmpService.widgets[0].widgetComponent.component,
-              inputs: {
-                name: "example"
-              }
-            },
-            widgetProperties: [
-              {
-                dimension: [
-                  {
-                    width: 400,
-                    height: 100,
-                    widthtotal: 0,
-                    heighttotal: 0
-                  }
-                ],
-                location: [
-                  {
-                    top: 0,
-                    right: 0,
-                    bottom: 0,
-                    left: 0
-                  }
-                ]
-              }
-            ]
-          }
-        ],
-        columnProperties: [
-          {
-            dimension: [
-              {
-                width: 0,
-                height: 0,
-                widthtotal: 0,
-                heighttotal: 0
-              }
-            ],
-            location: [
-              {
-                top: 0,
-                right: 0,
-                bottom: 0,
-                left: 361
-              }
-            ]
-          }
-        ]
-      }
-    ],
-    rowProperties: [
-      {
-        dimension: [
-          {
-            width: 0,
-            height: 100,
-            widthtotal: 0,
-            heighttotal: 0
-          }
-        ],
-        location: [
-          {
-            top: 246,
-            right: 0,
-            bottom: 0,
-            left: 0
-          }
-        ]
-      }
-    ]
-  }
- 
-
-)
-
-
-}
-addComponentWidgets(){
-	this.widgetComponents.push(
-		{
-			 settings: [{
-				 innerhtml: '<p>aaaaaaaa</p>'
-			 }],
-			widgetComponent: {
-					component: this._cmpService.widgets[0].widgetComponent.component
-			}
-		},
-		{
-			 settings: [{
-				 innerhtml: '<p>999999</p>'
-			 }],
-			widgetComponent: {
-					component: this._cmpService.widgets[0].widgetComponent.component
-			}
-		}
-
-	)
-}
-configureItem(item){
-//	const copyWidget = Object.assign( widget, {});
-//	console.log(copyWidget.widgetComponent.component);
-	//const widgetData =  { xxxxx }
-	return  {
-			component: item.widgetComponent.component, 
-			inputs: { widget : item }
-
-		} 
-}
 
 
 configureWidget(widget){
@@ -528,118 +311,16 @@ newRow(copy, rowDimension, rowPosition) {
 newColumn(copy, columnDimension, columnPosition) {
 	let widgetDimension = { width: 400, height: 100, widthtotal: 0, heighttotal: 0};
 	let widgetPosition = {top: 0, right: 0, bottom: 0, left: 0};
-
-	 
-	return new Column(
-
-		[this.newWidget( copy, widgetDimension, widgetPosition)], 
-		[this.newProperties(columnDimension, columnPosition]);
+	return new Column([this.newWidget( copy, widgetDimension, widgetPosition)], [this.newProperties(columnDimension, columnPosition]);
 }
 
-//let newW = newC
-
-
 newWidget(copy, widgetDimension, widgetPosition) {
-alert('chau');
-
-dropOnElement.push(
- {
-    "column": [
-      {
-        widgets: [
-          {
-            settings: {
-              isLoaded: true,
-              name: "Text",
-              componentName: "text",
-              innerhtml: "oooooo"
-            },
-            widgetComponent: {
-            	component: copy.dragData.widgetComponent.component, 
-              //component: this._cmpService.widgets[0].widgetComponent.component,
-              inputs: {
-                name: "example"
-              }
-            },
-            widgetProperties: [
-              {
-                dimension: [
-                  {
-                    width: 400,
-                    height: 100,
-                    widthtotal: 0,
-                    heighttotal: 0
-                  }
-                ],
-                location: [
-                  {
-                    top: 0,
-                    right: 0,
-                    bottom: 0,
-                    left: 0
-                  }
-                ]
-              }
-            ]
-          }
-        ],
-        columnProperties: [
-          {
-            dimension: [
-              {
-                width: 0,
-                height: 0,
-                widthtotal: 0,
-                heighttotal: 0
-              }
-            ],
-            location: [
-              {
-                top: 0,
-                right: 0,
-                bottom: 0,
-                left: 361
-              }
-            ]
-          }
-        ]
-      }
-    ],
-    rowProperties: [
-      {
-        dimension: [
-          {
-            width: 0,
-            height: 100,
-            widthtotal: 0,
-            heighttotal: 0
-          }
-        ],
-        location: [
-          {
-            top: 246,
-            right: 0,
-            bottom: 0,
-            left: 0
-          }
-        ]
-      }
-    ]
-  }
-
-
-)
-
-
-
-
-	/*
 	if(copy.dragData){
-		return new Widget(copy.dragData.settings[0], copy.dragData.widgetComponent, [this.newProperties(widgetDimension, widgetPosition)]); }
-	else{ 
+		return new Widget(copy.dragData.settings[0], copy.dragData.widgetComponent, [this.newProperties(widgetDimension, widgetPosition)]); 
+	}else{ 
 		return new Widget(copy.settings[0], copy.widgetComponent, [this.newProperties(widgetDimension, widgetPosition)])
 	}
-	*/
+	
 }
 
 newProperties(dimension, position) {
@@ -662,11 +343,13 @@ newProperties(dimension, position) {
 		}
 	}
 	addComponent(event: any, dropOnElement: any, droppedOn: string, rowIndex, columnIndex, widgetIndex){
-		console.log('event', event, 'dropOnElement', dropOnElement, 'droppedOn' , droppedOn,  'dat', event.mouseEvent.clientY ,event.mouseEvent.clientX)
+		// console.log('event', event, 'dropOnElement', dropOnElement, 'droppedOn' , droppedOn,  'dat', event.mouseEvent.clientY ,event.mouseEvent.clientX)
 		// Create a copy of the dropped El
-		const  copy = Object.assign(event, {});
-		//const copy = JSON.parse(JSON.stringify(event))
-		
+		//const  copy = Object.assign(event, {});
+		// const copy = JSON.parse(JSON.stringify(event))
+		const copy = _.cloneDeep(event)
+		console.log('copy fucker', copy, event, 'ddd',  copy.dragData, event.dragData)
+
 		// First check the type object dropped on
 		switch (droppedOn){
 		    case 'canvas':
@@ -696,196 +379,13 @@ newProperties(dimension, position) {
 		}
 	}
 	addToCanvas(copy: any, dropOnElement: any, droppedOn: string, rowIndex, columnIndex, widgetIndex){
-console.log('copy.dragData.widgetComponent', copy.dragData.widgetComponent.component)
-
-
-/*
-dropOnElement.push(
- {
-    "column": [
-      {
-        widgets: [
-          {
-            settings: {
-              isLoaded: true,
-              name: "Text",
-              componentName: "text",
-              innerhtml: "oooooo"
-            },
-            widgetComponent: {
-            	component: copy.dragData.widgetComponent.component, 
-              //component: this._cmpService.widgets[0].widgetComponent.component,
-              inputs: {
-                name: "example"
-              }
-            },
-            widgetProperties: [
-              {
-                dimension: [
-                  {
-                    width: 400,
-                    height: 100,
-                    widthtotal: 0,
-                    heighttotal: 0
-                  }
-                ],
-                location: [
-                  {
-                    top: 0,
-                    right: 0,
-                    bottom: 0,
-                    left: 0
-                  }
-                ]
-              }
-            ]
-          }
-        ],
-        columnProperties: [
-          {
-            dimension: [
-              {
-                width: 0,
-                height: 0,
-                widthtotal: 0,
-                heighttotal: 0
-              }
-            ],
-            location: [
-              {
-                top: 0,
-                right: 0,
-                bottom: 0,
-                left: 361
-              }
-            ]
-          }
-        ]
-      }
-    ],
-    rowProperties: [
-      {
-        dimension: [
-          {
-            width: 0,
-            height: 100,
-            widthtotal: 0,
-            heighttotal: 0
-          }
-        ],
-        location: [
-          {
-            top: 246,
-            right: 0,
-            bottom: 0,
-            left: 0
-          }
-        ]
-      }
-    ]
-  }
- ,
- {
-    "column": [
-      {
-        widgets: [
-          {
-            settings: {
-              isLoaded: true,
-              name: "Text",
-              componentName: "text",
-              innerhtml: "zzzzzzz"
-            },
-            widgetComponent: {
-
-              component: copy.dragData.widgetComponent.component,
-              inputs: {
-                name: "example"
-              }
-            },
-            widgetProperties: [
-              {
-                dimension: [
-                  {
-                    width: 400,
-                    height: 100,
-                    widthtotal: 0,
-                    heighttotal: 0
-                  }
-                ],
-                location: [
-                  {
-                    top: 0,
-                    right: 0,
-                    bottom: 0,
-                    left: 0
-                  }
-                ]
-              }
-            ]
-          }
-        ],
-        columnProperties: [
-          {
-            dimension: [
-              {
-                width: 0,
-                height: 0,
-                widthtotal: 0,
-                heighttotal: 0
-              }
-            ],
-            location: [
-              {
-                top: 0,
-                right: 0,
-                bottom: 0,
-                left: 361
-              }
-            ]
-          }
-        ]
-      }
-    ],
-    rowProperties: [
-      {
-        dimension: [
-          {
-            width: 0,
-            height: 100,
-            widthtotal: 0,
-            heighttotal: 0
-          }
-        ],
-        location: [
-          {
-            top: 246,
-            right: 0,
-            bottom: 0,
-            left: 0
-          }
-        ]
-      }
-    ]
-  }
- 
-
-)
-*/
-let rowPosition ={top: copy.mouseEvent.offsetY, right: 0 , bottom: 0, left:0 }
-let rowDimension = {width: 0, height: 100, widthtotal: 0, heighttotal: 0}
-dropOnElement.push(this.newRow(copy, rowDimension, rowPosition))
-
-		/*
 		if( _.isEmpty(this.canvas)){
 			let rowPosition ={top: copy.mouseEvent.offsetY, right: 0 , bottom: 0, left:0 }
 			let rowDimension = {width: 0, height: 100, widthtotal: 0, heighttotal: 0}
 
 			dropOnElement.push(this.newRow(copy, rowDimension, rowPosition))
 			this.canvas[0].column[0].widgets[0].settings.isLoaded = !this.canvas[0].column[0].widgets[0].settings.isLoaded
-		}
-		// new row to canvas
-		else{
+		}else{
 			let rowPositionsSum = dropOnElement.map(function(row){
 				return row.rowProperties[0].location[0].top + row.rowProperties[0].dimension[0].height
 			}).reduce((a, b) => a + b, 0)
@@ -901,7 +401,7 @@ dropOnElement.push(this.newRow(copy, rowDimension, rowPosition))
 					// console.log(this.canvas[0].column[newCreated].widgets[0].data.isLoaded )	
 				}
 		}
-		*/
+		
 	}
 	addToRowWrapper(copy: any, dropOnElement: any, droppedOn: string, rowIndex, columnIndex, widgetIndex){
 		let rowTopPadding = parseInt(copy.mouseEvent.target.style.paddingTop);
