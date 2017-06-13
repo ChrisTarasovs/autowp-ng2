@@ -4,7 +4,7 @@ import {FormsModule} from '@angular/forms'
 import  {ContentEditableDirective} from '../../../app/contenteditable-model'
 import { toolbarStateService} from '../../toolbar/services/toolbarStatus.service'
 import {ResizingCroppingImagesComponent} from '../../image-cropper/image-cropper.component'
-import {canvasService} from '../../toolbar/services/canvas.service'
+// import {canvasService} from '../../toolbar/services/canvas.service'
 
 //text
 @Component({
@@ -27,10 +27,8 @@ import {canvasService} from '../../toolbar/services/canvas.service'
 	contenteditable='true'
 	(contenteditableModelChange)="updatedinnerHtml($event)"
 	 [contenteditableModel]="paragraphText"
+></div>
 
-
-	></div>
-<button (click)="updatedinnerHtml('ooooo')">click</button>
 	`
 })
 export class text  {
@@ -43,31 +41,17 @@ export class text  {
 	constructor(
 		private _widgetsService:widgetsService, 
 		private injector: Injector,   
-		private _toolbarStateService: toolbarStateService,
-		private _canvasService: canvasService
+		private _toolbarStateService: toolbarStateService
+		
 		){
 
 		this.widgetCopy = Object.assign(this.injector.get('widget'), {});
-
 		this.paragraphText  = this.widgetCopy.settings.innerhtml;
 	}
 
-
 	updatedinnerHtml(ev){
-		console.log('=======UPDDATE WIDGET==========' , this._canvasService.canvas)
-//this.widgetCopy.settings.innerhtml = 'pppppppp'
-	//	console.log(this._canvasService.canvas[0].column[0].widgets[0].settings.innerhtml)
-	//	this._canvasService.canvas[0].column[0].widgets[0].settings.innerhtml = ev;
-		this.widget.widget.settings.innerhtml = ev;
+		this.widgetCopy.settings.innerhtml = ev;
 	}
-	
-	updated(){
-		// Object.assign(this.widget.widget.settings  , this.data); 
-	}
-	otherupdated(){
-		// Object.assign(this.widget.widget.settings  , this.data); 
-	}
-	
 	
 
 }
@@ -433,12 +417,11 @@ export class googlemaps  {}
   selector: 'testimonials',
   template: 
 	`
-	
 	<button (click)="this._widgetsService.loadWidget('widgetSettingsComponent', widget)">settings</button>
-	<div *ngFor="let item of widget.widget.settings.items">
-		<testimonial [item]="item" [layout]="widget.widget.settings.imagePosition"></testimonial>
+	<div *ngFor="let item of widget.settings.items">
+		<testimonial [item]="item" [layout]="widget.settings.imagePosition"></testimonial>
 	</div>
-	
+
 	`
 })
 export class testimonials  {
@@ -457,45 +440,6 @@ export class testimonials  {
 @Component({
   selector: 'testimonial',
   template: 
-//   <div class="main-gallery">
-//   <div class="gallery-cell">
-//     <div class="testimonial">
-
-
-//     	<!-- 
-//     	Here we pull the image from OBJ 
-//     	We have option to delete image, by removing form obj
-//     	If object empty, show input and cropper
-//     	we have cropper func to enable cropping.
-//     	-->
-//     	<img [src]="Img.imgCrop" 
-// 	    	  [style.width.px]="this.imgData.sizeW"    
-//                           [style.height.px]="this.imgData.sizeH"
-// 		  class="testimonial-avatar" >
-
-
-//     	<div class="img-container">
-	    		
-//     			<cropping-img 
-// 			     #Img 
-// 			     format="png" 
-// 			     style="background-color: blue; display: block;"
-// 			     [imgData]="imgData"
-// 			      ></cropping-img>
-// 	</div>	      
-
-
-
-//       <q class="testimonial-quote">
-//       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis mauris ex, gravida ut leo eu, rhoncus porta orci. Fusce vitae rutrum nulla."
-//       </q>
-
-//       <span class="testimonial-author">Joe Smith, CEO of Cubix</span>
-
-//     </div>
-//   </div>
-
-// </div>
 
 
 
@@ -509,41 +453,44 @@ export class testimonials  {
 //  <input [(ngModel)]="Img.img" placeholder="Img">
 
 
+// {{item.userdetails[0].image | json}}
 
-	`
+  `
+  
+
+<div *ngIf="item.userdetails[0].image.imgCrop.dataURL">
+	<img [src]="item.userdetails[0].image.imgCrop.dataURL" 
+	[style.width.px]="item.userdetails[0].image.imgCrop.sizeW"    
+	[style.height.px]="item.userdetails[0].image.imgCrop.sizeH"
+	class="testimonial-avatar" >
+</div>
+<cropping-img 
+ format="png" 
+ style="background-color: blue; display: block;"
+ [imgData]="item.userdetails[0].image"
+  ></cropping-img>
 
 
 
 
-
-
-
-
-
-	<div *ngIf="layout == 'top'  || layout == 'left' " 
-	[ngClass]="{'image-left': layout == 'left', 'image-top': layout == 'top'}">
-	    <img [src]="item.userdetails.name">
-	</div>
-
-	<div class="testimonial-caption">
-	      <h3>
-		      <span contenteditable="true" [innerHTML]="item.userdetails.name"></span>
-		      <span contenteditable="true" [innerHTML]="item.userdetails.surname"></span>
-	      </h3>
-	      <p contenteditable="true">{{item.testimonial}}</p>
-	</div>
-
-	<div *ngIf="layout == 'right'  || layout == 'bottom' " 
-	[ngClass]="{'image-right': layout == 'right', 'image-top': layout == 'bottom'}">
-	    <img [src]="item.userdetails.name">
-	</div>
 
 
 	`
+
+ // <button (click)="Img.zoom('+')">+</button>
+ // <button (click)="Img.zoom('-')">-</button>
+ // <button (click)="Img.center()">center</button>
+// 	 <br />
+//  <input [(ngModel)]="item.userdetails[0].image.imgCrop.sizeW" placeholder="Img size Width">
+//   <!--
+//  <input [(ngModel)]="item.userdetails[0].image.imgCrop.sizeH" placeholder="Img size Height">
+// <input [(ngModel)]="Img.img" placeholder="Img"> -->
+
 })
 export class testimonial  {
 	@Input('item') public item;
 	@Input('layout') public layout;
+	//public imageInfo:any  = this.item;
 	// public  imgData
 
 	// constructor(){

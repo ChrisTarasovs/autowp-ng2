@@ -4,47 +4,42 @@ import { FormsModule } from '@angular/forms';
 
 @Component({
      selector: 'cropping-img',
-       template:
-           // (mouseleave)="stateType='none'; crop();"
-           //  (mouseup)="stateType='none'; crop();"
-           //  (mouseenter)="stateType='none'; crop();"
-           //  (mousemove)="moveImg($event);" 
-
-        `
+       template: `
 
            <input (change)="imgChange($event)" type="file" >
-          <button (click)="this.zoom('large')">+</button>
-          <button (click)="this.zoom('small')">-</button>
+
 
            <div  #contentImg  class="content-img"  
- 
+            (mouseleave)="stateType='none'; crop();"
+            (mouseup)="stateType='none'; crop();"
+            (mouseenter)="stateType='none'; crop();"
+            (mousemove)="moveImg($event);" 
             (dblclick)="center();">   
                     <div #imageContainer class="_img" 
                         [class.NoNe]="imgData.imgDataUrl==undefined || imgData.imgDataUrl==null"
-                        [style.top.px]="this.imgData._top"    
-                        [style.left.px]="this.imgData._left"    
+                        [style.top.px]="_top"    
+                        [style.left.px]="_left"    
                         [ngStyle]="styleCrop">
                             <img 
-                                    (mousemove)="moveImg($event, 'move' );" 
-                                    (mousedown)="startMove($event)"
+                                    (mousedown)="stateType='move'; startMove($event)"
                                     (mouseup)="stateType='none'"
                                     [src]="imgData.imgDataUrl" >
 
                                     <span class="r_nw" 
-                                        (mousedown)="moveImg($event, 'resize' , 'nw')    "     
+                                        (mousedown)="stateType='resize'; stateR='nw'  ; moveImg($event, 'resize' , 'nw')    "     
                                         (mouseup)="stateType='none' " >
                                     </span>
                                     <span class="r_ne" 
-                                        (mousedown)="moveImg($event, 'resize' , 'ne')  "      
+                                        (mousedown)="stateType='resize'; stateR='ne' "      
                                         (mouseup)="stateType='none' " 
                                         >
                                     </span>
                                     <span class="r_se" 
-                                        (mousedown)="moveImg($event, 'resize' , 'se')   " 
+                                        (mousedown)="stateType='resize'; stateR='se' " 
                                         (mouseup)="stateType='none' ">
                                     </span>
                                     <span   class="r_sw" 
-                                        (mousedown)="moveImg($event, 'resize' , 'sw')   " 
+                                        (mousedown)="stateType='resize'; stateR='sw' " 
                                         (mouseup)="stateType='none' ">
                                     </span>
                       </div>
@@ -62,7 +57,7 @@ import { FormsModule } from '@angular/forms';
                           <span class="r_sw"></span>-->
                       </div>
           </div>
-{{this.imgData.imgDataUrl}}
+
 
     
        `
@@ -82,7 +77,7 @@ export class ResizingCroppingImagesComponent implements OnChanges {
      public sizeH;
 
     public elementRef; 
-    public _format = 'jpeg';
+    //public _format = 'jpeg';
     public img = null;
     public sizeWmax = 720;
     public sizeHmax = 720;
@@ -150,51 +145,52 @@ set format(value) {
 
 // line 76
 zoom(state) {
-  console.log('enable zoom', state)
         var  W = this.imageContainer.nativeElement.offsetWidth;
         var  H = this.imageContainer.nativeElement.offsetHeight;
         var  oTop = this.imageContainer.nativeElement.offsetTop;
         var  oLeft = this.imageContainer.nativeElement.offsetLeft;
-        console.log(W, H, oTop, oLeft)
-       // this.stateType = 'resize';
-       // this.stateR = state;
-        this.resize(' ' ,  state, W, H, oTop, oLeft);
-     
+        this.stateType = 'resize';
+        this.stateR = state;
+        this.resize(0, W, H, oTop, oLeft);
+        this.updateCanvas(event);
 };
 
  // line 89
 startMove(event) {
-  console.log('started')
+
+    // console.log('start move', event, this.contentImg, this.elementRef)
      const oTop =  event.target.parentElement.offsetTop
      const oLeft = event.target.parentElement.offsetLeft;
+     //const oTop = this.elementRef.nativeElement.querySelector('._img').offsetTop;
+    // const oLeft = this.elementRef.nativeElement.querySelector('._img').offsetLeft;
+    // this.centerX = event.clientX - offset(this.elementRef.nativeElement.querySelector('.content-img')).left - oLeft;
+    //this.centerY = event.clientY - offset(this.elementRef.nativeElement.querySelector('.content-img')).top - oTop;
      this.centerX = event.clientX - offset(this.contentImg.nativeElement).left - oLeft;
      this.centerY = event.clientY - offset(this.contentImg.nativeElement).top - oTop;
-     
+     // console.log(
+     //            'offset(this.contentImg.nativeElement).left', offset(this.contentImg.nativeElement).left ,
+     //             this.centerX,
+     //             this.centerY
+
+     //     )
+       console.log('moveIstartMovemg')
  } 
 
 // line 101
 moveImg(event, stateType, state) {
-    console.log('moveimg started')
-  // console.log('mousemove on container and image move image enabled')
     event.stopPropagation();
     event.preventDefault();
-    const W = event.target.parentElement.offsetWidth;
-    const H = event.target.parentElement.offsetHeight;
-    const oTop = event.target.parentElement.offsetTop;
-    const oLeft = event.target.parentElement.offsetLeft;
-
     switch (stateType){
             case 'move':
                 this.posititionImage(event)
                 break;
             case 'resize':
-                this.resize(event, state, W, H, oTop, oLeft);
-                this.updateCanvas(event, ' ' , ' ');
+                this.resize(event, state);
+                this.updateCanvas(event);
                 break;  
     }
 }
 posititionImage(event){
-  console.log('position started')
    this.imgData._left = event.clientX - offset(this.contentImg.nativeElement).left - (this.centerX);
    this.imgData._top = - offset(this.contentImg.nativeElement).top + event.clientY - (this.centerY);
 }
@@ -230,32 +226,27 @@ resize_sw(event,contentImg, imageContainerEl, oTop, oLeft){
     let  _W = Math.round(this.imageContainer.nativeElement.offsetWidth -  (this._left - oLeft));
     let  _H = Math.round((-offset(contentImg).top + (event.clientY || event.pageY)) - oTop);
 }
-resize_small(event,contentImg, imageContainerEl,W ,H){
-
-
+resize_small(event,contentImg, imageContainerEl){
     let _W = W / 2;
     let _H = H / 2;
-   
-    // this.stateType = 'none';
-   
+    this.stateType = 'none';
     this.imgData._left = (contentImg.offsetWidth / 2) - _W / 2;
     this.imgData._top = (contentImg.offsetHeight / 2) - _H / 2;
-
     this.crop();
-    this.updateCanvas(event, _W , _H);
 }
-resize_large(event,contentImg, imageContainerEl, W ,H){
+resize_large(event,contentImg, imageContainerEl){
     let _W = W * 2;
     let _H = H * 2;
-    this.imgData._left = (contentImg.offsetWidth / 2) - _W / 2;
-    this.imgData._top = (contentImg.offsetHeight / 2) - _H / 2;
-    //this.stateType = 'none';
-    // console.log(' this.imgData', this.imgData)
+    this._left = (contentImg.offsetWidth / 2) - _W / 2;
+    this._top = (contentImg.offsetHeight / 2) - _H / 2;
+    this.stateType = 'none';
     this.crop();
-    this.updateCanvas(event, _W , _H);
 }
-resize(event,  state, W, H, oTop, oLeft) {
-
+resize(event, state) {
+      const W = event.target.parentElement.offsetWidth;
+      const H = event.target.parentElement.offsetHeight;
+      const oTop = event.target.parentElement.offsetTop;
+      const oLeft = event.target.parentElement.offsetLeft;
 
       // let _W;
       // let _H;
@@ -277,18 +268,17 @@ resize(event,  state, W, H, oTop, oLeft) {
                 this.resize_sw(event,contentImg, imageContainerEl, oTop, oLeft)
                 break;  
             case 'small':
-                alert('gone small')
-                this.resize_small(event,contentImg, imageContainerEl,W ,H)
+                this.resize_small(event,contentImg, imageContainerEl)
                 break;  
             case 'large':
-                this.resize_large(event,contentImg, imageContainerEl, W ,H)
+                this.resize_large(event,contentImg, imageContainerEl)
                 break;                                       
      }
-     alert('fck no')
+
 
  }
 
-updateCanvas(event, _W , _H){
+updateCanvas(event){
         if (event.shiftKey) {
             let _H = _W / this.imgData.imgWidth * this.imgData.imgHeight;
         }
@@ -300,16 +290,15 @@ updateCanvas(event, _W , _H){
         const maxWidth = 2400; // Change as required
         const maxHeight = 2200;
         const cropCanvas = document.createElement('canvas');
-        origSrc.src =  this.imgData.origImg;
+        origSrc.src = this.origImg;
         cropCanvas.width = _W;
         cropCanvas.height = _H;
-        const  ctx = cropCanvas.getContext('2d');
+        const /** @type {?} */ ctx = cropCanvas.getContext('2d');
         ctx.drawImage(origSrc, 0, 0, // Start at 10 pixels from the left and the top of the image (crop),
         _W, _H);
-        this.imgData.imgDataUrl = cropCanvas.toDataURL(`image/${this._format}`);
-
+        this.imgData.imgDataUrl = cropCanvas.toDataURL(`image/${this.imgData._format}`);
         // console.log(cropCanvas.toDataURL("image/jpeg"));
-        // console.log(this.imgData.imgDataUrl);
+        // console.log(origSrc.width,origSrc.height);
 }
 
 
@@ -346,8 +335,16 @@ registerOnChange(fn) {
      const  maxHeight = 2200;
      const  cropCanvas = document.createElement('canvas');
      const  blank = "data:image/png;base64,iVBORw0KGg" + 'oAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAC0lEQVQYV2NgAAIAAAU' + "AAarVyFEAAAAASUVORK5CYII=";
+      
+     //console.log('event of imgChange', event, 'fileReader', fileReader, 'cropCanvas' ,cropCanvas,  'blank', blank )
+ 
+
 
      fileReader.onload = ev => {   
+
+        // alert('worked')
+            
+
              if (event.target.files[0].type === 'image/jpeg' ||
                  event.target.files[0].type === 'image/jpg' ||
                  event.target.files[0].type === 'image/png' ||
@@ -356,6 +353,11 @@ registerOnChange(fn) {
                     this.imgData.origImg = ev.target.result;
                     this.imgData.origSrc.src = ev.target.result;
                     this.imgData.img = ev.target.result;
+                     // this.imgDataUrl = ev.target.result;
+                   //  this.origImg = ev.target.result;
+                     //origSrc.src = ev.target.result;
+                     // img = ev.target.result;
+
                       console.log( 'image data set')
 
              }
@@ -363,8 +365,11 @@ registerOnChange(fn) {
                 this.imgData.imgDataUrl = blank;
                 this.imgData.origImg = blank;
                 this.imgData.origSrc.src = blank;
+                 // this.imgDataUrl = blank;
+                 // this.origImg = blank;
+                 // origSrc.src = blank;
              }
-
+console.log( 'origSrc', origSrc)
              // Set image W & H
              this.imgData.imgWidth = origSrc.width;
              this.imgData.imgHeight = origSrc.height;
@@ -400,23 +405,27 @@ crop() {
 
     let  cropCanvas;
 
-    const  resize = this.resizebox.nativeElement;
+     const  resize = this.resizebox.nativeElement;
+  //  const  resize = this.elementRef.nativeElement.querySelector('.resize');
+
     const left = offset(resize).left - offset(this.imageContainer.nativeElement).left;
     const top = offset(resize).top - offset(this.imageContainer.nativeElement).top;
     const width = resize.offsetWidth;
     const height = resize.offsetHeight;
     const origSrc = new Image();
 
-
     origSrc.src = this.imgData.imgDataUrl;
+    // console.log('origSrc.src ', origSrc.src )
+
     cropCanvas = document.createElement('canvas');
     cropCanvas.width = width;
     cropCanvas.height = height;
     cropCanvas.getContext('2d').drawImage(origSrc, left, top, width, height, 0, 0, width, height);
-
     // Should be injected in the object
     this.imgData.imgCrop.dataURL = cropCanvas.toDataURL(`image/${this.imgData._format}`);
-}
+
+   console.log('cropCanvas',  this.imgData.imgCrop.dataURL)
+  }
 
 // line 326
   static ctorParameters() { return [

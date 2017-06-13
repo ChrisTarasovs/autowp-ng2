@@ -40,31 +40,11 @@ import {widgetSettingsComponent} from '../widgetSettings/widgetSettings.componen
 })
 //{{dynamicData}}
 export class DynamicPanelComponent {
+   constructor(private _ComponentFactoryResolver: ComponentFactoryResolver) { }
+   currentComponent = null;
 
-
-  @Input()
-  dynamicData;
-
-
-
-  constructor(private _ComponentFactoryResolver: ComponentFactoryResolver) { 
-
-
-   }
-
- newColor:string;
- colordata: any;
-
-
-  currentComponent = null;
-
+  @Input()  dynamicData;
   @ViewChild('dynamicComponentContainer', { read: ViewContainerRef }) dynamicComponentContainer: ViewContainerRef;
- 
-  // component: Class for the component you want to create
-  // inputs: An object with key/value pairs mapped to input name/input value
-
-
-
   @Input() set componentData(data: {component: any, inputs: any}) {
 
     if (!data) {
@@ -74,43 +54,21 @@ export class DynamicPanelComponent {
     // Inputs need to be in the following format to be resolved properly
      let inputProviders = Object.keys(data.inputs).map((inputName) => {return {provide: inputName, useValue: data.inputs[inputName]};});
    //  let inputProviders = Object.keys(data.inputs).map((inputName) => {return {provide: inputName, useValue: data.inputs[inputName]};});
-   
-     //console.log('inputProviders load', inputProviders)
-   
-
-
     let resolvedInputs = ReflectiveInjector.resolve(inputProviders);
-    
     // We create an injector out of the data we want to pass down and this components injector
     let injector = ReflectiveInjector.fromResolvedProviders(resolvedInputs, this.dynamicComponentContainer.parentInjector);
-    
     // We create a factory out of the component we want to create
     //To get the components we use the ComponentFactoryResolver, inject it into the constructor and declare to let factory variable  which will receive our components:
     // let factory will now get the component.
     let factory = this._ComponentFactoryResolver.resolveComponentFactory(data.component);
-    
     // We create the component using the factory and the injector
     let component = factory.create(injector);
-    
     // We insert the component into the dom container
     this.dynamicComponentContainer.insert(component.hostView);
-    
     // We can destroy the old component is we like by calling destroy
     
-    if (this.currentComponent) {
-       this.currentComponent.destroy();
-    }
-  
+    if (this.currentComponent) { this.currentComponent.destroy();}
     this.currentComponent = component;
     
   }
-
-
-
 }
-
-
-// Article
-//https://blog.thecodecampus.de/angular-2-dynamically-render-components/ 
-//http://plnkr.co/edit/wh4VJG?p=preview
-//http://stackoverflow.com/questions/38888008/how-can-i-use-create-dynamic-template-to-compile-dynamic-component-with-angular/38888009#38888009

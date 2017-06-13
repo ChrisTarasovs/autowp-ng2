@@ -25,7 +25,7 @@ import { Safe } from '../pipes/safehtml.pipe'
 
 import * as _ from "lodash";
 
-import {ResizingCroppingImagesComponent} from '../image-cropper/image-cropper.component'
+// import {ResizingCroppingImagesComponent} from '../image-cropper/image-cropper.component'
 import {cmpService} from '../toolbar/services/components.service'
 
 export const EDITOR_VALUE_ACCESSOR = {
@@ -39,7 +39,7 @@ export const EDITOR_VALUE_ACCESSOR = {
 // All the drag component list items
 import { text, textarea,ullist,singleImage, images, accordion, accordionGroup, accordionHeading, tabs, video, googlemaps,testimonials, testimonial,modalBox } from '../dnd/widgets/widgets.component';
 
-import  {ContentEditableDirective} from '../contenteditable-model'
+// import  {ContentEditableDirective} from '../contenteditable-model'
 
 @Component({
   selector: 'layout',
@@ -50,70 +50,12 @@ import  {ContentEditableDirective} from '../contenteditable-model'
 
 
 
-//     
-// <p [contenteditableModel]="colorme">Highlight me!</p>
-// <button (click)="goFuckGreen() ">pass green </button>
-// <div class="wysiwyg-editor__content" #editor contenteditable *ngIf="!editMode"></div>
-	  
-
-//   <div class="main-gallery">
-//   <div class="gallery-cell">
-//     <div class="testimonial">
-
-
-//     	<!-- 
-//     	Here we pull the image from OBJ 
-//     	We have option to delete image, by removing form obj
-//     	If object empty, show input and cropper
-//     	we have cropper func to enable cropping.
-//     	-->
-//     	<img [src]="Img.imgCrop" 
-// 	    	  [style.width.px]="this.imgData.sizeW"    
-//                           [style.height.px]="this.imgData.sizeH"
-// 		  class="testimonial-avatar" >
-
-
-//     	<div class="img-container">
-	    		
-//     			<cropping-img 
-// 			     #Img 
-// 			     format="png" 
-// 			     style="background-color: blue; display: block;"
-// 			     [imgData]="imgData"
-// 			      ></cropping-img>
-// 	</div>	      
-
-
-
-//       <q class="testimonial-quote">
-//       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis mauris ex, gravida ut leo eu, rhoncus porta orci. Fusce vitae rutrum nulla."
-//       </q>
-
-//       <span class="testimonial-author">Joe Smith, CEO of Cubix</span>
-
-//     </div>
-//   </div>
-
-// </div>
-
-
-
-//  <button (click)="Img.zoom('+')">+</button>
-//  <button (click)="Img.zoom('-')">-</button>
-//  <button (click)="Img.center()">center</button>
-
-//  <br />
-//  <input [(ngModel)]="Img.sizeW" placeholder="Img size Width">
-//  <input [(ngModel)]="Img.sizeH" placeholder="Img size Height">
-//  <input [(ngModel)]="Img.img" placeholder="Img">
-
-
   `
 
 
 
 
-<div  style="  height: 150px; overflow: scroll;">
+<div  style="  height: 450px; overflow: scroll;">
 	 <pre>
 		{{ canvas | json}}
 	</pre>
@@ -258,17 +200,11 @@ goFuckGreen(){
 	this.colorme = 'black';
 }
 
-
-
 configureWidget(widget){
-//	const copyWidget = Object.assign( widget, {});
-//	console.log(copyWidget.widgetComponent.component);
-	//const widgetData =  { widget }
 	return  {
-			component: widget.widgetComponent.component, 
-			inputs: { widget : widget }
-
-		} 
+		component: widget.widgetComponent.component, 
+		inputs: { widget : widget }
+	} 
 }
 
 
@@ -286,14 +222,11 @@ constructor(
 	private _cmpService: cmpService){
 		// temp set data for image cropper
 		this.imgData  = {sizeW: 230;sizeH: 230;}
-
 		this.canvas =  this._canvasService.canvas; 
-	
 }
 
 
 ngOnInit() {
-	
 	//this.newCanvas =  this._canvasService.newCanvas;
 }
 
@@ -328,8 +261,8 @@ newProperties(dimension, position) {
 }
 
 	onDragEnter(event: any, dropOnElement: any, droppedOn: string, ) {
-		console.log('event.mouseEvent', event.mouseEvent)	
-		console.log('Empty canvas event.mouseEvent.target.offsetTop', event.mouseEvent.target.offsetTop)
+		// console.log('event.mouseEvent', event.mouseEvent)	
+		// console.log('Empty canvas event.mouseEvent.target.offsetTop', event.mouseEvent.target.offsetTop)
 	}
 
 	onDropSuccess(event: any, dropOnElement: any, droppedOn: string, rowIndex, columnIndex, widgetIndex) {
@@ -348,7 +281,7 @@ newProperties(dimension, position) {
 		//const  copy = Object.assign(event, {});
 		// const copy = JSON.parse(JSON.stringify(event))
 		const copy = _.cloneDeep(event)
-		console.log('copy fucker', copy, event, 'ddd',  copy.dragData, event.dragData)
+		// console.log('copy fucker', copy, event, 'ddd',  copy.dragData, event.dragData)
 
 		// First check the type object dropped on
 		switch (droppedOn){

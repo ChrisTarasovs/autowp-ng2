@@ -31,7 +31,8 @@ export class cmpService {
 	            widgetProperties: {dimension: [ 0,0,0,0 ], location: [0,0,0,0]},
 	            widgetComponent:  {component: textarea, inputs: {name: 'example'} }
 		},
-     		{settings: 
+     		 {type: 'widget',
+     		 settings: 
      			[{
 		                  isLoaded:false,
 		                  name: 'images',
@@ -66,7 +67,8 @@ export class cmpService {
         		widgetProperties: { dimension: [ 0,0,0,0 ],  location: [0,0,0,0] },
 	            widgetComponent:  {component: images,inputs: {name: 'example'}}
 	            },
-        		{settings: 
+        		 {type: 'widget',
+        		 settings: 
         			[{
 		                  isLoaded:false,
 		                  name: 'accordion',
@@ -82,7 +84,8 @@ export class cmpService {
             	widgetProperties: {dimension: [ 0,0,0,0 ],  location: [0,0,0,0]},
             	widgetComponent:  { component: accordion,inputs: {name: 'example'} }
 	            },
-	            {settings: 
+	             {type: 'widget',
+	             settings: 
             		[{
 		                  isLoaded:false,
 		                  name: 'tabs',
@@ -98,7 +101,8 @@ export class cmpService {
 	            widgetProperties: { dimension: [ 0,0,0,0 ], location: [0,0,0,0]},
 	            widgetComponent:  {component: tabs, inputs: {name: 'example' }}
 	        	},
-	            {settings: 
+	             {type: 'widget',
+	             settings: 
 	            	[{
 		                  isLoaded:false,
 		                  name: 'video',
@@ -109,7 +113,7 @@ export class cmpService {
 	            widgetProperties: {dimension: [ 0,0,0,0 ], location: [0,0,0,0]},
             	widgetComponent:  { component: video,inputs: {name: 'example' }}
 	            },
-	            {
+	             {type: 'widget',
 	            settings: [{
 		                  isLoaded:false,
 		                  name: 'googlemaps',
@@ -120,7 +124,8 @@ export class cmpService {
             	widgetProperties: {dimension: [ 0,0,0,0 ], location: [0,0,0,0]},
             	widgetComponent:  {component: tabs,inputs: { name: 'example'}}
 	            },
-	            {settings: [{
+	             {type: 'widget',
+	             settings: [{
 		                  isLoaded:false,
 		                  name: 'testimonials',
 						  icon:'fa-pencil-square-o',
@@ -133,7 +138,29 @@ export class cmpService {
 			                  			 name: '',
 			                  		   	 surname: '',
 			                  		   	 email: '',
-			                  		   	 image: ''
+			                  		   	 image: {
+			                  		   	 	alt: '',
+			                  		   	 	_img: '',
+			                  		   	 	img: '',
+			                  		   	 	origImg: '',
+			                  		   	 	origSrc:{
+			                  		   	 		src: ''
+			                  		   	 	},
+			                  		   	 	imgCrop: {
+			                  		   	 		dataURL:'',
+			                  		   	 		sizeW: 200,
+			                  		   	 		sizeH: 200
+
+			                  		   	 	},
+			                  		   	 	// height: 200,
+			                  		   	 	// width: 200,
+			                  		   	 	imgWidth:'',
+			                  		   	 	imgHeight: '',
+			                  		   	 	imgDataUrl: '',
+			                  		   	 	_left: 0,
+			                  		   	 	_top: 0,
+			                  		   	 	_format: 'jpeg'
+			                  		   	 }
 		                  			}],
 		                  		   testimonial: ''
 		                                     }]
@@ -141,7 +168,8 @@ export class cmpService {
            		widgetProperties: { dimension: [ 0,0,0,0 ],  location: [0,0,0,0]},
    	         	widgetComponent:  {component: testimonials ,inputs: {name: 'example'}}
             	},
-            	{settings: 
+            	 {type: 'widget',
+            	 settings: 
             		[{
 		                  isLoaded:false,
 		                  name: 'modalBox',

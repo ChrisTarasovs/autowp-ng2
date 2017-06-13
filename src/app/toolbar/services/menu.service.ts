@@ -48,6 +48,24 @@ export class menuService {
 				    componentName : LinksComponent
 				},
 				{id: 4,
+				        name:'Text left', 
+				        icon: 'fa-align-left',
+				        componentID : 8},
+				{id: 5,
+				        name:'Text center', 
+				        icon: 'fa-align-center',
+				        componentID : 8},
+				{id: 6,
+				        name:'Text justify', 
+				        icon: 'fa-align-justify',
+				        componentID : 8
+				 },
+				{id: 7,
+				        name:'Text right', 
+				        icon: 'fa-align-right',
+				        componentID : 8
+				}
+				{id: 8,
 				    name:'convert to Button', 
 				    icon: 'fa-battery-empty',
 				    active: false, 
@@ -55,7 +73,7 @@ export class menuService {
 				    componentMenuSelector: 'buttontype',
 				    componentName: ButtonTypeWidgetComponent
 				},
-				{id: 5,  
+				{id: 9,  
 				    name:'Color',
 				    icon: 'fa-slack',
 				    componentMenuSelector: 'color-menu',
@@ -65,18 +83,16 @@ export class menuService {
 				    colorArray: [ '#000000', '#0000dd' ],
 				    arrayColors: {color: '#000000', color2: '#999999'}
 				},
-				{id: 6,  
+				{id: 10,  
 				    name: 'Typography', 
 				    icon: 'fa-font',
 				    active: false, 
 				    componentMenuSelector: 'typography-menu',
 				    componentName : TypographyComponent
 				},
-				{id: 7, 
+				{id: 11, 
 				    name:'HTML', 
 				    icon: 'fa-battery-empty'
-
-					
 				}	
 
 			    
