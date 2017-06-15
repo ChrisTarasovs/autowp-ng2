@@ -144,7 +144,8 @@ export class cmpService {
 			                  		   	 	img: '',
 			                  		   	 	origImg: '',
 			                  		   	 	origSrc:{
-			                  		   	 		src: ''
+			                  		   	 		src: '',
+			                  		   	 		dataUrl: ''
 			                  		   	 	},
 			                  		   	 	imgCrop: {
 			                  		   	 		dataURL:'',
@@ -152,11 +153,29 @@ export class cmpService {
 			                  		   	 		sizeH: 200
 
 			                  		   	 	},
+			                  		   	 	cropped:{
+			                  		   	 		test: ''
+			                  		   	 	},
+			                  		   	 	placeholder:{
+			                  		   	 		sizeW: 200,
+			                  		   	 		sizeH: 200			                  		   	 		
+			                  		   	 	},
+			                  		   	 	cropping: {
+			                  		   	 		move: false,
+			                  		   	 		positionTop: '',
+			                  		   	 		positionLeft: '',
+			                  		   	 		container: '',
+			                  		   	 		dataUrl: '',
+			                  		   	 		centerY: '',
+			                  		   	 		centerX: '',
+			                  		   	 	},
 			                  		   	 	// height: 200,
 			                  		   	 	// width: 200,
 			                  		   	 	imgWidth:'',
 			                  		   	 	imgHeight: '',
 			                  		   	 	imgDataUrl: '',
+
+
 			                  		   	 	_left: 0,
 			                  		   	 	_top: 0,
 			                  		   	 	_format: 'jpeg'

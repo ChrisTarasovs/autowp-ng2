@@ -24,31 +24,25 @@ export class widgetsService {
 	constructComponent:any;
 
 	loadWidget(button, widget)  {
-		console.log( 'this is the widget', widget,'button', button)
+		console.log( 'this is the widget', widget, 'button', button)
 		if(!button.componentName){
 				if(typeof(button) === 'string'){
-					if(button === 'DndComponent'){
-						this.constructComponent = { 
-							component: DndComponent ,inputs: { showNum: 0 }
-						}
-					}else if(button=== 'ButtonTypeWidgetComponent'){
-						this.constructComponent = { 
-							component: ButtonTypeWidgetComponent ,inputs: { showNum: 0 }
-						}
-					}else if(button === 'ExamplesComponent'){
-						this.constructComponent = { 
-							component: ExamplesComponent ,inputs: { showNum: 0 }
-						}
-					}
-					else if(button === 'widgetSettingsComponent'){
-						
-						this.constructComponent ={
-							component: widgetSettingsComponent, inputs:{widgetSettings: [
-								widget
-
-							]}
-						}
-					}	
+					 switch (button){
+					            case 'DndComponent':
+						    this.constructComponent = { component: DndComponent ,inputs: { showNum: 0 }}
+					                break;
+					            case 'ButtonTypeWidgetComponent':
+					               this.constructComponent = { component: ButtonTypeWidgetComponent ,inputs: { showNum: 0 }}
+					                break; 
+					            case 'ExamplesComponent':
+					                this.constructComponent = { component: ExamplesComponent ,inputs: { showNum: 0 }}
+					                break;  
+					            case 'widgetSettingsComponent':
+					                this.constructComponent ={
+							component: widgetSettingsComponent, inputs:{widgetSettings: [widget]}	
+						    }
+					                break;                                
+					     }
 				}else{}
 
 					

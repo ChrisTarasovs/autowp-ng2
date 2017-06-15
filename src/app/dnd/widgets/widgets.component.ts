@@ -1,38 +1,44 @@
 
 import { Component, OnInit , EventEmitter, Input,  Output, Injector} from '@angular/core';
 import {FormsModule} from '@angular/forms'
-import  {ContentEditableDirective} from '../../../app/contenteditable-model'
-import { toolbarStateService} from '../../toolbar/services/toolbarStatus.service'
-import {ResizingCroppingImagesComponent} from '../../image-cropper/image-cropper.component'
+import  {ContentEditableDirective} from '../../../app/contenteditable-model';
+import { toolbarStateService} from '../../toolbar/services/toolbarStatus.service';
+// import {ResizingCroppingImagesComponent} from '../../image-cropper/image-cropper.component'
 // import {canvasService} from '../../toolbar/services/canvas.service'
+ import {wysiwygService} from '../../toolbar/services/wysiwyg.service'
 
 //text
 @Component({
   selector: 'text',
   template: 
-//   <div  class="line-breaker"
+// <div  class="line-breaker"
 // 	contenteditable='true'
-
-// (contenteditableModelChange)="updatedinnerHtml($event)"
-// [contenteditableModel]="paragraphText"
-
-	// (contenteditableModelChange)="updatedinnerHtml($event)"
-	//  [contenteditableModel]="paragraphText"
-
-	//  [contenteditableModel]="paragraphText"
-// [innerHtml]="paragraphText"
-// 	></div>
+// 	(contenteditableModelChange)="updatedinnerHtml($event)"
+// 	 [contenteditableModel]="paragraphText"
+// ></div>
 `
-<div  class="line-breaker"
-	contenteditable='true'
-	(contenteditableModelChange)="updatedinnerHtml($event)"
-	 [contenteditableModel]="paragraphText"
-></div>
+
+  <div contenteditable ></div>
+
+<button (click)="trys()">bold</button>
+
 
 	`
 })
 export class text  {
-	
+	public button: any = {id: 0,   
+				    name: 'Bold',  
+				    icon: 'fa-bold',
+				    command: 'bold',   
+				    tag: 'b', 
+				    active: false, 
+				    componentMenuSelector: false,
+				 },
+	trys(){
+		    event.stopPropagation();
+    event.preventDefault();
+		     this._wysiwygService.execCommand(this.button)
+	}
 	public widget;
 	public widgetCopy;
 	public data;
@@ -41,16 +47,17 @@ export class text  {
 	constructor(
 		private _widgetsService:widgetsService, 
 		private injector: Injector,   
-		private _toolbarStateService: toolbarStateService
+		private _toolbarStateService: toolbarStateService,
+		private _wysiwygService : wysiwygService
 		
 		){
-
-		this.widgetCopy = Object.assign(this.injector.get('widget'), {});
-		this.paragraphText  = this.widgetCopy.settings.innerhtml;
+alert('start')
+		// this.widgetCopy = Object.assign(this.injector.get('widget'), {});
+		// this.paragraphText  = this.widgetCopy.settings.innerhtml;
 	}
 
 	updatedinnerHtml(ev){
-		this.widgetCopy.settings.innerhtml = ev;
+		// this.widgetCopy.settings.innerhtml = ev;
 	}
 	
 
@@ -466,7 +473,7 @@ export class testimonials  {
 </div>
 <cropping-img 
  format="png" 
- style="background-color: blue; display: block;"
+ style="background-color: blue; display: block; width: 100%; height: 100%;"
  [imgData]="item.userdetails[0].image"
   ></cropping-img>
 

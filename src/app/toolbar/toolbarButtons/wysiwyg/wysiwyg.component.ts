@@ -13,7 +13,7 @@ import { ColorMenuComponent } from './widgets/color-menu/color-menu.component';
 import { TypographyMenuComponent } from './widgets/typography-menu/typography-menu.component';
 import {menuService} from '../../services/menu.service';
 import {widgetsService} from '../../services/widgets.service';
-
+// import {wysiwygService} from '../../services/wysiwygService.service'
 
    /*
 
@@ -116,10 +116,10 @@ export class wysiwygComponent {
 		console.log('old', button,$event )
 		//console.log('button data', button)
 		// enable the menu item
-		this._menuService.enableMenu(button, $event ); 
+		this._wysiwygService.enableMenu(button, $event ); 
 		
 		// Decorate HTML
-		this._menuService.decorateHtml();
+		this._wysiwygService.decorateHtml();
 
 		if (button.command === 'wysiwygMenu') {
 		
@@ -130,7 +130,7 @@ export class wysiwygComponent {
 			this.createMedia = false;
 			this.createButtons = false
 
-		}else if( button.command === 'createlink' && this._menuService.getSelected()  === ''){
+		}else if( button.command === 'createlink' && this._wysiwygService.getSelected()  === ''){
 
 			this.linkMenu = !this.linkMenu
 

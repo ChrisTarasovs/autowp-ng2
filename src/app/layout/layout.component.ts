@@ -21,7 +21,7 @@ import {dndService} from '../toolbar/services/dnd.service';
 import {canvasService} from '../toolbar/services/canvas.service'
 import {DynamicPanelComponent} from '../toolbar/toolbarOptions/dynamic-panels/dynamic.component';
 
-import { Safe } from '../pipes/safehtml.pipe'
+// import { Safe } from '../pipes/safehtml.pipe'
 
 import * as _ from "lodash";
 
@@ -53,6 +53,13 @@ import { text, textarea,ullist,singleImage, images, accordion, accordionGroup, a
   `
 
 
+	{{ content }}
+	<Br />
+
+	  <div contenteditable 
+	
+	  ></div>
+	
 
 
 <div  style="  height: 450px; overflow: scroll;">

@@ -39,7 +39,7 @@ export class wysiwygService {
 			this.createMedia = false;
 			this.createButtons = false
 
-		}else if( button.command === 'createlink' && this._menuService.getSelected()  === ''){
+		}else if( button.command === 'createlink' && this.getSelected()  === ''){
 
 			this.linkMenu = !this.linkMenu
 
@@ -57,11 +57,16 @@ export class wysiwygService {
 			this.colorMenu = false;
 			this.createMedia = false
 
-		}else {
+		}else if(button.command === 'headlineView'){
+			this._widgetsService.loadWidget(button);
+
+	} else {
+			// alert('stop')
+			console.log(',yes', button.command, false, button.options)
 		 	 document.execCommand(button.command, false, button.options);
 		}
 
-		this._widgetsService.loadWidget(button);
+		//
 		
 
 	}
@@ -83,16 +88,18 @@ export class wysiwygService {
 	decorateHtml(){
 		// get selection
 		let selection = this.getSelected()  
-		//console.log('selection is', selection);
+		console.log('selection is', selection);
 		//console.log('getting the selected content',document.getSelection().focusNode);
 		const tags = this.getTagsRecursive(document.getSelection().focusNode);
-		//console.log('tags are', tags);
+		console.log('tags are', tags);
 	}
  	getSelected(){
  		return document.getSelection().toString();
  	}
+ 	// getTagsRecursive(element, tags?: any[]) {
  	getTagsRecursive(element, tags?: any[]) {
 	                tags = tags || (element && element.tagName ? [element.tagName] : []);
+	             //   tags = 'b';
 	              //  console.log('inside tags' , tags)
 
 	                if (element && element.parentNode) {

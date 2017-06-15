@@ -58,6 +58,7 @@ export class tButtonsComponent implements OnInit{
 	 @Output () buttonClick: EventEmitter<any> = new EventEmitter();
 
 	 buttonClickfunc(button){
+	 	
 		this.buttonClick.emit(button)
 	 }
 
