@@ -15,12 +15,7 @@ import {colorService} from '../../../../services/color.service'
   `
 })
 export class ColorMenuComponent  implements OnChanges{
- 
    public selectedColor;
-   // public colorsForm: FormGroup;
-   // public colorHex: any = '';
-   // public currentColor: string;
-
    constructor(
       private _colorService: colorService) {
            this.selectedColor = '#000fff'

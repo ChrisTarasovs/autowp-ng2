@@ -21,55 +21,47 @@ export class wysiwygService {
 	createMedia: boolean = false;
 	createButtons: boolean = false;
 
-	execCommand(button ){
-		
-		//console.log('button data', button)
-		// enable the menu item
+	execCommand(button){
+
 		//this.enableMenu(button, $event ); 
 		
 		// Decorate HTML
 		this.decorateHtml();
-
-		if (button.command === 'wysiwygMenu') {
-		
-		} else if(button.command === 'color' ){
-			this.colorMenu = !this.colorMenu
-
-			this.linkMenu = false;
-			this.createMedia = false;
-			this.createButtons = false
-
-		}else if( button.command === 'createlink' && this.getSelected()  === ''){
-
-			this.linkMenu = !this.linkMenu
-
-			this.colorMenu = false;
-			this.createMedia = false;
-			this.createButtons = false;
-
-			//console.log('testin', this.linkMenu )
-			// document.execCommand('insertHtml', false, '<a href="' + options + '">' + options + '</a>');
-		}
-		else if(button.command === 'createButtons'){
-			this.createButtons = !this.createButtons
-
-			this.linkMenu = false;
-			this.colorMenu = false;
-			this.createMedia = false
-
-		}else if(button.command === 'headlineView'){
-			this._widgetsService.loadWidget(button);
-
-	} else {
-			// alert('stop')
-			console.log(',yes', button.command, false, button.options)
-		 	 document.execCommand(button.command, false, button.options);
+		switch(button.command) {
+			case (button.command === 'wysiwygMenu'):
+				break;
+		    case (button.command === 'color'):
+					this.colorMenu = !this.colorMenu
+					this.linkMenu = false;
+					this.createMedia = false;
+					this.createButtons = false
+		        break;
+		    case (button.command === 'createlink' && this.getSelected()  === ''):
+					this.linkMenu = !this.linkMenu
+					this.colorMenu = false;
+					this.createMedia = false;
+					this.createButtons = false;
+					// console.log('testin', this.linkMenu )
+					// document.execCommand('insertHtml', false, '<a href="' + options + '">' + options + '</a>');
+		        break;
+		    case (button.command === 'createButtons'):
+					this.createButtons = !this.createButtons
+					this.linkMenu = false;
+					this.colorMenu = false;
+					this.createMedia = false
+		    case (button.command === 'headlineView'):
+		    		
+		    default:   
 		}
 
-		//
-		
+this._widgetsService.loadWidget(button, '');
 
-	}
+
+console.log(',yes', button.command, false, button.options)
+document.execCommand(button.command, false, button.options);		
+
+
+}
 	
 
 /*

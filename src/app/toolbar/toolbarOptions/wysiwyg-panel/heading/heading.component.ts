@@ -6,6 +6,7 @@ import {
 } from '@angular/core';
 import {menuService} from '../../../services/menu.service';
 import {widgetsService} from '../../../services/widgets.service';
+import {wysiwygService} from '../../../services/wysiwyg.service';
 
 @Component({
   selector: 'heading',
@@ -27,7 +28,11 @@ import {widgetsService} from '../../../services/widgets.service';
 })
 export class HeadingComponent {
 
-  constructor ( private _menuService: menuService,private _widgetsService: widgetsService){}
+  constructor ( private _menuService: menuService,
+    private _widgetsService: widgetsService,
+    private _wysiwygService: wysiwygService
+
+    ){}
 
 
 buttons:any;
@@ -35,7 +40,7 @@ buttons:any;
 
 execCommand(button: any,  $event ){
 	let selection = document.getSelection().toString();
-	const tags = this._menuService.getTagsRecursive(document.getSelection().focusNode);
+	const tags = this._wysiwygService.getTagsRecursive(document.getSelection().focusNode);
   	// Decorate HTML
 	//this._menuService.decorateHtml();
 	document.execCommand(button.command, false, button.options);

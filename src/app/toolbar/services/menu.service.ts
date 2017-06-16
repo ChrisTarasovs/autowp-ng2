@@ -40,7 +40,7 @@ export class menuService {
 				}, 
 				{id: 3,  
 				    name:'convert to link', 
-				    command: 'createlink',
+				   // command: 'createlink',
 				    icon: 'fa-link',
 				    tag: 'a',
 				    active: false, 

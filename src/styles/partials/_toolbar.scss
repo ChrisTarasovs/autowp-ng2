@@ -5,6 +5,19 @@ $toolbar-background-color:#000;
 $toolbar-component-background-color:#000;
 $toolbar-component-border-radius:5px;
 $toolbar-component-items-displayed-inonerow:6;
+
+
+toolbar dynamiccontent-component{
+        background: rgba($toolbar-component-background-color, 0.8);
+        margin:20px 10px 0px 10px;
+        border-radius:$toolbar-component-border-radius;
+        padding-bottom:10px;
+        width: 100%;
+        height: 100%;
+        display: block;
+}
+
+
 //Toolbar on its own
 toolbar-buttons{
     background-color:$toolbar-background-color;
@@ -34,10 +47,6 @@ toolbar-buttons{
 //Component generator bubble
 builder{
     .panel-body{
-        background: rgba($toolbar-component-background-color, 0.8);
-        margin:20px 10px 0px 10px;
-        border-radius:$toolbar-component-border-radius;
-        padding-bottom:10px;
         .list-items{
             display:inline-block;
             width:calc((100% / #{$toolbar-component-items-displayed-inonerow}) - 4.5px);

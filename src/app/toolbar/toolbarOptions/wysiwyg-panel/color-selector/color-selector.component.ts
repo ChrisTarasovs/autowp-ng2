@@ -21,6 +21,8 @@ import {dndService} from '../../../services/dnd.service';
   selector: 'app-color-selector',
   template: 
  `
+    <color-menu  (saveColors)="saveColorsFunc($event)" ></color-menu>
+
     <ul>
         <li *ngFor="let colordrop of colors ">           
             <div class="color-drop" 

@@ -60,7 +60,7 @@ import { VideoSettingsComponent } from './toolbar/toolbarOptions/widgetSettings/
 import { VideoItemComponent } from  './toolbar/toolbarOptions/widgetSettings/set-video/video-item/video-item.component';
 import {videoSearchBoxComponent} from  './toolbar/toolbarButtons/videoSearch/videoSearch.component';
 import {SectionsComponent} from './sections/sections.component';
-import {  text, textarea,ullist,singleImage, images, accordion, accordionGroup, accordionHeading,tabs, video, googlemaps,testimonials, testimonial, modalBox,slide} from './dnd/widgets/widgets.component';
+import {  text,ullist,singleImage, images, accordion, accordionGroup, accordionHeading,tabs, video, googlemaps,testimonials, testimonial, modalBox,slide} from './dnd/widgets/widgets.component';
 import { widgetSettingsComponent } from './toolbar/toolbarOptions/widgetSettings/widgetSettings.component';
 import { setMediaComponent } from './toolbar/toolbarOptions/widgetSettings/set-media.component';
 import {ItemsFormArrayComponent}  from './toolbar/toolbarOptions/widgetSettings/list-items.components'
@@ -99,6 +99,8 @@ import { Font } from './toolbar/toolbarOptions/wysiwyg-panel/typography/typograp
 import {ContentEditableDirective} from './contenteditable-model'
 import {ResizingCroppingImagesComponent} from './image-cropper/image-cropper.component'
 
+import {multilevelselector} from './toolbar/toolbarOptions/multilevelselector.component'
+// import { runDummyFunc} from './customDirective';
 
 // Application wide providers
 const APP_PROVIDERS = [...APP_RESOLVER_PROVIDERS,AppState];
@@ -153,8 +155,9 @@ export const pipe_providers = [
     XLargeDirective,
     YoutubeSafeUrlPipe,
     FontSizePipe, FontStylesPipe, StatefulSlicePipe, SafeHtml, Safelink,NewlinePipe,
-    text, textarea, ullist,singleImage, images, accordion,accordionGroup, accordionHeading, tabs, video, googlemaps,testimonials, testimonial, modalBox,slide,
-
+    text,  ullist,singleImage, images, accordion,accordionGroup, accordionHeading, tabs, video, 
+    googlemaps,testimonials, testimonial, modalBox,slide,
+    multilevelselector,
     // FileUploaderComponent,
    ItemsFormArrayComponent, 
    ItemFormControlComponent,
@@ -169,7 +172,8 @@ export const pipe_providers = [
     VideoSettingsComponent,
 
      //Directives
-     ContentEditableDirective,ResizingCroppingImagesComponent
+     ContentEditableDirective,ResizingCroppingImagesComponent 
+     // runDummyFunc
   ],
   imports: [ 
     BrowserModule,

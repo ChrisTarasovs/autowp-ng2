@@ -37,13 +37,13 @@ export const EDITOR_VALUE_ACCESSOR = {
 
 
 // All the drag component list items
-import { text, textarea,ullist,singleImage, images, accordion, accordionGroup, accordionHeading, tabs, video, googlemaps,testimonials, testimonial,modalBox } from '../dnd/widgets/widgets.component';
+import { text, ullist,singleImage, images, accordion, accordionGroup, accordionHeading, tabs, video, googlemaps,testimonials, testimonial,modalBox } from '../dnd/widgets/widgets.component';
 
 // import  {ContentEditableDirective} from '../contenteditable-model'
 
 @Component({
   selector: 'layout',
-  entryComponents: [ text, textarea,ullist,singleImage, images, accordion, accordionGroup, accordionHeading, tabs, video, googlemaps,testimonials, testimonial, modalBox 
+  entryComponents: [ text, ullist,singleImage, images, accordion, accordionGroup, accordionHeading, tabs, video, googlemaps,testimonials, testimonial, modalBox 
 
   ],  // Reference to the components must be here in order to dynamically create them
   template:  
@@ -51,7 +51,10 @@ import { text, textarea,ullist,singleImage, images, accordion, accordionGroup, a
 
 
   `
-
+ <div contenteditable 
+	     
+	    
+	  ></div>
 
 	{{ content }}
 	<Br />
@@ -168,13 +171,17 @@ dnd-droppable
 				class="AWwidgetWrapper" 
 				
 				>
+				<pre>
+				{{widget | json}}
+				</pre>
 				
 						<div class="widget" [ngStyle]="{'height': widget.widgetProperties[0].dimension[0] + 'px'}">
 	 						<ng-container *ngIf="widget.settings.isLoaded">
-								<dynamiccontent-component [componentData]="configureWidget(widget)" ></dynamiccontent-component>
+								<dynamiccontent-component [componentData]="{component: widget.widgetComponent.component, inputs: { widget : widget } }" ></dynamiccontent-component>
 							</ng-container>
 
 						</div>		
+						
 				</div>
 			</div>
 		  </div>
@@ -207,12 +214,12 @@ goFuckGreen(){
 	this.colorme = 'black';
 }
 
-configureWidget(widget){
-	return  {
-		component: widget.widgetComponent.component, 
-		inputs: { widget : widget }
-	} 
-}
+// configureWidget(widget){
+// 	return  {
+// 		component: widget.widgetComponent.component, 
+// 		inputs: { widget : widget }
+// 	} 
+// }
 
 
 canvas: Array<any> ;
@@ -255,6 +262,8 @@ newColumn(copy, columnDimension, columnPosition) {
 }
 
 newWidget(copy, widgetDimension, widgetPosition) {
+console.log('copy.dragData.widgetComponent', copy.dragData.widgetComponent)
+
 	if(copy.dragData){
 		return new Widget(copy.dragData.settings[0], copy.dragData.widgetComponent, [this.newProperties(widgetDimension, widgetPosition)]); 
 	}else{ 
@@ -325,6 +334,8 @@ newProperties(dimension, position) {
 
 			dropOnElement.push(this.newRow(copy, rowDimension, rowPosition))
 			this.canvas[0].column[0].widgets[0].settings.isLoaded = !this.canvas[0].column[0].widgets[0].settings.isLoaded
+		
+			console.log(this.canvas)
 		}else{
 			let rowPositionsSum = dropOnElement.map(function(row){
 				return row.rowProperties[0].location[0].top + row.rowProperties[0].dimension[0].height

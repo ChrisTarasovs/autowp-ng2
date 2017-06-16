@@ -1,69 +1,47 @@
 
 import { Component, OnInit , EventEmitter, Input,  Output, Injector} from '@angular/core';
 import {FormsModule} from '@angular/forms'
-import  {ContentEditableDirective} from '../../../app/contenteditable-model';
+// import  {ContentEditableDirective} from '../../../app/contenteditable-model';
 import { toolbarStateService} from '../../toolbar/services/toolbarStatus.service';
 // import {ResizingCroppingImagesComponent} from '../../image-cropper/image-cropper.component'
 // import {canvasService} from '../../toolbar/services/canvas.service'
- import {wysiwygService} from '../../toolbar/services/wysiwyg.service'
+import {wysiwygService} from '../../toolbar/services/wysiwyg.service';
+import {widgetsService} from '../../toolbar/services/widgets.service'
 
 //text
 @Component({
   selector: 'text',
   template: 
-// <div  class="line-breaker"
-// 	contenteditable='true'
-// 	(contenteditableModelChange)="updatedinnerHtml($event)"
-// 	 [contenteditableModel]="paragraphText"
-// ></div>
 `
-
-  <div contenteditable ></div>
-
-<button (click)="trys()">bold</button>
-
-
-	`
+<div  class="line-breaker"
+	contenteditable='true'
+	(contenteditableModelChange)="updatedinnerHtml($event)"
+	[contenteditableModel]="this.widget.settings.innerhtml"
+></div>
+`
 })
-export class text  {
-	public button: any = {id: 0,   
-				    name: 'Bold',  
-				    icon: 'fa-bold',
-				    command: 'bold',   
-				    tag: 'b', 
-				    active: false, 
-				    componentMenuSelector: false,
-				 },
-	trys(){
-		    event.stopPropagation();
-    event.preventDefault();
-		     this._wysiwygService.execCommand(this.button)
-	}
+export class text {
+	
 	public widget;
-	public widgetCopy;
 	public data;
-	public paragraphText;
+	public innerText;
 
 	constructor(
 		private _widgetsService:widgetsService, 
 		private injector: Injector,   
-		private _toolbarStateService: toolbarStateService,
-		private _wysiwygService : wysiwygService
-		
+		private _toolbarStateService: toolbarStateService
 		){
-alert('start')
-		// this.widgetCopy = Object.assign(this.injector.get('widget'), {});
-		// this.paragraphText  = this.widgetCopy.settings.innerhtml;
+		this.widget = Object.assign(this.injector.get('widget'), {});
+		//this.innerText  = this.widgetCopy.settings.innerhtml;
 	}
 
 	updatedinnerHtml(ev){
-		// this.widgetCopy.settings.innerhtml = ev;
+		this.widget.settings.innerhtml = ev;
 	}
-	
-
 }
 
 
+/*
 // textarea
 @Component({
   selector: 'html-textarea',
@@ -71,23 +49,50 @@ alert('start')
   //{{widget | json}}
   //{{widget.innerhtml | json}}
   //{{showNum | json}}
+
+// contenteditable='true'
+// 	(contenteditableModelChange)="updatedinnerHtml($event)"
+// 	[contenteditableModel]="paragraphText"
+
+// <button (click)="this._widgetsService.loadWidget('widgetSettingsComponent', widget)">settings</button>
+// 	<textarea 
+// 	contenteditable="true" 
+// 	[innerHTML]="widget.widget.settings.innerhtml"
+
+// 	>
+// 	</textarea>
+
 	`
 	<button (click)="this._widgetsService.loadWidget('widgetSettingsComponent', widget)">settings</button>
-	<textarea contenteditable="true" [innerHTML]="widget.widget.settings.innerhtml">
+	<textarea 
+
+	contenteditable='true'
+	(contenteditableModelChange)="updatedinnerHtml($event)"
+	[contenteditableModel]="this.widget.settings.innerhtml"
+	>
 	</textarea>
 
 	`
   
   //styleUrls: ['./text.component.css']
 })
+
+
 export class textarea  {
 	public showNum;
 	public widget;
-	constructor(private _widgetsService:widgetsService, private injector: Injector) {
+	constructor(
+		private _widgetsService:widgetsService, 
+		private injector: Injector,   
+		private _toolbarStateService: toolbarStateService
+		){
 	     this.widget = this.injector.get('widget');
 	}
+	updatedinnerHtml(ev){
+		this.widget.settings.innerhtml = ev;
+	}
 }
-
+*/
 
 // UL list
 @Component({
@@ -124,7 +129,6 @@ export class singleImage  {}
 
 // Gallery image & Carousel Slider
 // Single image, multiple image and carousel is all 1 
-import {widgetsService} from '../../toolbar/services/widgets.service'
 
 @Component({
   selector: 'html-images',
@@ -381,15 +385,16 @@ import {videoState} from '../../toolbar/services/videoState.service'
   selector: 'html-video',
   template: 
 // {{widget | json}}
-
+// 
 	`
+	{{ widget | json }}
 	    <button (click)="this._widgetsService.loadWidget('widgetSettingsComponent', widget)">settings</button>
-	    <div class="embed-container" *ngIf="widget.widget.settings.yturl.videoId != null">
+	    <div class="embed-container" *ngIf="widget.settings.yturl.videoId != null">
 	        <iframe width="560"
 	                height="315"
 	                frameborder="0"
 	                allowfullscreen
-	                [src]="widget.widget.settings.yturl.videoId | youtubeSafeUrl"
+	                [src]="widget.settings.yturl.videoId | youtubeSafeUrl"
 	                style="border: solid 1px black" >
 	        </iframe>
 	      </div>

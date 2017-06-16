@@ -11,9 +11,9 @@ export class toolbarStateService {
 	}
 
           viewWysiwyg: boolean = true;
-          viewImgAlignment: boolean = true;
+          viewImgAlignment: boolean = false;
           viewBuilder: boolean = true;
-          viewBtnSettings: boolean = true;
+          viewBtnSettings: boolean = false;
           viewMiscellaneous: boolean = true;
 
 

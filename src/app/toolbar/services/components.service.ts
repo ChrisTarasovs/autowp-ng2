@@ -18,19 +18,9 @@ export class cmpService {
 		              }],
 	              widgetProperties: { dimension: [ 0,100,0,0 ],  location: [0,0,0,0] },
 	              widgetComponent:  {component: text, inputs: { name: 'example'} }
-	            },
-            	{type: 'widget',
-        		settings: 
-            	   	[{
-		                  isLoaded:false,
-		                  name: 'Textarea',
-						  icon:'fa-pencil-square-o',
-		                  componentName: 'textarea',
-		                  innerhtml: 'This is an awesome text area'
-		            }],
-	            widgetProperties: {dimension: [ 0,0,0,0 ], location: [0,0,0,0]},
-	            widgetComponent:  {component: textarea, inputs: {name: 'example'} }
-		},
+	            }
+            	
+		/*,
      		 {type: 'widget',
      		 settings: 
      			[{
@@ -100,7 +90,8 @@ export class cmpService {
 		            }],
 	            widgetProperties: { dimension: [ 0,0,0,0 ], location: [0,0,0,0]},
 	            widgetComponent:  {component: tabs, inputs: {name: 'example' }}
-	        	},
+	        	}
+	        	*/,
 	             {type: 'widget',
 	             settings: 
 	            	[{
@@ -111,8 +102,14 @@ export class cmpService {
 		                  yturl: '',
 		             }],
 	            widgetProperties: {dimension: [ 0,0,0,0 ], location: [0,0,0,0]},
-            	widgetComponent:  { component: video,inputs: {name: 'example' }}
-	            },
+	            //widgetname: 'video',
+            	widgetComponent:  {
+            	 component: video
+            	 ,
+            	 inputs: {name: 'example' }
+            	}
+	            }
+	            /*,
 	             {type: 'widget',
 	            settings: [{
 		                  isLoaded:false,
@@ -123,7 +120,9 @@ export class cmpService {
 		                }],
             	widgetProperties: {dimension: [ 0,0,0,0 ], location: [0,0,0,0]},
             	widgetComponent:  {component: tabs,inputs: { name: 'example'}}
-	            },
+	            }
+	            */
+	            ,
 	             {type: 'widget',
 	             settings: [{
 		                  isLoaded:false,
@@ -186,7 +185,8 @@ export class cmpService {
 		            }],
            		widgetProperties: { dimension: [ 0,0,0,0 ],  location: [0,0,0,0]},
    	         	widgetComponent:  {component: testimonials ,inputs: {name: 'example'}}
-            	},
+            	}
+            	/*,
             	 {type: 'widget',
             	 settings: 
             		[{
@@ -207,6 +207,6 @@ export class cmpService {
 		            }],
 	            widgetProperties: { dimension: [ 0,0,0,0 ], location: [0,0,0,0]},
 	            widgetComponent:  {component: tabs,inputs: {name: 'example' }}
-	        	}
+	        	}*/
 	        ]
 

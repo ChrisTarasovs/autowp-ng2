@@ -29,13 +29,14 @@ import {canvasService} from '../toolbar/services/canvas.service';
                         
               </div>
   </div>
-  <pre style="width: 400px;">
-      {{orginalList | json}}
-  </pre>
-  <pre style="width: 400px;">
-      {{widgets | json}}
-  </pre>
+
   `,
+  //   <pre style="width: 400px;">
+  //     {{orginalList | json}}
+  // </pre>
+  // <pre style="width: 400px;">
+  //     {{widgets | json}}
+  // </pre>
   //template: ` zzz`,
   styleUrls: ['./dnd.component.css']
   //directives : [TextComponent]
