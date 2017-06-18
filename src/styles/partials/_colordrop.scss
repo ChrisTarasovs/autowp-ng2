@@ -1,0 +1,63 @@
+/* Set element that can be painted to overflow hidden */
+.paint-area {
+	overflow: hidden;
+	position: relative;
+	-webkit-transition: background 0.2s, color 0.2s;
+	transition: background 0.2s, color 0.2s;
+}
+
+.paint--active.paint-area {
+	-webkit-transition: none;
+	transition: none;
+}
+
+.paint--active.paint-area--text {
+	-webkit-transition: color 0.3s;
+	transition: color 0.3s;
+}
+
+.paint-area.paint-area--highlight:not(.paint-area--text) {
+	box-shadow: inset 0 0 0 3px rgb(133,125,255);
+}
+
+.paint-area--text.paint-area--highlight {
+	text-shadow: 
+		-1px -1px 0 rgba(133,125,255,0.5),
+		1px -1px 0 rgba(133,125,255,0.5),
+		-1px 1px 0 rgba(133,125,255,0.5),
+		1px 1px 0 rgba(133,125,255,0.5);
+}
+
+
+
+// dropped on 
+
+//.paint-area * {
+//	position: relative;
+//	z-index: 10;
+//	cursor: default;
+//}
+
+// Created svg 
+.svg-paint {
+	position: absolute; 
+	top: 0; 
+	left: 0;
+	z-index: 0;
+}
+
+.svg-paint circle {
+	fill-opacity: 0;
+	-webkit-transform: scale3d(0,0,1);
+	transform: scale3d(0,0,1);
+	-webkit-transition: -webkit-transform 0.8s, fill-opacity 0.4s;
+	transition: transform 0.8s, fill-opacity 0.4s;
+	-webkit-transition-timing-function: ease-out;
+	transition-timing-function: ease-out;
+}
+
+.paint--active .svg-paint circle {
+	fill-opacity: 1;
+	-webkit-transform: scale3d(1,1,1);
+	transform: scale3d(1,1,1);
+}

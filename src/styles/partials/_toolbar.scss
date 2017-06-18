@@ -18,8 +18,10 @@ toolbar dynamiccontent-component{
 }
 
 
+
 //Toolbar on its own
-toolbar-buttons{
+.toolbar-buttons,
+toolbar-buttons {
     background-color:$toolbar-background-color;
     color:$toolbar-icon-color;
     border-radius:$toolbar-radius;

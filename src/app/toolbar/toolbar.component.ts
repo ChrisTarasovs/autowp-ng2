@@ -23,6 +23,7 @@ export const EDITOR_VALUE_ACCESSOR = {
 @Component({
   selector: 'toolbar',
   template:  ` 
+
   <toolbar-buttons></toolbar-buttons>
   <dynamiccontent-component [componentData]="componentData"></dynamiccontent-component>
   `,

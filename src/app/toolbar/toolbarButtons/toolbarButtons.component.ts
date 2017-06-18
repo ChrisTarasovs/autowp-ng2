@@ -14,9 +14,7 @@ import { toolbarStateService} from '../services/toolbarStatus.service'
       <div *ngIf="this._toolbarStateService.viewBuilder">
         <tbuttons [btnlist]="builder" (buttonClick)="this._widgetsService.loadWidget($event.componentNameString)" ></tbuttons>
       </div>
-      <div *ngIf="this._toolbarStateService.viewWysiwyg">
-         <tbuttons [btnlist]="wysiwyg" (buttonClick)="wysiwygClicked($event)"  ></tbuttons>
-      </div>
+   
       <div *ngIf="this._toolbarStateService.viewImgAlignment;">
           <tbuttons [btnlist]="imgAlignment"></tbuttons>
       </div>
@@ -83,18 +81,13 @@ export class toolbarButtonsComponent {
         buttonsettings(){alert('something')}
 
 
-          // Set menu list
-          wysiwyg: any =  this._menuService.toolbarBtns[0].wysiwyg; 
+        
           imgAlignment: any = this._menuService.toolbarBtns[0].imgAligmnet; 
           builder: any = this._menuService.toolbarBtns[0].Builder;
           btnSettings: any = this._menuService.toolbarBtns[0].ButtonSettings;
           miscellaneous: any = this._menuService.toolbarBtns[0].miscellaneous;
 
 
-         wysiwygClicked(button) {
-
-                this._wysiwygService.execCommand(button)
-          }
 
 
           ngOnInit(){

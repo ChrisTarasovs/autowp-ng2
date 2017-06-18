@@ -48,31 +48,31 @@ import { text, ullist,singleImage, images, accordion, accordionGroup, accordionH
   ],  // Reference to the components must be here in order to dynamically create them
   template:  
 
-
-
-  `
- <div contenteditable 
+//  <div contenteditable 
 	     
 	    
-	  ></div>
+// 	  ></div>
 
-	{{ content }}
-	<Br />
+// 	{{ content }}
+// 	<Br />
 
-	  <div contenteditable 
+// 	  <div contenteditable 
 	
-	  ></div>
+// 	  ></div>
 	
 
 
-<div  style="  height: 450px; overflow: scroll;">
-	 <pre>
-		{{ canvas | json}}
-	</pre>
-</div>
+// <div  style="  height: 450px; overflow: scroll;">
+// 	 <pre>
+// 		{{ canvas | json}}
+// 	</pre>
+// </div>
+
+  `
+
 
 <div style="width: 1200px; margin: 0px auto;"
-class="canvas"
+class="canvas paint-area"
 dnd-droppable
 [dropZones]="['canvas-dropZone']"
 (onDragEnter)="onDragEnter($event, canvas,  'canvas')"
@@ -171,9 +171,7 @@ dnd-droppable
 				class="AWwidgetWrapper" 
 				
 				>
-				<pre>
-				{{widget | json}}
-				</pre>
+				
 				
 						<div class="widget" [ngStyle]="{'height': widget.widgetProperties[0].dimension[0] + 'px'}">
 	 						<ng-container *ngIf="widget.settings.isLoaded">
@@ -197,9 +195,11 @@ dnd-droppable
 
  `
 
-
+// <pre>
+// 				{{widget | json}}
+// 				</pre>
   ,
-  styleUrls: ['./layout.component.css'],
+  
   providers: [EDITOR_VALUE_ACCESSOR]
 })
 
@@ -262,7 +262,7 @@ newColumn(copy, columnDimension, columnPosition) {
 }
 
 newWidget(copy, widgetDimension, widgetPosition) {
-console.log('copy.dragData.widgetComponent', copy.dragData.widgetComponent)
+	// console.log('copy.dragData.widgetComponent', copy.dragData.widgetComponent)
 
 	if(copy.dragData){
 		return new Widget(copy.dragData.settings[0], copy.dragData.widgetComponent, [this.newProperties(widgetDimension, widgetPosition)]); 
@@ -277,6 +277,11 @@ newProperties(dimension, position) {
 }
 
 	onDragEnter(event: any, dropOnElement: any, droppedOn: string, ) {
+
+		//console.log('this event', event.mouseEvent.target.setAttribute("class", "democlass"))
+// add class to target element
+
+
 		// console.log('event.mouseEvent', event.mouseEvent)	
 		// console.log('Empty canvas event.mouseEvent.target.offsetTop', event.mouseEvent.target.offsetTop)
 	}
@@ -284,7 +289,8 @@ newProperties(dimension, position) {
 	onDropSuccess(event: any, dropOnElement: any, droppedOn: string, rowIndex, columnIndex, widgetIndex) {
 		switch (event.dragData.type){
 		    case 'color':
-		        alert('color dropped')
+		    alert('color');
+		        this.colorElement(event, dropOnElement);
 		        break;
 		    case 'widget':
 		        this.addComponent(event, dropOnElement, droppedOn, rowIndex, columnIndex, widgetIndex)
@@ -299,6 +305,7 @@ newProperties(dimension, position) {
 		const copy = _.cloneDeep(event)
 		// console.log('copy fucker', copy, event, 'ddd',  copy.dragData, event.dragData)
 
+		// console.log('dropOnElement', dropOnElement)
 		// First check the type object dropped on
 		switch (droppedOn){
 		    case 'canvas':
@@ -460,6 +467,103 @@ newProperties(dimension, position) {
 		let testColumn = column;
 		if(testColumn.rows !== undefined && testColumn.rows.length > 0){	return true;}
 	}
+
+
+
+	colorElement(ev, dropOnElement){
+
+		// Check if has a any HTML attribute than text
+
+
+		// check if it has array than it is the grid.
+		if( dropOnElement.settings == dropOnElement.settings){
+			let type = 'area';
+
+			const el = ev.mouseEvent.target
+			const svgEl = this.createSvgInject( ev.mouseEvent, el , ev.dragData.colorhex);
+			
+
+			setTimeout(function(){
+				
+				// activating the class that scales .paint--active .svg-paint circle 
+				ev.mouseEvent.target.setAttribute('class',  ev.mouseEvent.target.getAttribute('class')+ ' paint--active')
+				
+				// Set background color
+				el.style.backgroundColor = ev.dragData.colorhex;
+				// Remove the Svg
+				el.removeChild(svgEl);
+
+				alert('u done')
+			}, 25);
+
+
+			this.animateSvg( )
+		}
+
+
+
+	}
+	animateSvg( ){
+
+	}
+	// paintArea(event.dragEvent, event.target, draggableElement.getAttribute('data-color'));
+	createSvgInject(ev, el, color){
+
+		//wcreate SVG element
+		let svgEl = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+		svgEl.setAttributeNS(null, 'version', '1.1');
+		svgEl.setAttributeNS(null, 'width', '100%');
+		svgEl.setAttributeNS(null, 'height', '100%');
+		svgEl.setAttributeNS(null, 'class', 'svg-paint');
+
+		const g = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+		g.setAttributeNS(null, 'transform', 'translate(' + Number(ev.pageX - this.offset(el).left) + ', ' + Number(ev.pageY - this.offset(el).top) + ')');
+
+		const circle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+		circle.setAttributeNS(null, 'cx', 0);
+		circle.setAttributeNS(null, 'cy', 0);
+		circle.setAttributeNS(null, 'r', Math.sqrt(Math.pow(el.offsetWidth,2) + Math.pow(el.offsetHeight,2)));
+		circle.setAttributeNS(null, 'fill', color);
+
+		svgEl.appendChild(g);
+		g.appendChild(circle);
+		el.appendChild(svgEl);
+	
+		console.log('Element injected', svgEl, circle, g)
+
+		return svgEl 
+	}
+
+
+
+	isWindow(obj) {
+	    return obj !== null && obj === obj.window;
+	}
+	getWindow(elem) {
+	    return this.isWindow(elem) ? elem : elem.nodeType === 9 && elem.defaultView;
+	}
+	offset(elem) {
+	    var docElem,  win,  box = { top: 0, left: 0 }, 
+	    doc = elem && elem.ownerDocument;
+	    docElem = doc.documentElement;
+
+	    if (typeof elem.getBoundingClientRect !== typeof undefined) {
+	    	console.log('true')
+	        box = elem.getBoundingClientRect();
+	    }
+	  win = this.getWindow(doc);
+	  console.log(
+	  	  'top', box.top + win.pageYOffset - docElem.clientTop,
+	        'left',box.left + win.pageXOffset - docElem.clientLeft
+	)
+	    return {
+	        top: box.top + win.pageYOffset - docElem.clientTop,
+	        left: box.left + win.pageXOffset - docElem.clientLeft
+	    };
+	}
+
+
+
 	
 }
 

@@ -28,8 +28,15 @@ import { AppState } from './app.service';
     './app.component.css'
   ],
   template: `
-   <toolbar  (commandExecuted)="onCommandExecuted()" style="position: fixed; right: 0px; top: 0px;"></toolbar>
-   <layout ></layout>
+
+<style>
+  toolbar-wysiwyg{
+    display: inline-block; width: 430px !important; z-index: 10;position: absolute ;
+  }
+</style>
+ <toolbar-wysiwyg></toolbar-wysiwyg>
+ <toolbar  (commandExecuted)="onCommandExecuted()" style="position: fixed; right: 0px; top: 0px;"></toolbar>
+ <layout ></layout>
   `
 })
 export class AppComponent implements OnInit {

@@ -13,7 +13,7 @@ import {fontsService} from '../../../services/fonts.service';
 import { Font, GoogleFonts, GoogleFontInterface  } from './typograpy-interfaces';
 
 
-import * as WebFont from 'webfontloader';
+// import * as WebFont from 'webfontloader';
 
 @Component({
   selector: 'app-typography',

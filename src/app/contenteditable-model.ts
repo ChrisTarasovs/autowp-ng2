@@ -25,7 +25,8 @@ export class ContentEditableDirective implements OnChanges {
     constructor(
         private elementRef: ElementRef,
         private _pipe:NewlinePipe, 
-        private _toolbarStateService: toolbarStateService
+        private _toolbarStateService: toolbarStateService,
+       
     ) {}
 
     // @HostListener('focus', ['$event'])
@@ -43,18 +44,20 @@ export class ContentEditableDirective implements OnChanges {
     // }
 
     ngOnChanges(changes) {
-        console.log('ContentEditableDirective.ngOnChanges', changes);
+        // console.log('ContentEditableDirective.ngOnChanges', changes);
        // console.log(changes);
        if (changes.model.isFirstChange())  this.refreshView();
     }
    
     onEdit() {
-          this._toolbarStateService.enable('viewWysiwyg');
-        console.log('console.log',  this.elementRef);
+        
+
+        // this._toolbarStateService.enable('viewWysiwyg');
+        // console.log('console.log',  this.elementRef);
 
         var value=  this._pipe.transform( this.elementRef.nativeElement.innerHTML);
         //var value = this.elementRef.nativeElement.innerHTML
-         console.log('value',value);
+         // console.log('value',value);
         this.update.emit(value)
     }
 

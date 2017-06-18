@@ -24,34 +24,67 @@ export class widgetsService {
 	constructComponent:any;
 
 	loadWidget(button, widget)  {
-		console.log( 'this is the widget', widget, 'button', button)
-		if(!button.componentName){
-				if(typeof(button) === 'string'){
-					 switch (button){
-					            case 'DndComponent':
-						    this.constructComponent = { component: DndComponent ,inputs: { showNum: 0 }}
-					                break;
-					            case 'ButtonTypeWidgetComponent':
-					               this.constructComponent = { component: ButtonTypeWidgetComponent ,inputs: { showNum: 0 }}
-					                break; 
-					            case 'ExamplesComponent':
-					                this.constructComponent = { component: ExamplesComponent ,inputs: { showNum: 0 }}
-					                break;  
-					            case 'widgetSettingsComponent':
-					                this.constructComponent ={
-							component: widgetSettingsComponent, inputs:{widgetSettings: [widget]}	
-						    }
-					                break;                                
-					     }
-				}else{}
+
+
+		 switch (button){
+		            case 'DndComponent':
+			    this.constructComponent = { component: DndComponent ,inputs: { showNum: 0 }}
+		                break;
+		            case 'ButtonTypeWidgetComponent':
+		               this.constructComponent = { component: ButtonTypeWidgetComponent ,inputs: { showNum: 0 }}
+		                break; 
+		            case 'ExamplesComponent':
+		                this.constructComponent = { component: ExamplesComponent ,inputs: { showNum: 0 }}
+		                break;  
+		            case 'widgetSettingsComponent':
+		                this.constructComponent ={
+				component: widgetSettingsComponent, inputs:{widgetSettings: [widget]}	
+			    }
+			     break;   
+			case 'HeadingComponent':
+			alert('heading')
+		                this.constructComponent ={
+				component: HeadingComponent, inputs:{showNum: 0 }	
+			    }
+			     break;    
+			case 'ColorSelectorComponent';
+			      this.constructComponent = {
+				component: ColorSelectorComponent, inputs:{widgetSettings: [widget]}	
+			 }
+		                 break;     
+
+		  }
+
+
+		// console.log('button', button)
+		// console.log( 'this is the widget', widget, 'button', button)
+		// if(!button.componentName){
+		// 		if(typeof(button) === 'string'){
+		// 			 switch (button){
+		// 			            case 'DndComponent':
+		// 				    this.constructComponent = { component: DndComponent ,inputs: { showNum: 0 }}
+		// 			                break;
+		// 			            case 'ButtonTypeWidgetComponent':
+		// 			               this.constructComponent = { component: ButtonTypeWidgetComponent ,inputs: { showNum: 0 }}
+		// 			                break; 
+		// 			            case 'ExamplesComponent':
+		// 			                this.constructComponent = { component: ExamplesComponent ,inputs: { showNum: 0 }}
+		// 			                break;  
+		// 			            case 'widgetSettingsComponent':
+		// 			                this.constructComponent ={
+		// 					component: widgetSettingsComponent, inputs:{widgetSettings: [widget]}	
+		// 				    }
+		// 			                break;                                
+		// 			     }
+		// 		}else{}
 
 					
-		 }else{
-			this.constructComponent = { 
-				component: button.componentName ,inputs: { showNum: 0 }
-			}
+		//  }else{
+		// 	this.constructComponent = { 
+		// 		component: button.componentName ,inputs: { showNum: 0 }
+		// 	}
 
-		 }
+		//  }
 		this.loadWidgetSource.next(this.constructComponent)
 
 	}

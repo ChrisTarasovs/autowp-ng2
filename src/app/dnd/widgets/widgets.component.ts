@@ -1,42 +1,65 @@
 
-import { Component, OnInit , EventEmitter, Input,  Output, Injector} from '@angular/core';
+import { Component, OnInit , EventEmitter, Input,  Output, Injector, ViewChild} from '@angular/core';
 import {FormsModule} from '@angular/forms'
 // import  {ContentEditableDirective} from '../../../app/contenteditable-model';
 import { toolbarStateService} from '../../toolbar/services/toolbarStatus.service';
 // import {ResizingCroppingImagesComponent} from '../../image-cropper/image-cropper.component'
 // import {canvasService} from '../../toolbar/services/canvas.service'
+import {menuService} from '../../toolbar/services/menu.service';
 import {wysiwygService} from '../../toolbar/services/wysiwyg.service';
 import {widgetsService} from '../../toolbar/services/widgets.service'
+import {wysiwygDirective} from '../../shared/wysiwyg.directive'
+
+import {toolbarWysiwygComponent} from '../../toolbar/toolbarButtons/toolbarWysiwyg.component'
 
 //text
 @Component({
   selector: 'text',
   template: 
 `
-<div  class="line-breaker"
-	contenteditable='true'
-	(contenteditableModelChange)="updatedinnerHtml($event)"
-	[contenteditableModel]="this.widget.settings.innerhtml"
-></div>
+
+<div class="text-wrapper">
+	<div  class="line-breaker"
+		contenteditable='true'
+		(contenteditableModelChange)="updatedinnerHtml($event)"
+		[contenteditableModel]="this.widget.settings.innerhtml"
+		[wysiwygModel]="toolbarWysiwyg"
+		(wysiwygChange)="updateToolbarPositioning($event)"
+		(wysiwygStatus)="updateToolbarStatus($event)"
+	></div>
+</div>
 `
 })
 export class text {
-	
+	@ViewChild('toolbarWysiwyg') toolbarWysiwyg;
+
 	public widget;
 	public data;
 	public innerText;
+         	// public wysiwyg: any =  this._menuService.toolbarBtns[0].wysiwyg; 
 
 	constructor(
+		private _menuService: menuService,
 		private _widgetsService:widgetsService, 
 		private injector: Injector,   
-		private _toolbarStateService: toolbarStateService
+		private _toolbarStateService: toolbarStateService,
+		private _wysiwygService: wysiwygService
+		
 		){
 		this.widget = Object.assign(this.injector.get('widget'), {});
 		//this.innerText  = this.widgetCopy.settings.innerhtml;
+		
 	}
 
 	updatedinnerHtml(ev){
 		this.widget.settings.innerhtml = ev;
+	}
+	updateToolbarPositioning(status){
+		console.log('sending status')
+		 this._wysiwygService.updateToolbarPositioning(status)         
+	}
+	updateToolbarStatus(location){
+		 this._wysiwygService.updateToolbarStatus(location)
 	}
 }
 

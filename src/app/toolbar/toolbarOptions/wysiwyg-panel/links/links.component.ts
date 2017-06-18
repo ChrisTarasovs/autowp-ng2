@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-
+import { wysiwygService} from '../../../services/wysiwyg.service'
 @Component({
   selector: 'links',
   template: `
@@ -34,7 +34,7 @@ import { Component, OnInit } from '@angular/core';
 			</div>
 	</div>
 	
-	<button (click)="updateLink()"> Add link </button>
+	<button (click)="this._wysiwygService.addLink(this.selectedPg)"> Add link </button>
 	<button class="a-btn-lg a-btn-def">Convert to button</button>
 
 	<pre>
@@ -43,6 +43,7 @@ import { Component, OnInit } from '@angular/core';
 	<pre>
 	{{ this.selectednewtab | json }}
 	</pre>
+
   `
 })
 export class LinksComponent {
@@ -56,11 +57,12 @@ export class LinksComponent {
     value: null,
     description: null
   };
-  
+  public selectedPg;
   public  pagelist:Array<Object> = [
       {
       	value: 0, 
-      	description: 'Home'
+      	description: 'Home',
+            url: 'http://www.color.com'
       },
       {
       	value: 1, 
@@ -80,11 +82,13 @@ export class LinksComponent {
       },
       {
       	value: 1, 
-      	description: 'About us'
+      	description: 'About us',
+            url: 'http://www.color.com'
       },
             {
       	value: 1, 
-      	description: 'Contact us'
+      	description: 'Contact us',
+            url: 'http://www.color.com'
       }
 
   ];
@@ -92,7 +96,7 @@ export class LinksComponent {
 
 
 
-  constructor() { }
+  constructor(private _wysiwygService: wysiwygService) { }
   ngOnInit() {
   	 this.buttontype = [
       {
@@ -137,10 +141,8 @@ export class LinksComponent {
    }
 
    pageSelect(event){
-		console.log('page', event)
+       this.selectedPg = event;
+       console.log('here',this.selectedPg)
    }
-   updateLink(){
-   	let options ='http://www.google.co.uk';
-   	 document.execCommand('insertHtml', false, '<a href="' + options + '">' + options + '</a>');
-   }
+
 }

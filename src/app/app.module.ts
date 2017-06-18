@@ -29,6 +29,8 @@ import { XLargeDirective } from './home/x-large';
 
 import '../styles/styles.scss';
 import '../styles/headings.css';
+// import '../assets/modernizr.custom.js'
+
 
 import * as _ from "lodash";
 import * as moment from "moment";
@@ -39,6 +41,7 @@ import { LayoutComponent } from './layout/layout.component';
 import { ColorSelectorComponent } from './toolbar/toolbarOptions/wysiwyg-panel/color-selector/color-selector.component';
 import { toolbarComponent } from './toolbar/toolbar.component';
 import { toolbarButtonsComponent } from './toolbar/toolbarButtons/toolbarButtons.component';
+import { toolbarWysiwygComponent } from './toolbar/toolbarButtons/toolbarWysiwyg.component';
 import { tButtonsComponent } from './toolbar/toolbarButtons/tbuttons.component';
 import { wysiwygComponent } from './toolbar/toolbarButtons/wysiwyg/wysiwyg.component';
 import { builderComponent } from './toolbar/toolbarButtons/builder/builder.component';
@@ -98,7 +101,7 @@ import {NgxPaginationModule} from 'ngx-pagination';
 import { Font } from './toolbar/toolbarOptions/wysiwyg-panel/typography/typograpy-interfaces';
 import {ContentEditableDirective} from './contenteditable-model'
 import {ResizingCroppingImagesComponent} from './image-cropper/image-cropper.component'
-
+import{wysiwygDirective} from './shared/wysiwyg.directive'
 import {multilevelselector} from './toolbar/toolbarOptions/multilevelselector.component'
 // import { runDummyFunc} from './customDirective';
 
@@ -115,6 +118,7 @@ export const pipe_providers = [
   {provide: NewlinePipe, useClass: NewlinePipe}
 ];
 
+// import {WebFont} from 'webfontloader'
 
 
 /**
@@ -130,6 +134,7 @@ export const pipe_providers = [
     ColorSelectorComponent,
     toolbarComponent,
     toolbarButtonsComponent ,
+    toolbarWysiwygComponent,
     tButtonsComponent,
     wysiwygComponent,
     builderComponent ,
@@ -172,7 +177,8 @@ export const pipe_providers = [
     VideoSettingsComponent,
 
      //Directives
-     ContentEditableDirective,ResizingCroppingImagesComponent 
+     ContentEditableDirective,ResizingCroppingImagesComponent,
+     wysiwygDirective
      // runDummyFunc
   ],
   imports: [ 
@@ -183,7 +189,7 @@ export const pipe_providers = [
     CommonModule,
     ReactiveFormsModule,
     NgxPaginationModule,
-  //  WebFont,
+   // WebFont,
    DndModule.forRoot()
   //  RouterModule.forRoot(ROUTES, { useHash: false, preloadingStrategy: PreloadAllModules })
   ],

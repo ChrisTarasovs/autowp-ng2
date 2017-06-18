@@ -39,7 +39,6 @@ import {canvasService} from '../toolbar/services/canvas.service';
   // </pre>
   //template: ` zzz`,
   styleUrls: ['./dnd.component.css']
-  //directives : [TextComponent]
 })
 export class DndComponent  {
   public orginalList;
@@ -55,15 +54,14 @@ export class DndComponent  {
       this.widgets = copyWidgetlist
     }
 
-   // dragOperation: Boolean = false;
-    //widgets: Array<any> = [];
+
 
 
 //https://docs.google.com/document/d/1QejU5toLhNgFsDHoPE0_2J8eV1apWqv0oHzY7ESOpYc/edit
 
 
 onDragStart(widget){ 
-  console.log('=======ON DRAGE START CANVAS========',this._canvasService.canvas)
+
     //this._dndService.addDraggedItem(widget);
     console.log('started in dnd component', widget)
   }
@@ -77,36 +75,3 @@ class Container {
 class Widget {
     constructor( ) {}
 }
-
-
-//Callbacks:
-//dnd-dragstart
-//dnd-moved  
-//dnd-copied
-//dnd-linked 
-//dnd-canceled   
-//dnd-dragend 
-//dnd-selected  
-//dnd-callback
-
-// dragenter
-// dragover
-// dnd-inserted 
-// dragend
-
-// element.on('drop', function(event)
-// dndState.dropEffect 
-// element.on('dragleave', function(event) 
-// function getMimeType(types) 
-// function getItemType(mimeType) 
-// function isDropAllowed(itemType) 
-// function getDropEffect(event, ignoreDataTransfer)
-// function stopDragover()
-// function invokeCallback(expression, event, dropEffect, itemType, index, item)
-
-// function getPlaceholderIndex()
-// function getPlaceholderElement()
-// dndLists.directive('dndNodrag', function()
-// element.on('dragend', function(event)
-// dndLists.directive('dndHandle', function()
-
