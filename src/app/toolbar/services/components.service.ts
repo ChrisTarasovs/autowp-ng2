@@ -16,7 +16,9 @@ export class cmpService {
 		                  componentName: 'text',
 		                  innerhtml: '<p>dasdas</p>'
 		              }],
-	              widgetProperties: { dimension: [ 0,100,0,0 ],  location: [0,0,0,0] },
+	              widgetProperties: { dimension: {
+	              	width:  200, height: 250, widthtotal: 0, heighttotal: 0
+	              } ,  location: [0,0,0,0] },
 	              widgetComponent:  {component: text, inputs: { name: 'example'} }
 	            }
             	

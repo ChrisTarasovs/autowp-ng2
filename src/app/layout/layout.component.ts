@@ -69,7 +69,11 @@ import { text, ullist,singleImage, images, accordion, accordionGroup, accordionH
 // </div>
 
   `
-
+<div  style="  height: 450px; overflow: scroll;">
+	 <pre>
+		{{ canvas | json}}
+	</pre>
+</div>
 
 <div style="width: 1200px; margin: 0px auto;"
 class="canvas paint-area"
@@ -88,8 +92,9 @@ dnd-droppable
 
 		class="AWrowWrapper" 
 		
-
+		[ngStyle]="{'padding-top': row.rowProperties[0].location[0].top + 'px'}"
 		>
+
 
 		<div class="AWrow"   
 		dnd-droppable
@@ -109,10 +114,10 @@ dnd-droppable
 
 				class="AWcolumnWrapper"
 				
-				
+				[ngStyle]="{'padding-left': column.columnProperties[0].location[0].left + 'px'}"
 
 			>
-
+			{{column.columnProperties[0].location[0].left  | json}}
 			
 		<div class="AWcolumn"
 				
@@ -173,7 +178,13 @@ dnd-droppable
 				>
 				
 				
-						<div class="widget" [ngStyle]="{'height': widget.widgetProperties[0].dimension[0] + 'px'}">
+						<div class="widget" 
+						[ngStyle]="{'width': widget.widgetProperties[0].dimension[0].width + 'px'}"
+						(mouseenter)="widgetDropzone('activate')"
+						(mouseleave)="widgetDropzone('activate')"
+						>
+
+
 	 						<ng-container *ngIf="widget.settings.isLoaded">
 								<dynamiccontent-component [componentData]="{component: widget.widgetComponent.component, inputs: { widget : widget } }" ></dynamiccontent-component>
 							</ng-container>
@@ -205,6 +216,8 @@ dnd-droppable
 
 
 export class LayoutComponent implements OnInit, ControlValueAccessor {
+ // Drag and Drop definitions
+dragOperation: Boolean = false;
 
 public  imgData;
 public colorme = 'yellow';
@@ -249,25 +262,36 @@ UpdateContent(){
 }
 
 // Generate new grid
-newRow(copy, rowDimension, rowPosition) {
+newRow( rowDimension, rowPosition, newWidget, newWidgetPosition) {
 	let columnDimension = { width: 0, height: 0, widthtotal: 0, heighttotal: 0};
-	let columnPosition = {top: 0, right: 0, bottom: 0, left: copy.mouseEvent.offsetX};
-	return new Row([this.newColumn( copy, columnDimension, columnPosition)], [this.newProperties(rowDimension, rowPosition)]);
+	let columnPosition = {
+		top: 0, right: 0, 
+		bottom: 0, 
+		left: newWidget.mouseEvent.clientX - newWidget.mouseEvent.target.offsetLeft};
+
+	return new Row([this.newColumn( columnDimension, columnPosition, newWidget , newWidgetPosition)], [this.newProperties(rowDimension, rowPosition)]);
 }
 
-newColumn(copy, columnDimension, columnPosition) {
-	let widgetDimension = { width: 400, height: 100, widthtotal: 0, heighttotal: 0};
-	let widgetPosition = {top: 0, right: 0, bottom: 0, left: 0};
-	return new Column([this.newWidget( copy, widgetDimension, widgetPosition)], [this.newProperties(columnDimension, columnPosition]);
+newColumn( columnDimension, columnPosition, newWidget, newWidgetPosition) {
+	console.log('c', newWidget.dragData.widgetProperties.dimension.width)
+	let dimension = newWidget.dragData.widgetProperties.dimension;
+	let widgetDimension = { 
+		width: dimension.width, 
+		height: dimension.height, 
+		widthtotal: 0, 
+		heighttotal: 0
+	};
+	
+	return new Column([this.newWidget( widgetDimension, newWidget, newWidget, newWidgetPosition)], [this.newProperties(columnDimension, columnPosition]);
 }
 
-newWidget(copy, widgetDimension, widgetPosition) {
+newWidget(widgetDimension, widgetPosition, newWidget, newWidgetPosition) {
 	// console.log('copy.dragData.widgetComponent', copy.dragData.widgetComponent)
 
-	if(copy.dragData){
-		return new Widget(copy.dragData.settings[0], copy.dragData.widgetComponent, [this.newProperties(widgetDimension, widgetPosition)]); 
+	if(newWidget.dragData){
+		return new Widget(newWidget.dragData.settings[0], newWidget.dragData.widgetComponent, [this.newProperties(widgetDimension, widgetPosition)]); 
 	}else{ 
-		return new Widget(copy.settings[0], copy.widgetComponent, [this.newProperties(widgetDimension, widgetPosition)])
+		return new Widget(newWidget.settings[0], newWidget.widgetComponent, [this.newProperties(widgetDimension, widgetPosition)])
 	}
 	
 }
@@ -302,7 +326,9 @@ newProperties(dimension, position) {
 		// Create a copy of the dropped El
 		//const  copy = Object.assign(event, {});
 		// const copy = JSON.parse(JSON.stringify(event))
-		const copy = _.cloneDeep(event)
+		const newWidget = _.cloneDeep(event)
+
+		console.log('ddd',dropOnElement, droppedOn ,rowIndex, columnIndex, widgetIndex)
 		// console.log('copy fucker', copy, event, 'ddd',  copy.dragData, event.dragData)
 
 		// console.log('dropOnElement', dropOnElement)
@@ -310,23 +336,23 @@ newProperties(dimension, position) {
 		switch (droppedOn){
 		    case 'canvas':
 		       alert('dropped on canas b*')
-		        this.addToCanvas(copy, dropOnElement, droppedOn, rowIndex, columnIndex, widgetIndex);
+		        this.addToCanvas(newWidget, dropOnElement, droppedOn, rowIndex, columnIndex, widgetIndex);
 		        break;
 		    case 'rowWrapper':
 		        alert('dropped on rowWrapper b*')
-		        this.addToRowWrapper(copy, dropOnElement, droppedOn, rowIndex, columnIndex, widgetIndex);
+		        this.addToRowWrapper(newWidget, dropOnElement, droppedOn, rowIndex, columnIndex, widgetIndex);
 		        break;  
 		    case 'row':
 		        alert('dropped on row b*')
-		        this.addToRow(copy, dropOnElement, droppedOn, rowIndex, columnIndex, widgetIndex);
+		        this.addToRow(newWidget, dropOnElement, droppedOn, rowIndex, columnIndex, widgetIndex);
 		        break;
 		     case 'columnWrapper':
 		        alert('dropped on columnWrapper b*')
-		        this.addToColumnWrapper(copy, dropOnElement, droppedOn, rowIndex, columnIndex, widgetIndex);
+		        this.addToColumnWrapper(newWidget, dropOnElement, droppedOn, rowIndex, columnIndex, widgetIndex);
 		        break; 	
 		    case 'column':
 		        alert('dropped on column b*')
-		        this.addToColumn(copy, dropOnElement, droppedOn, rowIndex, columnIndex, widgetIndex);
+		        this.addToColumn(newWidget, dropOnElement, droppedOn, rowIndex, columnIndex, widgetIndex);
 		        break;  
 		    case 'widget':
 		        alert('dropped on widget b*')
@@ -334,24 +360,36 @@ newProperties(dimension, position) {
 
 		}
 	}
-	addToCanvas(copy: any, dropOnElement: any, droppedOn: string, rowIndex, columnIndex, widgetIndex){
+	addToCanvas(newWidget: any, dropOnElement: any, droppedOn: string, rowIndex, columnIndex, widgetIndex){
+		
 		if( _.isEmpty(this.canvas)){
-			let rowPosition ={top: copy.mouseEvent.offsetY, right: 0 , bottom: 0, left:0 }
-			let rowDimension = {width: 0, height: 100, widthtotal: 0, heighttotal: 0}
+			let rowPosition ={top: newWidget.mouseEvent.offsetY, right: 0 , bottom: 0, left:0 }
+			let rowDimension = {width: 0, height: 0, widthtotal: 0, heighttotal: 0}
 
-			dropOnElement.push(this.newRow(copy, rowDimension, rowPosition))
+			let widgetPosition = {top: 0, right: 0, bottom: 0, left: newWidget.mouseEvent.offsetX};
+
+			let newWidgetPosition = newWidget.dragData.widgetProperties.widgetPosition
+
+			dropOnElement.push(this.newRow(rowDimension, rowPosition, newWidget, newWidgetPosition ))
 			this.canvas[0].column[0].widgets[0].settings.isLoaded = !this.canvas[0].column[0].widgets[0].settings.isLoaded
 		
-			console.log(this.canvas)
+			
 		}else{
 			let rowPositionsSum = dropOnElement.map(function(row){
+				console.log('row', row.rowProperties[0].location[0].top , row.rowProperties[0].dimension[0].height)
 				return row.rowProperties[0].location[0].top + row.rowProperties[0].dimension[0].height
 			}).reduce((a, b) => a + b, 0)
 
-			let rowPosition ={top: (copy.mouseEvent.clientY - copy.mouseEvent.target.offsetTop) - rowPositionsSum, right: 0, bottom: 0, left: 0;   }
-			let rowDimension = {width: 0, height: 100, widthtotal: 0, heighttotal: 0}
+			let rowPosition = {
+				top: (newWidget.mouseEvent.clientY - newWidget.mouseEvent.target.offsetTop) - rowPositionsSum, 
+				right: 0, bottom: 0, left: 0;   
+			}
 
-			dropOnElement.push(this.newRow(copy, rowDimension, rowPosition))
+			console.log('rowPosition',newWidget.mouseEvent.clientY, newWidget.mouseEvent.target.offsetTop, rowPositionsSum)
+			let rowDimension = {width: 0, height: 100, widthtotal: 0, heighttotal: 0}
+			let newWidgetPosition = newWidget.dragData.widgetProperties.widgetPosition
+
+			dropOnElement.push(this.newRow(rowDimension, rowPosition, newWidget, newWidgetPosition))
 				if(this.canvas[1].column[0].widgets[0].settings.isLoaded == false
 				 ){
 				 	//console.log(this.canvas[0].column[newCreated].widgets[0].data.isLoaded )
@@ -361,19 +399,22 @@ newProperties(dimension, position) {
 		}
 		
 	}
-	addToRowWrapper(copy: any, dropOnElement: any, droppedOn: string, rowIndex, columnIndex, widgetIndex){
-		let rowTopPadding = parseInt(copy.mouseEvent.target.style.paddingTop);
-		if( rowTopPadding > copy.dragData.widgetProperties.dimension[1]){
+	addToRowWrapper(newWidget: any, dropOnElement: any, droppedOn: string, rowIndex, columnIndex, widgetIndex){
+		let rowTopPadding = parseInt(newWidget.mouseEvent.target.style.paddingTop);
+		if( rowTopPadding > newWidget.dragData.widgetProperties.dimension[1]){
 			// then splice
 			//console.log('-----enter-------')
-			let rowPosition ={top: copy.mouseEvent.offsetY, right: 0 , bottom: 0, left:0 }
+			let rowPosition ={top: newWidget.mouseEvent.offsetY, right: 0 , bottom: 0, left:0 }
 			let rowDimension = {width: 0, height: 0, widthtotal: 0, heighttotal: 0}
-			// let columnPosition ={top: 0, right: 0 , bottom: 0, left:copy.mouseEvent.offsetX }
+
+			let newWidgetPosition = newWidget.dragData.widgetProperties.widgetPosition;
 
 			// this.canvas.splice(rowIndex, 0, this.newWidget(event, copy, rowPosition, columnPosition ));
-			this.canvas.splice(rowIndex, 0, this.newRow(copy, rowDimension, rowPosition));
+			this.canvas.splice(rowIndex, 0, this.newRow( rowDimension, rowPosition, newWidget, newWidgetPosition));
 
-			let newHeight = rowTopPadding - (copy.dragData.widgetProperties.dimension[1] + copy.mouseEvent.offsetY)
+
+
+			let newHeight = rowTopPadding - (newWidget.dragData.widgetProperties.dimension[1] + newWidget.mouseEvent.offsetY)
 			
 			// if clientyY is bigger 
 			if(newHeight > 0 ){
@@ -390,59 +431,107 @@ newProperties(dimension, position) {
 
 			// exapnd and set target padding top to 0
 			//console.log('-----expand-------')
-			let rowPosition ={top: copy.mouseEvent.offsetY, right: 0 , bottom: 0, left:0 }
+			let rowPosition ={top: newWidget.mouseEvent.offsetY, right: 0 , bottom: 0, left:0 }
 			let rowDimension = {width: 0, height: 0, widthtotal: 0, heighttotal: 0}
-			// let columnPosition ={top: 0, right: 0 , bottom: 0, left:copy.mouseEvent.offsetX }
 			
+			let newWidgetPosition = newWidget.dragData.widgetProperties.widgetPosition;
+
 			//console.log('dropOnElement.rowProperties', dropOnElement.rowProperties[0].location[0].top)
 			dropOnElement.rowProperties[0].location[0].top = 0;
 			//console.log(dropOnElement.rowProperties[0].location[0].top, this.canvas)
-			this.canvas.splice(rowIndex, 0, this.newRow(copy, rowDimension, rowPosition));
+			this.canvas.splice(rowIndex, 0, this.newRow(rowDimension, rowPosition, newWidget, newWidgetPosition));
 
 		}
 	}
-	addToRow(copy: any, dropOnElement: any, droppedOn: string, rowIndex, columnIndex, widgetIndex){
+	addToRow(newWidget: any, dropOnElement: any, droppedOn: string, rowIndex, columnIndex, widgetIndex){
+
 		let columnCount = dropOnElement.column.length;
+		console.log('columnCount', columnCount)
 		let columnPositionsSum = dropOnElement.column.map(function(column){
+			
 			return column.columnProperties[0].location[0].left + column.widgets[0].widgetProperties[0].dimension[0].width
+
 		}).reduce((a, b) => a + b, 0)
 
+		console.log( dropOnElement, droppedOn, rowIndex, columnIndex, widgetIndex)
+		console.log('columnPositionsSum',columnPositionsSum)
+		console.log(newWidget.mouseEvent.target.offsetWidth)
 
-	
-		if (columnPositionsSum < copy.mouseEvent.target.offsetWidth ){
-			let columnPosition ={top: 0, right: 0, bottom: 0, left:  (copy.mouseEvent.clientX - copy.mouseEvent.target.offsetLeft) - columnPositionsSum }
-			let columnDimension = {width: 0, height: 0, widthtotal: 0, heighttotal: 0}
 
-			dropOnElement.column.push(
-				this.newColumn(copy, columnDimension, columnPosition)
-			);
+		switch (columnPositionsSum < newWidget.mouseEvent.target.offsetWidth ){
+			case true;
+				console.log('sss', 
+					newWidget.mouseEvent.clientX , 
+					newWidget.mouseEvent.target.offsetLeft) ,
+					// this.canvas
+
+					 columnPositionsSum )
+				let columnPosition = {
+					top: 0, 
+					right: 0, 
+					bottom: 0, 
+					left:  (newWidget.mouseEvent.clientX - newWidget.mouseEvent.target.offsetLeft) - columnPositionsSum 
+				}
+				let columnDimension = {width: 0, height: 0, widthtotal: 0, heighttotal: 0}
+				let newWidgetPosition = newWidget.dragData.widgetProperties.widgetPosition;
+
+				dropOnElement.column.push(
+					this.newColumn(columnDimension, columnPosition, newWidget, newWidgetPosition)
+				);
+
+			
+					if(this.canvas[rowIndex].column[columnCount].widgets[0].settings.isLoaded  == false
+				 ){
+				 	
+				 	this.canvas[rowIndex].column[columnCount].widgets[0].settings.isLoaded    = !this.canvas[rowIndex].column[columnCount].widgets[0].settings.isLoaded 
+				}
+			break;
+			case false;
+				
+				let rowPosition ={top: newWidget.mouseEvent.offsetY, right: 0 , bottom: 0, left:0 }
+				let rowDimension = {width: 'auto', height: 'auto', widthtotal: 0, heighttotal: 0}
+				let nextRow = rowIndex + 1;
+				let newWidgetPosition = {
+					 top: 0, 
+					 right: 0, 
+					 bottom: 0,
+					 left: 0
+				}
+
+				this.canvas.splice( nextRow , 0, this.newRow(rowDimension, rowPosition, newWidget, newWidgetPosition))
+
+				
+				// this.canvas[rowIndex].column[columnCount].widgets[0].settings.isLoaded 
+				// need to get the index
+				if(this.canvas[nextRow].column[0].widgets[0].settings.isLoaded  == false
+				 ){
+				 	
+				 	this.canvas[nextRow].column[0].widgets[0].settings.isLoaded    = !this.canvas[nextRow].column[0].widgets[0].settings.isLoaded
+				}
+			break;
 		}
 		
 	
-		this.canvas[rowIndex].column[columnCount].widgets[0].settings.isLoaded 
-		// need to get the index
-		if(this.canvas[rowIndex].column[columnCount].widgets[0].settings.isLoaded  == false
-		 ){
-		 	this.canvas[rowIndex].column[columnCount].widgets[0].settings.isLoaded    = !this.canvas[rowIndex].column[columnCount].widgets[0].settings.isLoaded 
-		}
 	}
-	addToColumnWrapper(copy: any, dropOnElement: any, droppedOn: string, rowIndex, columnIndex, widgetIndex){
+	addToColumnWrapper(newWidget: any, dropOnElement: any, droppedOn: string, rowIndex, columnIndex, widgetIndex){
 		alert('dropped on columnWrapper')
 
-		let columnPosition ={top: 0, right: 0 , bottom: 0, left:  copy.mouseEvent.offsetX }
+		let columnPosition ={top: 0, right: 0 , bottom: 0, left:  newWidget.mouseEvent.offsetX }
 		let columnDimension = {width: 0, height: 0, widthtotal: 0, heighttotal: 0}
-		this.canvas[rowIndex].column.splice(columnIndex, 0, this.newColumn(copy, columnDimension, columnPosition));
+		let newWidgetPosition = newWidget.dragData.widgetProperties.widgetPosition;
+
+		this.canvas[rowIndex].column.splice(columnIndex, 0, this.newColumn(columnDimension, columnPosition, newWidget, newWidgetPosition));
 
 		// Splice 
-		if( parseInt(copy.mouseEvent.target.style.paddingLeft) > copy.dragData.widgetProperties.dimension[1]){
-			dropOnElement.columnProperties[0].location[0].left = dropOnElement.columnProperties[0].location[0].left - (copy.mouseEvent.offsetX + copy.dragData.widgetProperties.dimension[1])			
+		if( parseInt(newWidget.mouseEvent.target.style.paddingLeft) > newWidget.dragData.widgetProperties.dimension[1]){
+			dropOnElement.columnProperties[0].location[0].left = dropOnElement.columnProperties[0].location[0].left - (newWidget.mouseEvent.offsetX + newWidget.dragData.widgetProperties.dimension[1])			
 		}
 		// exten and set 0
 		else{
 			dropOnElement.columnProperties[0].location[0].left = 0;
 		}
 	}
-	addToColumn(copy: any, dropOnElement: any, droppedOn: string, rowIndex, columnIndex, widgetIndex){
+	addToColumn(newWidget: any, dropOnElement: any, droppedOn: string, rowIndex, columnIndex, widgetIndex){
 		console.log('dropOnElement',dropOnElement)
 		if(dropOnElement.rows == undefined) {
 			dropOnElement.rows = new Array()
@@ -452,8 +541,8 @@ newProperties(dimension, position) {
 		
 		let rowPosition ={top: 0, right: 0 , bottom: 0, left:0 }
 		let rowDimension = {width: 0, height: 100, widthtotal: 0, heighttotal: 0}
-
-		dropOnElement.rows.push(this.newRow(copy, rowDimension, rowPosition))
+		let newWidgetPosition = newWidget.dragData.widgetProperties.widgetPosition;
+		dropOnElement.rows.push(this.newRow(rowDimension, rowPosition, newWidget, newWidgetPosition))
 		// than I readd the old one. row -> column -> widget
 
 		// let preRowPosition ={top: 0, right: 0 , bottom: 0, left:0 }
@@ -563,7 +652,19 @@ newProperties(dimension, position) {
 	}
 
 
+         onMouseDown(){
+            this.dragOperation = true;
+            console.log('mouse down');
+         }
+         
+         onMouseUp(event: any){
+            console.log(event);
+            this.dragOperation = false;
+         }
 
+         widgetDropzone(status: string){
+         	console.log(status)
+         }
 	
 }
 
