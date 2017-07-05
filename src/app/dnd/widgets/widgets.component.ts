@@ -10,6 +10,7 @@ import {wysiwygService} from '../../toolbar/services/wysiwyg.service';
 import {widgetsService} from '../../toolbar/services/widgets.service'
 import {wysiwygDirective} from '../../shared/wysiwyg.directive'
 
+
 import {toolbarWysiwygComponent} from '../../toolbar/toolbarButtons/toolbarWysiwyg.component'
 
 //text

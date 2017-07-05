@@ -6,13 +6,29 @@ toolbar { z-index: 9;}
 
 }
 
-
+layout{ 
+  width: 1200px;
+  margin: 0px auto;
+  display: block;
+  height: 100%;
+}
 
 links label{ color : white;}
 app-typography span{
   color : white
 }
-
+.widget{
+  position: relative;
+}
+.dropzone-box {
+  position: absolute; 
+  background-color: pink; 
+  color: black; padding: 10px;
+  &.top{ top: -20px; left: 40%; }
+  &.left{top: 50%; left: -10%;}
+  &.right{top: 50%; right: -10%;}
+  &.bottom{bottom: -20px; left: 40%; }
+}
 
 //https://codyhouse.co/demo/stretchy-navigation/index.html#0
 

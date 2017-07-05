@@ -14,7 +14,13 @@ export class cmpService {
 		                  name: 'Text',
 						  icon:'fa-pencil-square-o',
 		                  componentName: 'text',
-		                  innerhtml: '<p>dasdas</p>'
+		                  innerhtml: `
+		                  <p>
+		                  	Provides access to the underlying native element (DOM element).<Br />
+				Provides access to the underlying native element (DOM element).<br />
+				Provides access to the underlying native element (DOM element).<Br />
+				Provides access to the underlying native element (DOM element).<br />
+		                  </p>`
 		              }],
 	              widgetProperties: { dimension: {
 	              	width:  200, height: 250, widthtotal: 0, heighttotal: 0

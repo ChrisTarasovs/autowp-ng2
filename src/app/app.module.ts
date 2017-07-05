@@ -102,6 +102,9 @@ import { Font } from './toolbar/toolbarOptions/wysiwyg-panel/typography/typograp
 import {ContentEditableDirective} from './contenteditable-model'
 import {ResizingCroppingImagesComponent} from './image-cropper/image-cropper.component'
 import{wysiwygDirective} from './shared/wysiwyg.directive'
+import{colorDropDirective} from './shared/colordrop.directive'
+
+
 import {multilevelselector} from './toolbar/toolbarOptions/multilevelselector.component'
 // import { runDummyFunc} from './customDirective';
 
@@ -178,7 +181,7 @@ export const pipe_providers = [
 
      //Directives
      ContentEditableDirective,ResizingCroppingImagesComponent,
-     wysiwygDirective
+     wysiwygDirective,colorDropDirective
      // runDummyFunc
   ],
   imports: [ 
